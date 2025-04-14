@@ -247,6 +247,8 @@ class MemoryResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> None:
         """
+        Get a memory by ID
+
         Args:
           extra_headers: Send extra headers
 
@@ -486,6 +488,8 @@ class AsyncMemoryResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> None:
         """
+        Get a memory by ID
+
         Args:
           extra_headers: Send extra headers
 
