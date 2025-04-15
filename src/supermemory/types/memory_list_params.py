@@ -2,16 +2,13 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union, Iterable
-from typing_extensions import Literal, Annotated, TypeAlias, TypedDict
+from typing_extensions import Literal, TypedDict
 
-from .._utils import PropertyInfo
-
-__all__ = ["MemoryListParams", "Filters", "FiltersUnionMember0"]
+__all__ = ["MemoryListParams"]
 
 
 class MemoryListParams(TypedDict, total=False):
-    filters: Filters
+    filters: str
     """Optional filters to apply to the search"""
 
     limit: str
@@ -25,12 +22,3 @@ class MemoryListParams(TypedDict, total=False):
 
     sort: Literal["createdAt", "updatedAt"]
     """Field to sort by"""
-
-
-class FiltersUnionMember0(TypedDict, total=False):
-    and_: Annotated[Iterable[object], PropertyInfo(alias="AND")]
-
-    or_: Annotated[Iterable[object], PropertyInfo(alias="OR")]
-
-
-Filters: TypeAlias = Union[FiltersUnionMember0, Dict[str, object]]

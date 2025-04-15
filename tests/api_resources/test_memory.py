@@ -148,23 +148,7 @@ class TestMemory:
     @parametrize
     def test_method_list_with_all_params(self, client: Supermemory) -> None:
         memory = client.memory.list(
-            filters={
-                "and_": [
-                    {
-                        "key": "group",
-                        "value": "jira_users",
-                        "negate": False,
-                    },
-                    {
-                        "filterType": "numeric",
-                        "key": "timestamp",
-                        "value": "1742745777",
-                        "negate": False,
-                        "numericOperator": ">",
-                    },
-                ],
-                "or_": [{}],
-            },
+            filters='{"AND":[{"key":"group","value":"jira_users","negate":false},{"filterType":"numeric","key":"timestamp","value":"1742745777","negate":false,"numericOperator":">"}]}',
             limit="10",
             order="desc",
             page="1",
@@ -408,23 +392,7 @@ class TestAsyncMemory:
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncSupermemory) -> None:
         memory = await async_client.memory.list(
-            filters={
-                "and_": [
-                    {
-                        "key": "group",
-                        "value": "jira_users",
-                        "negate": False,
-                    },
-                    {
-                        "filterType": "numeric",
-                        "key": "timestamp",
-                        "value": "1742745777",
-                        "negate": False,
-                        "numericOperator": ">",
-                    },
-                ],
-                "or_": [{}],
-            },
+            filters='{"AND":[{"key":"group","value":"jira_users","negate":false},{"filterType":"numeric","key":"timestamp","value":"1742745777","negate":false,"numericOperator":">"}]}',
             limit="10",
             order="desc",
             page="1",

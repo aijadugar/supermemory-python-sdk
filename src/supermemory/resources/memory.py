@@ -152,7 +152,7 @@ class MemoryResource(SyncAPIResource):
     def list(
         self,
         *,
-        filters: memory_list_params.Filters | NotGiven = NOT_GIVEN,
+        filters: str | NotGiven = NOT_GIVEN,
         limit: str | NotGiven = NOT_GIVEN,
         order: Literal["asc", "desc"] | NotGiven = NOT_GIVEN,
         page: str | NotGiven = NOT_GIVEN,
@@ -397,7 +397,7 @@ class AsyncMemoryResource(AsyncAPIResource):
     async def list(
         self,
         *,
-        filters: memory_list_params.Filters | NotGiven = NOT_GIVEN,
+        filters: str | NotGiven = NOT_GIVEN,
         limit: str | NotGiven = NOT_GIVEN,
         order: Literal["asc", "desc"] | NotGiven = NOT_GIVEN,
         page: str | NotGiven = NOT_GIVEN,
