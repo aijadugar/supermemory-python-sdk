@@ -22,6 +22,7 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
+from ..types.memory_list_response import MemoryListResponse
 from ..types.memory_create_response import MemoryCreateResponse
 from ..types.memory_delete_response import MemoryDeleteResponse
 from ..types.memory_update_response import MemoryUpdateResponse
@@ -151,6 +152,7 @@ class MemoryResource(SyncAPIResource):
     def list(
         self,
         *,
+        filters: memory_list_params.Filters | NotGiven = NOT_GIVEN,
         limit: str | NotGiven = NOT_GIVEN,
         order: Literal["asc", "desc"] | NotGiven = NOT_GIVEN,
         page: str | NotGiven = NOT_GIVEN,
@@ -161,11 +163,13 @@ class MemoryResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> object:
+    ) -> MemoryListResponse:
         """
         Retrieves a paginated list of memories with their metadata and workflow status
 
         Args:
+          filters: Optional filters to apply to the search
+
           limit: Number of items per page
 
           order: Sort order
@@ -191,6 +195,7 @@ class MemoryResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "filters": filters,
                         "limit": limit,
                         "order": order,
                         "page": page,
@@ -199,7 +204,7 @@ class MemoryResource(SyncAPIResource):
                     memory_list_params.MemoryListParams,
                 ),
             ),
-            cast_to=object,
+            cast_to=MemoryListResponse,
         )
 
     def delete(
@@ -392,6 +397,7 @@ class AsyncMemoryResource(AsyncAPIResource):
     async def list(
         self,
         *,
+        filters: memory_list_params.Filters | NotGiven = NOT_GIVEN,
         limit: str | NotGiven = NOT_GIVEN,
         order: Literal["asc", "desc"] | NotGiven = NOT_GIVEN,
         page: str | NotGiven = NOT_GIVEN,
@@ -402,11 +408,13 @@ class AsyncMemoryResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> object:
+    ) -> MemoryListResponse:
         """
         Retrieves a paginated list of memories with their metadata and workflow status
 
         Args:
+          filters: Optional filters to apply to the search
+
           limit: Number of items per page
 
           order: Sort order
@@ -432,6 +440,7 @@ class AsyncMemoryResource(AsyncAPIResource):
                 timeout=timeout,
                 query=await async_maybe_transform(
                     {
+                        "filters": filters,
                         "limit": limit,
                         "order": order,
                         "page": page,
@@ -440,7 +449,7 @@ class AsyncMemoryResource(AsyncAPIResource):
                     memory_list_params.MemoryListParams,
                 ),
             ),
-            cast_to=object,
+            cast_to=MemoryListResponse,
         )
 
     async def delete(

@@ -10,6 +10,7 @@ import pytest
 from supermemory import Supermemory, AsyncSupermemory
 from tests.utils import assert_matches_type
 from supermemory.types import (
+    MemoryListResponse,
     MemoryCreateResponse,
     MemoryDeleteResponse,
     MemoryUpdateResponse,
@@ -141,18 +142,35 @@ class TestMemory:
     @parametrize
     def test_method_list(self, client: Supermemory) -> None:
         memory = client.memory.list()
-        assert_matches_type(object, memory, path=["response"])
+        assert_matches_type(MemoryListResponse, memory, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
     def test_method_list_with_all_params(self, client: Supermemory) -> None:
         memory = client.memory.list(
+            filters={
+                "and_": [
+                    {
+                        "key": "group",
+                        "value": "jira_users",
+                        "negate": False,
+                    },
+                    {
+                        "filterType": "numeric",
+                        "key": "timestamp",
+                        "value": "1742745777",
+                        "negate": False,
+                        "numericOperator": ">",
+                    },
+                ],
+                "or_": [{}],
+            },
             limit="10",
             order="desc",
             page="1",
             sort="createdAt",
         )
-        assert_matches_type(object, memory, path=["response"])
+        assert_matches_type(MemoryListResponse, memory, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
@@ -162,7 +180,7 @@ class TestMemory:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         memory = response.parse()
-        assert_matches_type(object, memory, path=["response"])
+        assert_matches_type(MemoryListResponse, memory, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
@@ -172,7 +190,7 @@ class TestMemory:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             memory = response.parse()
-            assert_matches_type(object, memory, path=["response"])
+            assert_matches_type(MemoryListResponse, memory, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -384,18 +402,35 @@ class TestAsyncMemory:
     @parametrize
     async def test_method_list(self, async_client: AsyncSupermemory) -> None:
         memory = await async_client.memory.list()
-        assert_matches_type(object, memory, path=["response"])
+        assert_matches_type(MemoryListResponse, memory, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncSupermemory) -> None:
         memory = await async_client.memory.list(
+            filters={
+                "and_": [
+                    {
+                        "key": "group",
+                        "value": "jira_users",
+                        "negate": False,
+                    },
+                    {
+                        "filterType": "numeric",
+                        "key": "timestamp",
+                        "value": "1742745777",
+                        "negate": False,
+                        "numericOperator": ">",
+                    },
+                ],
+                "or_": [{}],
+            },
             limit="10",
             order="desc",
             page="1",
             sort="createdAt",
         )
-        assert_matches_type(object, memory, path=["response"])
+        assert_matches_type(MemoryListResponse, memory, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
@@ -405,7 +440,7 @@ class TestAsyncMemory:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         memory = await response.parse()
-        assert_matches_type(object, memory, path=["response"])
+        assert_matches_type(MemoryListResponse, memory, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
@@ -415,7 +450,7 @@ class TestAsyncMemory:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             memory = await response.parse()
-            assert_matches_type(object, memory, path=["response"])
+            assert_matches_type(MemoryListResponse, memory, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
