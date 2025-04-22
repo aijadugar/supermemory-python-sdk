@@ -25,6 +25,9 @@ class SearchExecuteParams(TypedDict, total=False):
     limit: int
     """Maximum number of results to return"""
 
+    only_matching_chunks: Annotated[bool, PropertyInfo(alias="onlyMatchingChunks")]
+    """If true, only return matching chunks without context"""
+
 
 class FiltersUnionMember0(TypedDict, total=False):
     and_: Annotated[Iterable[object], PropertyInfo(alias="AND")]

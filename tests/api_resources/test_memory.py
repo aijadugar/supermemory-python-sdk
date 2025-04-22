@@ -13,7 +13,6 @@ from supermemory.types import (
     MemoryListResponse,
     MemoryCreateResponse,
     MemoryDeleteResponse,
-    MemoryUpdateResponse,
 )
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -44,7 +43,7 @@ class TestMemory:
                 "readingTime": 5,
                 "isPublic": True,
             },
-            space_ids=["space_123", "space_456"],
+            user_id="user_123",
         )
         assert_matches_type(MemoryCreateResponse, memory, path=["response"])
 
@@ -73,70 +72,6 @@ class TestMemory:
             assert_matches_type(MemoryCreateResponse, memory, path=["response"])
 
         assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip()
-    @parametrize
-    def test_method_update(self, client: Supermemory) -> None:
-        memory = client.memory.update(
-            id="id",
-            content="This is a detailed article about machine learning concepts...",
-        )
-        assert_matches_type(MemoryUpdateResponse, memory, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    def test_method_update_with_all_params(self, client: Supermemory) -> None:
-        memory = client.memory.update(
-            id="id",
-            content="This is a detailed article about machine learning concepts...",
-            metadata={
-                "source": "web",
-                "category": "technology",
-                "tag_1": "ai",
-                "tag_2": "machine-learning",
-                "readingTime": 5,
-                "isPublic": True,
-            },
-            space_ids=["space_123", "space_456"],
-        )
-        assert_matches_type(MemoryUpdateResponse, memory, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    def test_raw_response_update(self, client: Supermemory) -> None:
-        response = client.memory.with_raw_response.update(
-            id="id",
-            content="This is a detailed article about machine learning concepts...",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        memory = response.parse()
-        assert_matches_type(MemoryUpdateResponse, memory, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    def test_streaming_response_update(self, client: Supermemory) -> None:
-        with client.memory.with_streaming_response.update(
-            id="id",
-            content="This is a detailed article about machine learning concepts...",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            memory = response.parse()
-            assert_matches_type(MemoryUpdateResponse, memory, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip()
-    @parametrize
-    def test_path_params_update(self, client: Supermemory) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
-            client.memory.with_raw_response.update(
-                id="",
-                content="This is a detailed article about machine learning concepts...",
-            )
 
     @pytest.mark.skip()
     @parametrize
@@ -288,7 +223,7 @@ class TestAsyncMemory:
                 "readingTime": 5,
                 "isPublic": True,
             },
-            space_ids=["space_123", "space_456"],
+            user_id="user_123",
         )
         assert_matches_type(MemoryCreateResponse, memory, path=["response"])
 
@@ -317,70 +252,6 @@ class TestAsyncMemory:
             assert_matches_type(MemoryCreateResponse, memory, path=["response"])
 
         assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip()
-    @parametrize
-    async def test_method_update(self, async_client: AsyncSupermemory) -> None:
-        memory = await async_client.memory.update(
-            id="id",
-            content="This is a detailed article about machine learning concepts...",
-        )
-        assert_matches_type(MemoryUpdateResponse, memory, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    async def test_method_update_with_all_params(self, async_client: AsyncSupermemory) -> None:
-        memory = await async_client.memory.update(
-            id="id",
-            content="This is a detailed article about machine learning concepts...",
-            metadata={
-                "source": "web",
-                "category": "technology",
-                "tag_1": "ai",
-                "tag_2": "machine-learning",
-                "readingTime": 5,
-                "isPublic": True,
-            },
-            space_ids=["space_123", "space_456"],
-        )
-        assert_matches_type(MemoryUpdateResponse, memory, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    async def test_raw_response_update(self, async_client: AsyncSupermemory) -> None:
-        response = await async_client.memory.with_raw_response.update(
-            id="id",
-            content="This is a detailed article about machine learning concepts...",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        memory = await response.parse()
-        assert_matches_type(MemoryUpdateResponse, memory, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    async def test_streaming_response_update(self, async_client: AsyncSupermemory) -> None:
-        async with async_client.memory.with_streaming_response.update(
-            id="id",
-            content="This is a detailed article about machine learning concepts...",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            memory = await response.parse()
-            assert_matches_type(MemoryUpdateResponse, memory, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip()
-    @parametrize
-    async def test_path_params_update(self, async_client: AsyncSupermemory) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
-            await async_client.memory.with_raw_response.update(
-                id="",
-                content="This is a detailed article about machine learning concepts...",
-            )
 
     @pytest.mark.skip()
     @parametrize

@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union
+from typing import Dict, Union
 from typing_extensions import Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
@@ -19,5 +19,5 @@ class MemoryCreateParams(TypedDict, total=False):
     metadata: Dict[str, Union[str, float, bool]]
     """Optional metadata for the memory"""
 
-    space_ids: Annotated[List[str], PropertyInfo(alias="spaceIds")]
-    """Optional list of space IDs this memory belongs to"""
+    user_id: Annotated[str, PropertyInfo(alias="userId")]
+    """Optional end user ID this memory belongs to"""

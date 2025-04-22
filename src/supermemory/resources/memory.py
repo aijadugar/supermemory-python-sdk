@@ -2,12 +2,12 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union
+from typing import Dict, Union
 from typing_extensions import Literal
 
 import httpx
 
-from ..types import memory_list_params, memory_create_params, memory_update_params
+from ..types import memory_list_params, memory_create_params
 from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
 from .._utils import (
     maybe_transform,
@@ -25,7 +25,6 @@ from .._base_client import make_request_options
 from ..types.memory_list_response import MemoryListResponse
 from ..types.memory_create_response import MemoryCreateResponse
 from ..types.memory_delete_response import MemoryDeleteResponse
-from ..types.memory_update_response import MemoryUpdateResponse
 
 __all__ = ["MemoryResource", "AsyncMemoryResource"]
 
@@ -56,7 +55,7 @@ class MemoryResource(SyncAPIResource):
         content: str,
         id: str | NotGiven = NOT_GIVEN,
         metadata: Dict[str, Union[str, float, bool]] | NotGiven = NOT_GIVEN,
-        space_ids: List[str] | NotGiven = NOT_GIVEN,
+        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -72,7 +71,7 @@ class MemoryResource(SyncAPIResource):
 
           metadata: Optional metadata for the memory
 
-          space_ids: Optional list of space IDs this memory belongs to
+          user_id: Optional end user ID this memory belongs to
 
           extra_headers: Send extra headers
 
@@ -89,7 +88,7 @@ class MemoryResource(SyncAPIResource):
                     "content": content,
                     "id": id,
                     "metadata": metadata,
-                    "space_ids": space_ids,
+                    "user_id": user_id,
                 },
                 memory_create_params.MemoryCreateParams,
             ),
@@ -97,56 +96,6 @@ class MemoryResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=MemoryCreateResponse,
-        )
-
-    def update(
-        self,
-        id: str,
-        *,
-        content: str,
-        metadata: Dict[str, Union[str, float, bool]] | NotGiven = NOT_GIVEN,
-        space_ids: List[str] | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> MemoryUpdateResponse:
-        """
-        Update an existing memory
-
-        Args:
-          content: Content of the memory
-
-          metadata: Optional metadata for the memory
-
-          space_ids: Optional list of space IDs this memory belongs to
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        return self._put(
-            f"/update/{id}",
-            body=maybe_transform(
-                {
-                    "content": content,
-                    "metadata": metadata,
-                    "space_ids": space_ids,
-                },
-                memory_update_params.MemoryUpdateParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=MemoryUpdateResponse,
         )
 
     def list(
@@ -301,7 +250,7 @@ class AsyncMemoryResource(AsyncAPIResource):
         content: str,
         id: str | NotGiven = NOT_GIVEN,
         metadata: Dict[str, Union[str, float, bool]] | NotGiven = NOT_GIVEN,
-        space_ids: List[str] | NotGiven = NOT_GIVEN,
+        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -317,7 +266,7 @@ class AsyncMemoryResource(AsyncAPIResource):
 
           metadata: Optional metadata for the memory
 
-          space_ids: Optional list of space IDs this memory belongs to
+          user_id: Optional end user ID this memory belongs to
 
           extra_headers: Send extra headers
 
@@ -334,7 +283,7 @@ class AsyncMemoryResource(AsyncAPIResource):
                     "content": content,
                     "id": id,
                     "metadata": metadata,
-                    "space_ids": space_ids,
+                    "user_id": user_id,
                 },
                 memory_create_params.MemoryCreateParams,
             ),
@@ -342,56 +291,6 @@ class AsyncMemoryResource(AsyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=MemoryCreateResponse,
-        )
-
-    async def update(
-        self,
-        id: str,
-        *,
-        content: str,
-        metadata: Dict[str, Union[str, float, bool]] | NotGiven = NOT_GIVEN,
-        space_ids: List[str] | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> MemoryUpdateResponse:
-        """
-        Update an existing memory
-
-        Args:
-          content: Content of the memory
-
-          metadata: Optional metadata for the memory
-
-          space_ids: Optional list of space IDs this memory belongs to
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        return await self._put(
-            f"/update/{id}",
-            body=await async_maybe_transform(
-                {
-                    "content": content,
-                    "metadata": metadata,
-                    "space_ids": space_ids,
-                },
-                memory_update_params.MemoryUpdateParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=MemoryUpdateResponse,
         )
 
     async def list(
@@ -527,9 +426,6 @@ class MemoryResourceWithRawResponse:
         self.create = to_raw_response_wrapper(
             memory.create,
         )
-        self.update = to_raw_response_wrapper(
-            memory.update,
-        )
         self.list = to_raw_response_wrapper(
             memory.list,
         )
@@ -547,9 +443,6 @@ class AsyncMemoryResourceWithRawResponse:
 
         self.create = async_to_raw_response_wrapper(
             memory.create,
-        )
-        self.update = async_to_raw_response_wrapper(
-            memory.update,
         )
         self.list = async_to_raw_response_wrapper(
             memory.list,
@@ -569,9 +462,6 @@ class MemoryResourceWithStreamingResponse:
         self.create = to_streamed_response_wrapper(
             memory.create,
         )
-        self.update = to_streamed_response_wrapper(
-            memory.update,
-        )
         self.list = to_streamed_response_wrapper(
             memory.list,
         )
@@ -589,9 +479,6 @@ class AsyncMemoryResourceWithStreamingResponse:
 
         self.create = async_to_streamed_response_wrapper(
             memory.create,
-        )
-        self.update = async_to_streamed_response_wrapper(
-            memory.update,
         )
         self.list = async_to_streamed_response_wrapper(
             memory.list,

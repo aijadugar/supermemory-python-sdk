@@ -49,6 +49,7 @@ class TestSearch:
                 "or_": [{}],
             },
             limit=10,
+            only_matching_chunks=False,
         )
         assert_matches_type(SearchExecuteResponse, search, path=["response"])
 
@@ -157,6 +158,7 @@ class TestAsyncSearch:
                 "or_": [{}],
             },
             limit=10,
+            only_matching_chunks=False,
         )
         assert_matches_type(SearchExecuteResponse, search, path=["response"])
 

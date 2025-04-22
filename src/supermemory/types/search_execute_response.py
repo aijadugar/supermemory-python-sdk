@@ -17,6 +17,9 @@ class ResultChunk(BaseModel):
     is_relevant: bool = FieldInfo(alias="isRelevant")
     """Whether this chunk is relevant to the query"""
 
+    score: float
+    """Similarity score for this chunk"""
+
 
 class Result(BaseModel):
     chunks: List[ResultChunk]
