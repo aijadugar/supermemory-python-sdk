@@ -51,6 +51,7 @@ class TestSearch:
             },
             limit=10,
             only_matching_chunks=False,
+            user_id="user_123",
         )
         assert_matches_type(SearchExecuteResponse, search, path=["response"])
 
@@ -161,6 +162,7 @@ class TestAsyncSearch:
             },
             limit=10,
             only_matching_chunks=False,
+            user_id="user_123",
         )
         assert_matches_type(SearchExecuteResponse, search, path=["response"])
 

@@ -31,6 +31,9 @@ class SearchExecuteParams(TypedDict, total=False):
     only_matching_chunks: Annotated[bool, PropertyInfo(alias="onlyMatchingChunks")]
     """If true, only return matching chunks without context"""
 
+    user_id: Annotated[str, PropertyInfo(alias="userId")]
+    """End user ID this search is associated with"""
+
 
 class FiltersUnionMember0(TypedDict, total=False):
     and_: Annotated[Iterable[object], PropertyInfo(alias="AND")]

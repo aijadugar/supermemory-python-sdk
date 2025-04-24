@@ -54,6 +54,7 @@ class SearchResource(SyncAPIResource):
         filters: search_execute_params.Filters | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         only_matching_chunks: bool | NotGiven = NOT_GIVEN,
+        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -77,6 +78,8 @@ class SearchResource(SyncAPIResource):
 
           only_matching_chunks: If true, only return matching chunks without context
 
+          user_id: End user ID this search is associated with
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -95,6 +98,7 @@ class SearchResource(SyncAPIResource):
                     "filters": filters,
                     "limit": limit,
                     "only_matching_chunks": only_matching_chunks,
+                    "user_id": user_id,
                 },
                 search_execute_params.SearchExecuteParams,
             ),
@@ -176,6 +180,7 @@ class AsyncSearchResource(AsyncAPIResource):
         filters: search_execute_params.Filters | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         only_matching_chunks: bool | NotGiven = NOT_GIVEN,
+        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -199,6 +204,8 @@ class AsyncSearchResource(AsyncAPIResource):
 
           only_matching_chunks: If true, only return matching chunks without context
 
+          user_id: End user ID this search is associated with
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -217,6 +224,7 @@ class AsyncSearchResource(AsyncAPIResource):
                     "filters": filters,
                     "limit": limit,
                     "only_matching_chunks": only_matching_chunks,
+                    "user_id": user_id,
                 },
                 search_execute_params.SearchExecuteParams,
             ),
