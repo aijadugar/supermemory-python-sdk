@@ -50,6 +50,7 @@ class SearchResource(SyncAPIResource):
         *,
         q: str,
         categories_filter: List[Literal["technology", "science", "business", "health"]] | NotGiven = NOT_GIVEN,
+        doc_id: str | NotGiven = NOT_GIVEN,
         filters: search_execute_params.Filters | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         only_matching_chunks: bool | NotGiven = NOT_GIVEN,
@@ -67,6 +68,8 @@ class SearchResource(SyncAPIResource):
           q: Search query string
 
           categories_filter: Optional category filters
+
+          doc_id: Optional document ID to search within
 
           filters: Optional filters to apply to the search
 
@@ -88,6 +91,7 @@ class SearchResource(SyncAPIResource):
                 {
                     "q": q,
                     "categories_filter": categories_filter,
+                    "doc_id": doc_id,
                     "filters": filters,
                     "limit": limit,
                     "only_matching_chunks": only_matching_chunks,
@@ -168,6 +172,7 @@ class AsyncSearchResource(AsyncAPIResource):
         *,
         q: str,
         categories_filter: List[Literal["technology", "science", "business", "health"]] | NotGiven = NOT_GIVEN,
+        doc_id: str | NotGiven = NOT_GIVEN,
         filters: search_execute_params.Filters | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         only_matching_chunks: bool | NotGiven = NOT_GIVEN,
@@ -185,6 +190,8 @@ class AsyncSearchResource(AsyncAPIResource):
           q: Search query string
 
           categories_filter: Optional category filters
+
+          doc_id: Optional document ID to search within
 
           filters: Optional filters to apply to the search
 
@@ -206,6 +213,7 @@ class AsyncSearchResource(AsyncAPIResource):
                 {
                     "q": q,
                     "categories_filter": categories_filter,
+                    "doc_id": doc_id,
                     "filters": filters,
                     "limit": limit,
                     "only_matching_chunks": only_matching_chunks,

@@ -19,6 +19,9 @@ class SearchExecuteParams(TypedDict, total=False):
     ]
     """Optional category filters"""
 
+    doc_id: Annotated[str, PropertyInfo(alias="docId")]
+    """Optional document ID to search within"""
+
     filters: Filters
     """Optional filters to apply to the search"""
 
