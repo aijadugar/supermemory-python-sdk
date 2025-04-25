@@ -31,9 +31,6 @@ class Result(BaseModel):
     document_id: str = FieldInfo(alias="documentId")
     """ID of the matching document"""
 
-    document_summary: Optional[str] = FieldInfo(alias="documentSummary", default=None)
-    """Summary of the matching document"""
-
     metadata: Optional[Dict[str, object]] = None
     """Document metadata"""
 
