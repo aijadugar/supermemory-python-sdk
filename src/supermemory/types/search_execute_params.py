@@ -19,8 +19,14 @@ class SearchExecuteParams(TypedDict, total=False):
     ]
     """Optional category filters"""
 
+    chunk_threshold: Annotated[float, PropertyInfo(alias="chunkThreshold")]
+    """Maximum number of chunks to return"""
+
     doc_id: Annotated[str, PropertyInfo(alias="docId")]
     """Optional document ID to search within"""
+
+    document_threshold: Annotated[float, PropertyInfo(alias="documentThreshold")]
+    """Maximum number of documents to return"""
 
     filters: Filters
     """Optional filters to apply to the search"""

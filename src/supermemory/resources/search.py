@@ -50,7 +50,9 @@ class SearchResource(SyncAPIResource):
         *,
         q: str,
         categories_filter: List[Literal["technology", "science", "business", "health"]] | NotGiven = NOT_GIVEN,
+        chunk_threshold: float | NotGiven = NOT_GIVEN,
         doc_id: str | NotGiven = NOT_GIVEN,
+        document_threshold: float | NotGiven = NOT_GIVEN,
         filters: search_execute_params.Filters | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         only_matching_chunks: bool | NotGiven = NOT_GIVEN,
@@ -70,7 +72,11 @@ class SearchResource(SyncAPIResource):
 
           categories_filter: Optional category filters
 
+          chunk_threshold: Maximum number of chunks to return
+
           doc_id: Optional document ID to search within
+
+          document_threshold: Maximum number of documents to return
 
           filters: Optional filters to apply to the search
 
@@ -94,7 +100,9 @@ class SearchResource(SyncAPIResource):
                 {
                     "q": q,
                     "categories_filter": categories_filter,
+                    "chunk_threshold": chunk_threshold,
                     "doc_id": doc_id,
+                    "document_threshold": document_threshold,
                     "filters": filters,
                     "limit": limit,
                     "only_matching_chunks": only_matching_chunks,
@@ -176,7 +184,9 @@ class AsyncSearchResource(AsyncAPIResource):
         *,
         q: str,
         categories_filter: List[Literal["technology", "science", "business", "health"]] | NotGiven = NOT_GIVEN,
+        chunk_threshold: float | NotGiven = NOT_GIVEN,
         doc_id: str | NotGiven = NOT_GIVEN,
+        document_threshold: float | NotGiven = NOT_GIVEN,
         filters: search_execute_params.Filters | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         only_matching_chunks: bool | NotGiven = NOT_GIVEN,
@@ -196,7 +206,11 @@ class AsyncSearchResource(AsyncAPIResource):
 
           categories_filter: Optional category filters
 
+          chunk_threshold: Maximum number of chunks to return
+
           doc_id: Optional document ID to search within
+
+          document_threshold: Maximum number of documents to return
 
           filters: Optional filters to apply to the search
 
@@ -220,7 +234,9 @@ class AsyncSearchResource(AsyncAPIResource):
                 {
                     "q": q,
                     "categories_filter": categories_filter,
+                    "chunk_threshold": chunk_threshold,
                     "doc_id": doc_id,
+                    "document_threshold": document_threshold,
                     "filters": filters,
                     "limit": limit,
                     "only_matching_chunks": only_matching_chunks,

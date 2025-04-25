@@ -31,7 +31,9 @@ class TestSearch:
         search = client.search.execute(
             q="machine learning concepts",
             categories_filter=["technology", "science"],
+            chunk_threshold=0.5,
             doc_id="doc_xyz789",
+            document_threshold=0.5,
             filters={
                 "and_": [
                     {
@@ -142,7 +144,9 @@ class TestAsyncSearch:
         search = await async_client.search.execute(
             q="machine learning concepts",
             categories_filter=["technology", "science"],
+            chunk_threshold=0.5,
             doc_id="doc_xyz789",
+            document_threshold=0.5,
             filters={
                 "and_": [
                     {
