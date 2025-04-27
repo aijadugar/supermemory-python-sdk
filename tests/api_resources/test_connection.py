@@ -8,6 +8,8 @@ from typing import Any, cast
 import pytest
 
 from supermemory import Supermemory, AsyncSupermemory
+from tests.utils import assert_matches_type
+from supermemory.types import ConnectionCreateResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -22,7 +24,7 @@ class TestConnection:
             app="notion",
             id="id",
         )
-        assert connection is None
+        assert_matches_type(ConnectionCreateResponse, connection, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
@@ -32,7 +34,7 @@ class TestConnection:
             id="id",
             redirect_url="redirectUrl",
         )
-        assert connection is None
+        assert_matches_type(ConnectionCreateResponse, connection, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
@@ -45,7 +47,7 @@ class TestConnection:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         connection = response.parse()
-        assert connection is None
+        assert_matches_type(ConnectionCreateResponse, connection, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
@@ -58,7 +60,7 @@ class TestConnection:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             connection = response.parse()
-            assert connection is None
+            assert_matches_type(ConnectionCreateResponse, connection, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -115,7 +117,7 @@ class TestAsyncConnection:
             app="notion",
             id="id",
         )
-        assert connection is None
+        assert_matches_type(ConnectionCreateResponse, connection, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
@@ -125,7 +127,7 @@ class TestAsyncConnection:
             id="id",
             redirect_url="redirectUrl",
         )
-        assert connection is None
+        assert_matches_type(ConnectionCreateResponse, connection, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
@@ -138,7 +140,7 @@ class TestAsyncConnection:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         connection = await response.parse()
-        assert connection is None
+        assert_matches_type(ConnectionCreateResponse, connection, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
@@ -151,7 +153,7 @@ class TestAsyncConnection:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             connection = await response.parse()
-            assert connection is None
+            assert_matches_type(ConnectionCreateResponse, connection, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

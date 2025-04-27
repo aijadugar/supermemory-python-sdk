@@ -30,17 +30,22 @@ Methods:
 Types:
 
 ```python
-from supermemory.types import SearchExecuteResponse, SearchFastResponse
+from supermemory.types import SearchExecuteResponse
 ```
 
 Methods:
 
 - <code title="post /search">client.search.<a href="./src/supermemory/resources/search.py">execute</a>(\*\*<a href="src/supermemory/types/search_execute_params.py">params</a>) -> <a href="./src/supermemory/types/search_execute_response.py">SearchExecuteResponse</a></code>
-- <code title="get /fastsearch">client.search.<a href="./src/supermemory/resources/search.py">fast</a>(\*\*<a href="src/supermemory/types/search_fast_params.py">params</a>) -> <a href="./src/supermemory/types/search_fast_response.py">SearchFastResponse</a></code>
 
 # Connection
 
+Types:
+
+```python
+from supermemory.types import ConnectionCreateResponse
+```
+
 Methods:
 
-- <code title="get /connect/{app}">client.connection.<a href="./src/supermemory/resources/connection.py">create</a>(app, \*\*<a href="src/supermemory/types/connection_create_params.py">params</a>) -> None</code>
+- <code title="get /connect/{app}">client.connection.<a href="./src/supermemory/resources/connection.py">create</a>(app, \*\*<a href="src/supermemory/types/connection_create_params.py">params</a>) -> <a href="./src/supermemory/types/connection_create_response.py">ConnectionCreateResponse</a></code>
 - <code title="get /connections/{connectionId}">client.connection.<a href="./src/supermemory/resources/connection.py">retrieve</a>(connection_id) -> None</code>
