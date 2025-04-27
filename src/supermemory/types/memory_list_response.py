@@ -56,3 +56,4 @@ class MemoryListResponse(BaseModel):
     memories: List[Memory]
 
     pagination: Pagination
+    """Pagination metadata"""
