@@ -54,6 +54,7 @@ class SearchResource(SyncAPIResource):
         doc_id: str | NotGiven = NOT_GIVEN,
         document_threshold: float | NotGiven = NOT_GIVEN,
         filters: search_execute_params.Filters | NotGiven = NOT_GIVEN,
+        include_summary: bool | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         only_matching_chunks: bool | NotGiven = NOT_GIVEN,
         user_id: str | NotGiven = NOT_GIVEN,
@@ -80,6 +81,9 @@ class SearchResource(SyncAPIResource):
 
           filters: Optional filters to apply to the search
 
+          include_summary: If true, include document summary in the response. This is helpful if you want a
+              chatbot to know the context of the document.
+
           limit: Maximum number of results to return
 
           only_matching_chunks: If true, only return matching chunks without context
@@ -104,6 +108,7 @@ class SearchResource(SyncAPIResource):
                     "doc_id": doc_id,
                     "document_threshold": document_threshold,
                     "filters": filters,
+                    "include_summary": include_summary,
                     "limit": limit,
                     "only_matching_chunks": only_matching_chunks,
                     "user_id": user_id,
@@ -188,6 +193,7 @@ class AsyncSearchResource(AsyncAPIResource):
         doc_id: str | NotGiven = NOT_GIVEN,
         document_threshold: float | NotGiven = NOT_GIVEN,
         filters: search_execute_params.Filters | NotGiven = NOT_GIVEN,
+        include_summary: bool | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         only_matching_chunks: bool | NotGiven = NOT_GIVEN,
         user_id: str | NotGiven = NOT_GIVEN,
@@ -214,6 +220,9 @@ class AsyncSearchResource(AsyncAPIResource):
 
           filters: Optional filters to apply to the search
 
+          include_summary: If true, include document summary in the response. This is helpful if you want a
+              chatbot to know the context of the document.
+
           limit: Maximum number of results to return
 
           only_matching_chunks: If true, only return matching chunks without context
@@ -238,6 +247,7 @@ class AsyncSearchResource(AsyncAPIResource):
                     "doc_id": doc_id,
                     "document_threshold": document_threshold,
                     "filters": filters,
+                    "include_summary": include_summary,
                     "limit": limit,
                     "only_matching_chunks": only_matching_chunks,
                     "user_id": user_id,

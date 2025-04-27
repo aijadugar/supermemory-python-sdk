@@ -31,6 +31,12 @@ class SearchExecuteParams(TypedDict, total=False):
     filters: Filters
     """Optional filters to apply to the search"""
 
+    include_summary: Annotated[bool, PropertyInfo(alias="includeSummary")]
+    """If true, include document summary in the response.
+
+    This is helpful if you want a chatbot to know the context of the document.
+    """
+
     limit: int
     """Maximum number of results to return"""
 
