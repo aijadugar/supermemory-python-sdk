@@ -15,7 +15,12 @@ Methods:
 Types:
 
 ```python
-from supermemory.types import MemoryCreateResponse, MemoryListResponse, MemoryDeleteResponse
+from supermemory.types import (
+    MemoryCreateResponse,
+    MemoryListResponse,
+    MemoryDeleteResponse,
+    MemoryGetResponse,
+)
 ```
 
 Methods:
@@ -23,7 +28,7 @@ Methods:
 - <code title="post /add">client.memory.<a href="./src/supermemory/resources/memory.py">create</a>(\*\*<a href="src/supermemory/types/memory_create_params.py">params</a>) -> <a href="./src/supermemory/types/memory_create_response.py">MemoryCreateResponse</a></code>
 - <code title="get /memories">client.memory.<a href="./src/supermemory/resources/memory.py">list</a>(\*\*<a href="src/supermemory/types/memory_list_params.py">params</a>) -> <a href="./src/supermemory/types/memory_list_response.py">MemoryListResponse</a></code>
 - <code title="delete /delete/{id}">client.memory.<a href="./src/supermemory/resources/memory.py">delete</a>(id) -> <a href="./src/supermemory/types/memory_delete_response.py">MemoryDeleteResponse</a></code>
-- <code title="get /memory/{id}">client.memory.<a href="./src/supermemory/resources/memory.py">get</a>(id) -> None</code>
+- <code title="get /memory/{id}">client.memory.<a href="./src/supermemory/resources/memory.py">get</a>(id) -> <a href="./src/supermemory/types/memory_get_response.py">MemoryGetResponse</a></code>
 
 # Search
 
