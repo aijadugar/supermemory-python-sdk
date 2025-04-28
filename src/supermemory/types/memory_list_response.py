@@ -21,7 +21,7 @@ class Memory(BaseModel):
     metadata: Dict[str, object]
     """Custom metadata associated with the memory"""
 
-    status: Optional[Literal["queued", "extracting", "chunking", "embedding", "indexing", "done", "failed"]] = None
+    status: Optional[Literal["pending", "processing", "completed", "failed"]] = None
     """Processing status of the memory"""
 
     summary: Optional[str] = None

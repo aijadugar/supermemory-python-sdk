@@ -18,7 +18,6 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
-from ..types.connection_create_response import ConnectionCreateResponse
 
 __all__ = ["ConnectionResource", "AsyncConnectionResource"]
 
@@ -55,10 +54,8 @@ class ConnectionResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ConnectionCreateResponse:
+    ) -> None:
         """
-        Initialize connection and get authorization URL
-
         Args:
           extra_headers: Send extra headers
 
@@ -70,6 +67,7 @@ class ConnectionResource(SyncAPIResource):
         """
         if not app:
             raise ValueError(f"Expected a non-empty value for `app` but received {app!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._get(
             f"/connect/{app}",
             options=make_request_options(
@@ -85,7 +83,7 @@ class ConnectionResource(SyncAPIResource):
                     connection_create_params.ConnectionCreateParams,
                 ),
             ),
-            cast_to=ConnectionCreateResponse,
+            cast_to=NoneType,
         )
 
     def retrieve(
@@ -153,10 +151,8 @@ class AsyncConnectionResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ConnectionCreateResponse:
+    ) -> None:
         """
-        Initialize connection and get authorization URL
-
         Args:
           extra_headers: Send extra headers
 
@@ -168,6 +164,7 @@ class AsyncConnectionResource(AsyncAPIResource):
         """
         if not app:
             raise ValueError(f"Expected a non-empty value for `app` but received {app!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._get(
             f"/connect/{app}",
             options=make_request_options(
@@ -183,7 +180,7 @@ class AsyncConnectionResource(AsyncAPIResource):
                     connection_create_params.ConnectionCreateParams,
                 ),
             ),
-            cast_to=ConnectionCreateResponse,
+            cast_to=NoneType,
         )
 
     async def retrieve(

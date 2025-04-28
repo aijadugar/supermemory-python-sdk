@@ -10,7 +10,6 @@ import pytest
 from supermemory import Supermemory, AsyncSupermemory
 from tests.utils import assert_matches_type
 from supermemory.types import (
-    MemoryGetResponse,
     MemoryListResponse,
     MemoryCreateResponse,
     MemoryDeleteResponse,
@@ -162,7 +161,7 @@ class TestMemory:
         memory = client.memory.get(
             "id",
         )
-        assert_matches_type(MemoryGetResponse, memory, path=["response"])
+        assert memory is None
 
     @pytest.mark.skip()
     @parametrize
@@ -174,7 +173,7 @@ class TestMemory:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         memory = response.parse()
-        assert_matches_type(MemoryGetResponse, memory, path=["response"])
+        assert memory is None
 
     @pytest.mark.skip()
     @parametrize
@@ -186,7 +185,7 @@ class TestMemory:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             memory = response.parse()
-            assert_matches_type(MemoryGetResponse, memory, path=["response"])
+            assert memory is None
 
         assert cast(Any, response.is_closed) is True
 
@@ -342,7 +341,7 @@ class TestAsyncMemory:
         memory = await async_client.memory.get(
             "id",
         )
-        assert_matches_type(MemoryGetResponse, memory, path=["response"])
+        assert memory is None
 
     @pytest.mark.skip()
     @parametrize
@@ -354,7 +353,7 @@ class TestAsyncMemory:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         memory = await response.parse()
-        assert_matches_type(MemoryGetResponse, memory, path=["response"])
+        assert memory is None
 
     @pytest.mark.skip()
     @parametrize
@@ -366,7 +365,7 @@ class TestAsyncMemory:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             memory = await response.parse()
-            assert_matches_type(MemoryGetResponse, memory, path=["response"])
+            assert memory is None
 
         assert cast(Any, response.is_closed) is True
 

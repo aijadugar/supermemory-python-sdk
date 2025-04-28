@@ -9,7 +9,7 @@ import pytest
 
 from supermemory import Supermemory, AsyncSupermemory
 from tests.utils import assert_matches_type
-from supermemory.types import SearchExecuteResponse
+from supermemory.types import SearchFastResponse, SearchExecuteResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -84,6 +84,49 @@ class TestSearch:
 
         assert cast(Any, response.is_closed) is True
 
+    @pytest.mark.skip()
+    @parametrize
+    def test_method_fast(self, client: Supermemory) -> None:
+        search = client.search.fast(
+            q="x",
+        )
+        assert_matches_type(SearchFastResponse, search, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    def test_method_fast_with_all_params(self, client: Supermemory) -> None:
+        search = client.search.fast(
+            q="x",
+            limit="321669910225",
+        )
+        assert_matches_type(SearchFastResponse, search, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    def test_raw_response_fast(self, client: Supermemory) -> None:
+        response = client.search.with_raw_response.fast(
+            q="x",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        search = response.parse()
+        assert_matches_type(SearchFastResponse, search, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    def test_streaming_response_fast(self, client: Supermemory) -> None:
+        with client.search.with_streaming_response.fast(
+            q="x",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            search = response.parse()
+            assert_matches_type(SearchFastResponse, search, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
 
 class TestAsyncSearch:
     parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
@@ -152,5 +195,48 @@ class TestAsyncSearch:
 
             search = await response.parse()
             assert_matches_type(SearchExecuteResponse, search, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip()
+    @parametrize
+    async def test_method_fast(self, async_client: AsyncSupermemory) -> None:
+        search = await async_client.search.fast(
+            q="x",
+        )
+        assert_matches_type(SearchFastResponse, search, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    async def test_method_fast_with_all_params(self, async_client: AsyncSupermemory) -> None:
+        search = await async_client.search.fast(
+            q="x",
+            limit="321669910225",
+        )
+        assert_matches_type(SearchFastResponse, search, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    async def test_raw_response_fast(self, async_client: AsyncSupermemory) -> None:
+        response = await async_client.search.with_raw_response.fast(
+            q="x",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        search = await response.parse()
+        assert_matches_type(SearchFastResponse, search, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    async def test_streaming_response_fast(self, async_client: AsyncSupermemory) -> None:
+        async with async_client.search.with_streaming_response.fast(
+            q="x",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            search = await response.parse()
+            assert_matches_type(SearchFastResponse, search, path=["response"])
 
         assert cast(Any, response.is_closed) is True
