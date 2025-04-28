@@ -45,7 +45,7 @@ class ConnectionResource(SyncAPIResource):
 
     def create(
         self,
-        app: Literal["notion"],
+        app: Literal["notion", "google-drive"],
         *,
         id: str,
         redirect_url: str | NotGiven = NOT_GIVEN,
@@ -143,7 +143,7 @@ class AsyncConnectionResource(AsyncAPIResource):
 
     async def create(
         self,
-        app: Literal["notion"],
+        app: Literal["notion", "google-drive"],
         *,
         id: str,
         redirect_url: str | NotGiven = NOT_GIVEN,
