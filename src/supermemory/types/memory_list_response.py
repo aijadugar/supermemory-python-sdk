@@ -36,11 +36,6 @@ class Memory(BaseModel):
     url: Optional[str] = None
     """Source URL of the memory"""
 
-    workflow_status: Optional[Literal["PENDING", "IN_PROGRESS", "COMPLETED", "FAILED"]] = FieldInfo(
-        alias="workflowStatus", default=None
-    )
-    """Current workflow status"""
-
 
 class Pagination(BaseModel):
     current_page: float = FieldInfo(alias="currentPage")
