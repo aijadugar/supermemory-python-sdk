@@ -62,7 +62,8 @@ class MemoryResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> MemoryCreateResponse:
         """
-        Add a new memory with content and metadata
+        Add or update a memory with any content type (text, url, file, etc.) with
+        metadata
 
         Args:
           content: Content of the memory
@@ -256,7 +257,8 @@ class AsyncMemoryResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> MemoryCreateResponse:
         """
-        Add a new memory with content and metadata
+        Add or update a memory with any content type (text, url, file, etc.) with
+        metadata
 
         Args:
           content: Content of the memory

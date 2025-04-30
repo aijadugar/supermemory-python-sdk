@@ -722,8 +722,7 @@ class TestSupermemory:
                 body=cast(
                     object,
                     maybe_transform(
-                        dict(content="This is a detailed article about machine learning concepts..."),
-                        MemoryCreateParams,
+                        dict(content="This is a detailed article about machine learning concepts.."), MemoryCreateParams
                     ),
                 ),
                 cast_to=httpx.Response,
@@ -743,8 +742,7 @@ class TestSupermemory:
                 body=cast(
                     object,
                     maybe_transform(
-                        dict(content="This is a detailed article about machine learning concepts..."),
-                        MemoryCreateParams,
+                        dict(content="This is a detailed article about machine learning concepts.."), MemoryCreateParams
                     ),
                 ),
                 cast_to=httpx.Response,
@@ -780,7 +778,7 @@ class TestSupermemory:
         respx_mock.post("/add").mock(side_effect=retry_handler)
 
         response = client.memory.with_raw_response.create(
-            content="This is a detailed article about machine learning concepts..."
+            content="This is a detailed article about machine learning concepts.."
         )
 
         assert response.retries_taken == failures_before_success
@@ -806,7 +804,7 @@ class TestSupermemory:
         respx_mock.post("/add").mock(side_effect=retry_handler)
 
         response = client.memory.with_raw_response.create(
-            content="This is a detailed article about machine learning concepts...",
+            content="This is a detailed article about machine learning concepts..",
             extra_headers={"x-stainless-retry-count": Omit()},
         )
 
@@ -832,7 +830,7 @@ class TestSupermemory:
         respx_mock.post("/add").mock(side_effect=retry_handler)
 
         response = client.memory.with_raw_response.create(
-            content="This is a detailed article about machine learning concepts...",
+            content="This is a detailed article about machine learning concepts..",
             extra_headers={"x-stainless-retry-count": "42"},
         )
 
@@ -1508,8 +1506,7 @@ class TestAsyncSupermemory:
                 body=cast(
                     object,
                     maybe_transform(
-                        dict(content="This is a detailed article about machine learning concepts..."),
-                        MemoryCreateParams,
+                        dict(content="This is a detailed article about machine learning concepts.."), MemoryCreateParams
                     ),
                 ),
                 cast_to=httpx.Response,
@@ -1529,8 +1526,7 @@ class TestAsyncSupermemory:
                 body=cast(
                     object,
                     maybe_transform(
-                        dict(content="This is a detailed article about machine learning concepts..."),
-                        MemoryCreateParams,
+                        dict(content="This is a detailed article about machine learning concepts.."), MemoryCreateParams
                     ),
                 ),
                 cast_to=httpx.Response,
@@ -1567,7 +1563,7 @@ class TestAsyncSupermemory:
         respx_mock.post("/add").mock(side_effect=retry_handler)
 
         response = await client.memory.with_raw_response.create(
-            content="This is a detailed article about machine learning concepts..."
+            content="This is a detailed article about machine learning concepts.."
         )
 
         assert response.retries_taken == failures_before_success
@@ -1594,7 +1590,7 @@ class TestAsyncSupermemory:
         respx_mock.post("/add").mock(side_effect=retry_handler)
 
         response = await client.memory.with_raw_response.create(
-            content="This is a detailed article about machine learning concepts...",
+            content="This is a detailed article about machine learning concepts..",
             extra_headers={"x-stainless-retry-count": Omit()},
         )
 
@@ -1621,7 +1617,7 @@ class TestAsyncSupermemory:
         respx_mock.post("/add").mock(side_effect=retry_handler)
 
         response = await client.memory.with_raw_response.create(
-            content="This is a detailed article about machine learning concepts...",
+            content="This is a detailed article about machine learning concepts..",
             extra_headers={"x-stainless-retry-count": "42"},
         )
 

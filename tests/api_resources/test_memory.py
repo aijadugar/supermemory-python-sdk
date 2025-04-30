@@ -26,7 +26,7 @@ class TestMemory:
     @parametrize
     def test_method_create(self, client: Supermemory) -> None:
         memory = client.memory.create(
-            content="This is a detailed article about machine learning concepts...",
+            content="This is a detailed article about machine learning concepts..",
         )
         assert_matches_type(MemoryCreateResponse, memory, path=["response"])
 
@@ -34,7 +34,7 @@ class TestMemory:
     @parametrize
     def test_method_create_with_all_params(self, client: Supermemory) -> None:
         memory = client.memory.create(
-            content="This is a detailed article about machine learning concepts...",
+            content="This is a detailed article about machine learning concepts..",
             id="id",
             metadata={
                 "source": "web",
@@ -52,7 +52,7 @@ class TestMemory:
     @parametrize
     def test_raw_response_create(self, client: Supermemory) -> None:
         response = client.memory.with_raw_response.create(
-            content="This is a detailed article about machine learning concepts...",
+            content="This is a detailed article about machine learning concepts..",
         )
 
         assert response.is_closed is True
@@ -64,7 +64,7 @@ class TestMemory:
     @parametrize
     def test_streaming_response_create(self, client: Supermemory) -> None:
         with client.memory.with_streaming_response.create(
-            content="This is a detailed article about machine learning concepts...",
+            content="This is a detailed article about machine learning concepts..",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -206,7 +206,7 @@ class TestAsyncMemory:
     @parametrize
     async def test_method_create(self, async_client: AsyncSupermemory) -> None:
         memory = await async_client.memory.create(
-            content="This is a detailed article about machine learning concepts...",
+            content="This is a detailed article about machine learning concepts..",
         )
         assert_matches_type(MemoryCreateResponse, memory, path=["response"])
 
@@ -214,7 +214,7 @@ class TestAsyncMemory:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncSupermemory) -> None:
         memory = await async_client.memory.create(
-            content="This is a detailed article about machine learning concepts...",
+            content="This is a detailed article about machine learning concepts..",
             id="id",
             metadata={
                 "source": "web",
@@ -232,7 +232,7 @@ class TestAsyncMemory:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncSupermemory) -> None:
         response = await async_client.memory.with_raw_response.create(
-            content="This is a detailed article about machine learning concepts...",
+            content="This is a detailed article about machine learning concepts..",
         )
 
         assert response.is_closed is True
@@ -244,7 +244,7 @@ class TestAsyncMemory:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncSupermemory) -> None:
         async with async_client.memory.with_streaming_response.create(
-            content="This is a detailed article about machine learning concepts...",
+            content="This is a detailed article about machine learning concepts..",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

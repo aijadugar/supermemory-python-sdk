@@ -89,7 +89,7 @@ client = Supermemory(
 
 try:
     client.memory.create(
-        content="This is a detailed article about machine learning concepts...",
+        content="This is a detailed article about machine learning concepts..",
     )
 except supermemory.APIConnectionError as e:
     print("The server could not be reached")
@@ -135,7 +135,7 @@ client = Supermemory(
 
 # Or, configure per-request:
 client.with_options(max_retries=5).memory.create(
-    content="This is a detailed article about machine learning concepts...",
+    content="This is a detailed article about machine learning concepts..",
 )
 ```
 
@@ -162,7 +162,7 @@ client = Supermemory(
 
 # Override per-request:
 client.with_options(timeout=5.0).memory.create(
-    content="This is a detailed article about machine learning concepts...",
+    content="This is a detailed article about machine learning concepts..",
 )
 ```
 
@@ -207,7 +207,7 @@ client = Supermemory(
     api_key="My API Key",
 )
 response = client.memory.with_raw_response.create(
-    content="This is a detailed article about machine learning concepts...",
+    content="This is a detailed article about machine learning concepts..",
 )
 print(response.headers.get('X-My-Header'))
 
@@ -227,7 +227,7 @@ To stream the response body, use `.with_streaming_response` instead, which requi
 
 ```python
 with client.memory.with_streaming_response.create(
-    content="This is a detailed article about machine learning concepts...",
+    content="This is a detailed article about machine learning concepts..",
 ) as response:
     print(response.headers.get("X-My-Header"))
 
