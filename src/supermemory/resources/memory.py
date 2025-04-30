@@ -66,11 +66,24 @@ class MemoryResource(SyncAPIResource):
         metadata
 
         Args:
-          content: Content of the memory
+          content: The content to extract and process into a memory. This can be a URL to a
+              website, a PDF, an image, or a video.
 
-          metadata: Optional metadata for the memory
+              Plaintext: Any plaintext format
 
-          user_id: Optional end user ID this memory belongs to
+              URL: A URL to a website, PDF, image, or video
+
+              We automatically detect the content type from the url's response format.
+
+          metadata: Optional metadata for the memory. This is used to store additional information
+              about the memory. You can use this to store any additional information you need
+              about the memory. Metadata can be filtered through. Keys must be strings and are
+              case sensitive. Values can be strings, numbers, or booleans. You cannot nest
+              objects.
+
+          user_id: Optional end user ID this memory belongs to. This is used to group memories by
+              user. You should use the same ID stored in your external system where the user
+              is stored
 
           extra_headers: Send extra headers
 
@@ -261,11 +274,24 @@ class AsyncMemoryResource(AsyncAPIResource):
         metadata
 
         Args:
-          content: Content of the memory
+          content: The content to extract and process into a memory. This can be a URL to a
+              website, a PDF, an image, or a video.
 
-          metadata: Optional metadata for the memory
+              Plaintext: Any plaintext format
 
-          user_id: Optional end user ID this memory belongs to
+              URL: A URL to a website, PDF, image, or video
+
+              We automatically detect the content type from the url's response format.
+
+          metadata: Optional metadata for the memory. This is used to store additional information
+              about the memory. You can use this to store any additional information you need
+              about the memory. Metadata can be filtered through. Keys must be strings and are
+              case sensitive. Values can be strings, numbers, or booleans. You cannot nest
+              objects.
+
+          user_id: Optional end user ID this memory belongs to. This is used to group memories by
+              user. You should use the same ID stored in your external system where the user
+              is stored
 
           extra_headers: Send extra headers
 
