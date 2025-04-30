@@ -26,7 +26,7 @@ from supermemory._types import Omit
 from supermemory._utils import maybe_transform
 from supermemory._models import BaseModel, FinalRequestOptions
 from supermemory._constants import RAW_RESPONSE_HEADER
-from supermemory._exceptions import APIStatusError, APITimeoutError, SupermemoryError, APIResponseValidationError
+from supermemory._exceptions import APIStatusError, APITimeoutError, APIResponseValidationError
 from supermemory._base_client import (
     DEFAULT_TIMEOUT,
     HTTPX_DEFAULT_TIMEOUT,
@@ -335,16 +335,6 @@ class TestSupermemory:
         request = client2._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("x-foo") == "stainless"
         assert request.headers.get("x-stainless-lang") == "my-overriding-header"
-
-    def test_validate_headers(self) -> None:
-        client = Supermemory(base_url=base_url, api_key=api_key, _strict_response_validation=True)
-        request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
-        assert request.headers.get("X-API-Key") == api_key
-
-        with pytest.raises(SupermemoryError):
-            with update_env(**{"SUPERMEMORY_API_KEY": Omit()}):
-                client2 = Supermemory(base_url=base_url, api_key=None, _strict_response_validation=True)
-            _ = client2
 
     def test_default_query_option(self) -> None:
         client = Supermemory(
@@ -1127,16 +1117,6 @@ class TestAsyncSupermemory:
         request = client2._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("x-foo") == "stainless"
         assert request.headers.get("x-stainless-lang") == "my-overriding-header"
-
-    def test_validate_headers(self) -> None:
-        client = AsyncSupermemory(base_url=base_url, api_key=api_key, _strict_response_validation=True)
-        request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
-        assert request.headers.get("X-API-Key") == api_key
-
-        with pytest.raises(SupermemoryError):
-            with update_env(**{"SUPERMEMORY_API_KEY": Omit()}):
-                client2 = AsyncSupermemory(base_url=base_url, api_key=None, _strict_response_validation=True)
-            _ = client2
 
     def test_default_query_option(self) -> None:
         client = AsyncSupermemory(
