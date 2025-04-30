@@ -56,6 +56,7 @@ class SearchResource(SyncAPIResource):
         include_summary: bool | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         only_matching_chunks: bool | NotGiven = NOT_GIVEN,
+        rewrite_query: bool | NotGiven = NOT_GIVEN,
         user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -87,6 +88,9 @@ class SearchResource(SyncAPIResource):
 
           only_matching_chunks: If true, only return matching chunks without context
 
+          rewrite_query: If true, rewrites the query to make it easier to find documents. This increases
+              the latency by about 400ms
+
           user_id: End user ID this search is associated with
 
           extra_headers: Send extra headers
@@ -110,6 +114,7 @@ class SearchResource(SyncAPIResource):
                     "include_summary": include_summary,
                     "limit": limit,
                     "only_matching_chunks": only_matching_chunks,
+                    "rewrite_query": rewrite_query,
                     "user_id": user_id,
                 },
                 search_execute_params.SearchExecuteParams,
@@ -153,6 +158,7 @@ class AsyncSearchResource(AsyncAPIResource):
         include_summary: bool | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         only_matching_chunks: bool | NotGiven = NOT_GIVEN,
+        rewrite_query: bool | NotGiven = NOT_GIVEN,
         user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -184,6 +190,9 @@ class AsyncSearchResource(AsyncAPIResource):
 
           only_matching_chunks: If true, only return matching chunks without context
 
+          rewrite_query: If true, rewrites the query to make it easier to find documents. This increases
+              the latency by about 400ms
+
           user_id: End user ID this search is associated with
 
           extra_headers: Send extra headers
@@ -207,6 +216,7 @@ class AsyncSearchResource(AsyncAPIResource):
                     "include_summary": include_summary,
                     "limit": limit,
                     "only_matching_chunks": only_matching_chunks,
+                    "rewrite_query": rewrite_query,
                     "user_id": user_id,
                 },
                 search_execute_params.SearchExecuteParams,

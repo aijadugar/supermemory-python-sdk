@@ -15,6 +15,9 @@ class Memory(BaseModel):
     id: str
     """Unique identifier of the memory"""
 
+    content: Optional[str] = None
+    """Content of the memory"""
+
     created_at: datetime = FieldInfo(alias="createdAt")
     """Creation timestamp"""
 

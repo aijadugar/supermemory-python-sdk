@@ -54,6 +54,7 @@ class TestSearch:
             include_summary=False,
             limit=10,
             only_matching_chunks=False,
+            rewrite_query=False,
             user_id="user_123",
         )
         assert_matches_type(SearchExecuteResponse, search, path=["response"])
@@ -125,6 +126,7 @@ class TestAsyncSearch:
             include_summary=False,
             limit=10,
             only_matching_chunks=False,
+            rewrite_query=False,
             user_id="user_123",
         )
         assert_matches_type(SearchExecuteResponse, search, path=["response"])

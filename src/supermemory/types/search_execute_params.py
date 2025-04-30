@@ -43,6 +43,12 @@ class SearchExecuteParams(TypedDict, total=False):
     only_matching_chunks: Annotated[bool, PropertyInfo(alias="onlyMatchingChunks")]
     """If true, only return matching chunks without context"""
 
+    rewrite_query: Annotated[bool, PropertyInfo(alias="rewriteQuery")]
+    """If true, rewrites the query to make it easier to find documents.
+
+    This increases the latency by about 400ms
+    """
+
     user_id: Annotated[str, PropertyInfo(alias="userId")]
     """End user ID this search is associated with"""
 
