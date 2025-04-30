@@ -13,7 +13,10 @@ __all__ = ["MemoryListResponse", "Memory", "Pagination"]
 
 class Memory(BaseModel):
     id: str
-    """Unique identifier of the memory"""
+    """Unique identifier of the memory.
+
+    This is your user's id in your system or database.
+    """
 
     content: Optional[str] = None
     """Content of the memory"""

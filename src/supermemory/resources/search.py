@@ -56,6 +56,7 @@ class SearchResource(SyncAPIResource):
         include_summary: bool | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         only_matching_chunks: bool | NotGiven = NOT_GIVEN,
+        rerank: bool | NotGiven = NOT_GIVEN,
         rewrite_query: bool | NotGiven = NOT_GIVEN,
         user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -95,6 +96,9 @@ class SearchResource(SyncAPIResource):
               previous and next chunk to provide more context for LLMs. If you only want the
               matching chunk, set this to true.
 
+          rerank: If true, rerank the results based on the query. This is helpful if you want to
+              ensure the most relevant results are returned.
+
           rewrite_query: If true, rewrites the query to make it easier to find documents. This increases
               the latency by about 400ms
 
@@ -122,6 +126,7 @@ class SearchResource(SyncAPIResource):
                     "include_summary": include_summary,
                     "limit": limit,
                     "only_matching_chunks": only_matching_chunks,
+                    "rerank": rerank,
                     "rewrite_query": rewrite_query,
                     "user_id": user_id,
                 },
@@ -166,6 +171,7 @@ class AsyncSearchResource(AsyncAPIResource):
         include_summary: bool | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         only_matching_chunks: bool | NotGiven = NOT_GIVEN,
+        rerank: bool | NotGiven = NOT_GIVEN,
         rewrite_query: bool | NotGiven = NOT_GIVEN,
         user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -205,6 +211,9 @@ class AsyncSearchResource(AsyncAPIResource):
               previous and next chunk to provide more context for LLMs. If you only want the
               matching chunk, set this to true.
 
+          rerank: If true, rerank the results based on the query. This is helpful if you want to
+              ensure the most relevant results are returned.
+
           rewrite_query: If true, rewrites the query to make it easier to find documents. This increases
               the latency by about 400ms
 
@@ -232,6 +241,7 @@ class AsyncSearchResource(AsyncAPIResource):
                     "include_summary": include_summary,
                     "limit": limit,
                     "only_matching_chunks": only_matching_chunks,
+                    "rerank": rerank,
                     "rewrite_query": rewrite_query,
                     "user_id": user_id,
                 },

@@ -58,6 +58,12 @@ class SearchExecuteParams(TypedDict, total=False):
     If you only want the matching chunk, set this to true.
     """
 
+    rerank: bool
+    """If true, rerank the results based on the query.
+
+    This is helpful if you want to ensure the most relevant results are returned.
+    """
+
     rewrite_query: Annotated[bool, PropertyInfo(alias="rewriteQuery")]
     """If true, rewrites the query to make it easier to find documents.
 
