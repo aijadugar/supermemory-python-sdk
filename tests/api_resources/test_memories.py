@@ -27,8 +27,7 @@ class TestMemories:
     @parametrize
     def test_method_update(self, client: Supermemory) -> None:
         memory = client.memories.update(
-            path_id="id",
-            body_id="acxV5LHMEsG2hMSNb4umbn",
+            id="id",
             content="This is a detailed article about machine learning concepts...",
         )
         assert_matches_type(MemoryUpdateResponse, memory, path=["response"])
@@ -37,8 +36,7 @@ class TestMemories:
     @parametrize
     def test_method_update_with_all_params(self, client: Supermemory) -> None:
         memory = client.memories.update(
-            path_id="id",
-            body_id="acxV5LHMEsG2hMSNb4umbn",
+            id="id",
             content="This is a detailed article about machine learning concepts...",
             container_tags=["string"],
             metadata={
@@ -56,8 +54,7 @@ class TestMemories:
     @parametrize
     def test_raw_response_update(self, client: Supermemory) -> None:
         response = client.memories.with_raw_response.update(
-            path_id="id",
-            body_id="acxV5LHMEsG2hMSNb4umbn",
+            id="id",
             content="This is a detailed article about machine learning concepts...",
         )
 
@@ -70,8 +67,7 @@ class TestMemories:
     @parametrize
     def test_streaming_response_update(self, client: Supermemory) -> None:
         with client.memories.with_streaming_response.update(
-            path_id="id",
-            body_id="acxV5LHMEsG2hMSNb4umbn",
+            id="id",
             content="This is a detailed article about machine learning concepts...",
         ) as response:
             assert not response.is_closed
@@ -85,10 +81,9 @@ class TestMemories:
     @pytest.mark.skip()
     @parametrize
     def test_path_params_update(self, client: Supermemory) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `path_id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.memories.with_raw_response.update(
-                path_id="",
-                body_id="acxV5LHMEsG2hMSNb4umbn",
+                id="",
                 content="This is a detailed article about machine learning concepts...",
             )
 
@@ -275,8 +270,7 @@ class TestAsyncMemories:
     @parametrize
     async def test_method_update(self, async_client: AsyncSupermemory) -> None:
         memory = await async_client.memories.update(
-            path_id="id",
-            body_id="acxV5LHMEsG2hMSNb4umbn",
+            id="id",
             content="This is a detailed article about machine learning concepts...",
         )
         assert_matches_type(MemoryUpdateResponse, memory, path=["response"])
@@ -285,8 +279,7 @@ class TestAsyncMemories:
     @parametrize
     async def test_method_update_with_all_params(self, async_client: AsyncSupermemory) -> None:
         memory = await async_client.memories.update(
-            path_id="id",
-            body_id="acxV5LHMEsG2hMSNb4umbn",
+            id="id",
             content="This is a detailed article about machine learning concepts...",
             container_tags=["string"],
             metadata={
@@ -304,8 +297,7 @@ class TestAsyncMemories:
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncSupermemory) -> None:
         response = await async_client.memories.with_raw_response.update(
-            path_id="id",
-            body_id="acxV5LHMEsG2hMSNb4umbn",
+            id="id",
             content="This is a detailed article about machine learning concepts...",
         )
 
@@ -318,8 +310,7 @@ class TestAsyncMemories:
     @parametrize
     async def test_streaming_response_update(self, async_client: AsyncSupermemory) -> None:
         async with async_client.memories.with_streaming_response.update(
-            path_id="id",
-            body_id="acxV5LHMEsG2hMSNb4umbn",
+            id="id",
             content="This is a detailed article about machine learning concepts...",
         ) as response:
             assert not response.is_closed
@@ -333,10 +324,9 @@ class TestAsyncMemories:
     @pytest.mark.skip()
     @parametrize
     async def test_path_params_update(self, async_client: AsyncSupermemory) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `path_id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.memories.with_raw_response.update(
-                path_id="",
-                body_id="acxV5LHMEsG2hMSNb4umbn",
+                id="",
                 content="This is a detailed article about machine learning concepts...",
             )
 

@@ -11,8 +11,6 @@ __all__ = ["MemoryUpdateParams"]
 
 
 class MemoryUpdateParams(TypedDict, total=False):
-    body_id: Required[Annotated[str, PropertyInfo(alias="id")]]
-
     content: Required[str]
 
     container_tags: Annotated[List[str], PropertyInfo(alias="containerTags")]
