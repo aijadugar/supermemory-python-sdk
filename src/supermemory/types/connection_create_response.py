@@ -8,8 +8,6 @@ __all__ = ["ConnectionCreateResponse"]
 
 
 class ConnectionCreateResponse(BaseModel):
-    id: str
-
-    auth_link: str = FieldInfo(alias="authLink")
-
     expires_in: str = FieldInfo(alias="expiresIn")
+
+    magic_link: str = FieldInfo(alias="magicLink")

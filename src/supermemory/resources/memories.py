@@ -7,7 +7,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import memory_add_params, memory_list_params, memory_update_params
+from ..types import memory_add_params, memory_list_params
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -23,7 +23,6 @@ from ..types.memory_add_response import MemoryAddResponse
 from ..types.memory_get_response import MemoryGetResponse
 from ..types.memory_list_response import MemoryListResponse
 from ..types.memory_delete_response import MemoryDeleteResponse
-from ..types.memory_update_response import MemoryUpdateResponse
 
 __all__ = ["MemoriesResource", "AsyncMemoriesResource"]
 
@@ -47,50 +46,6 @@ class MemoriesResource(SyncAPIResource):
         For more information, see https://www.github.com/supermemoryai/python-sdk#with_streaming_response
         """
         return MemoriesResourceWithStreamingResponse(self)
-
-    def update(
-        self,
-        id: str,
-        *,
-        content: str,
-        container_tags: List[str] | NotGiven = NOT_GIVEN,
-        metadata: Dict[str, Union[str, float, bool]] | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> MemoryUpdateResponse:
-        """
-        Update a memory with any content type (text, url, file, etc.) and metadata
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        return self._patch(
-            f"/v3/memories/{id}",
-            body=maybe_transform(
-                {
-                    "content": content,
-                    "container_tags": container_tags,
-                    "metadata": metadata,
-                },
-                memory_update_params.MemoryUpdateParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=MemoryUpdateResponse,
-        )
 
     def list(
         self,
@@ -278,50 +233,6 @@ class AsyncMemoriesResource(AsyncAPIResource):
         """
         return AsyncMemoriesResourceWithStreamingResponse(self)
 
-    async def update(
-        self,
-        id: str,
-        *,
-        content: str,
-        container_tags: List[str] | NotGiven = NOT_GIVEN,
-        metadata: Dict[str, Union[str, float, bool]] | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> MemoryUpdateResponse:
-        """
-        Update a memory with any content type (text, url, file, etc.) and metadata
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        return await self._patch(
-            f"/v3/memories/{id}",
-            body=await async_maybe_transform(
-                {
-                    "content": content,
-                    "container_tags": container_tags,
-                    "metadata": metadata,
-                },
-                memory_update_params.MemoryUpdateParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=MemoryUpdateResponse,
-        )
-
     async def list(
         self,
         *,
@@ -492,9 +403,6 @@ class MemoriesResourceWithRawResponse:
     def __init__(self, memories: MemoriesResource) -> None:
         self._memories = memories
 
-        self.update = to_raw_response_wrapper(
-            memories.update,
-        )
         self.list = to_raw_response_wrapper(
             memories.list,
         )
@@ -513,9 +421,6 @@ class AsyncMemoriesResourceWithRawResponse:
     def __init__(self, memories: AsyncMemoriesResource) -> None:
         self._memories = memories
 
-        self.update = async_to_raw_response_wrapper(
-            memories.update,
-        )
         self.list = async_to_raw_response_wrapper(
             memories.list,
         )
@@ -534,9 +439,6 @@ class MemoriesResourceWithStreamingResponse:
     def __init__(self, memories: MemoriesResource) -> None:
         self._memories = memories
 
-        self.update = to_streamed_response_wrapper(
-            memories.update,
-        )
         self.list = to_streamed_response_wrapper(
             memories.list,
         )
@@ -555,9 +457,6 @@ class AsyncMemoriesResourceWithStreamingResponse:
     def __init__(self, memories: AsyncMemoriesResource) -> None:
         self._memories = memories
 
-        self.update = async_to_streamed_response_wrapper(
-            memories.update,
-        )
         self.list = async_to_streamed_response_wrapper(
             memories.list,
         )
