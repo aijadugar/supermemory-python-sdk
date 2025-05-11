@@ -3,10 +3,11 @@
 from __future__ import annotations
 
 from typing import Dict, List, Union
+from typing_extensions import Literal
 
 import httpx
 
-from ..types import memory_add_params, memory_update_params
+from ..types import memory_add_params, memory_list_params, memory_update_params
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -95,8 +96,12 @@ class MemoriesResource(SyncAPIResource):
 
     def list(
         self,
-        id: str,
         *,
+        filters: str | NotGiven = NOT_GIVEN,
+        limit: str | NotGiven = NOT_GIVEN,
+        order: Literal["asc", "desc"] | NotGiven = NOT_GIVEN,
+        page: str | NotGiven = NOT_GIVEN,
+        sort: Literal["createdAt", "updatedAt"] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -105,9 +110,19 @@ class MemoriesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> MemoryListResponse:
         """
-        Delete a memory
+        Retrieves a paginated list of memories with their metadata and workflow status
 
         Args:
+          filters: Optional filters to apply to the search
+
+          limit: Number of items per page
+
+          order: Sort order
+
+          page: Page number to fetch
+
+          sort: Field to sort by
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -116,12 +131,23 @@ class MemoriesResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        return self._delete(
-            f"/v3/memories/{id}",
+        return self._get(
+            "/v3/memories",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "filters": filters,
+                        "limit": limit,
+                        "order": order,
+                        "page": page,
+                        "sort": sort,
+                    },
+                    memory_list_params.MemoryListParams,
+                ),
             ),
             cast_to=MemoryListResponse,
         )
@@ -138,7 +164,7 @@ class MemoriesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> MemoryDeleteResponse:
         """
-        Get a memory by ID
+        Delete a memory
 
         Args:
           extra_headers: Send extra headers
@@ -151,7 +177,7 @@ class MemoriesResource(SyncAPIResource):
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        return self._get(
+        return self._delete(
             f"/v3/memories/{id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -302,8 +328,12 @@ class AsyncMemoriesResource(AsyncAPIResource):
 
     async def list(
         self,
-        id: str,
         *,
+        filters: str | NotGiven = NOT_GIVEN,
+        limit: str | NotGiven = NOT_GIVEN,
+        order: Literal["asc", "desc"] | NotGiven = NOT_GIVEN,
+        page: str | NotGiven = NOT_GIVEN,
+        sort: Literal["createdAt", "updatedAt"] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -312,9 +342,19 @@ class AsyncMemoriesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> MemoryListResponse:
         """
-        Delete a memory
+        Retrieves a paginated list of memories with their metadata and workflow status
 
         Args:
+          filters: Optional filters to apply to the search
+
+          limit: Number of items per page
+
+          order: Sort order
+
+          page: Page number to fetch
+
+          sort: Field to sort by
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -323,12 +363,23 @@ class AsyncMemoriesResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        return await self._delete(
-            f"/v3/memories/{id}",
+        return await self._get(
+            "/v3/memories",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "filters": filters,
+                        "limit": limit,
+                        "order": order,
+                        "page": page,
+                        "sort": sort,
+                    },
+                    memory_list_params.MemoryListParams,
+                ),
             ),
             cast_to=MemoryListResponse,
         )
@@ -345,7 +396,7 @@ class AsyncMemoriesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> MemoryDeleteResponse:
         """
-        Get a memory by ID
+        Delete a memory
 
         Args:
           extra_headers: Send extra headers
@@ -358,7 +409,7 @@ class AsyncMemoriesResource(AsyncAPIResource):
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        return await self._get(
+        return await self._delete(
             f"/v3/memories/{id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout

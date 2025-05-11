@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from .memory_add_params import MemoryAddParams as MemoryAddParams
+from .memory_list_params import MemoryListParams as MemoryListParams
 from .memory_add_response import MemoryAddResponse as MemoryAddResponse
 from .memory_get_response import MemoryGetResponse as MemoryGetResponse
 from .memory_list_response import MemoryListResponse as MemoryListResponse

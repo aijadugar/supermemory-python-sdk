@@ -15,8 +15,8 @@ from supermemory.types import (
 Methods:
 
 - <code title="patch /v3/memories/{id}">client.memories.<a href="./src/supermemory/resources/memories.py">update</a>(path_id, \*\*<a href="src/supermemory/types/memory_update_params.py">params</a>) -> <a href="./src/supermemory/types/memory_update_response.py">MemoryUpdateResponse</a></code>
-- <code title="delete /v3/memories/{id}">client.memories.<a href="./src/supermemory/resources/memories.py">list</a>(id) -> <a href="./src/supermemory/types/memory_list_response.py">MemoryListResponse</a></code>
-- <code title="get /v3/memories/{id}">client.memories.<a href="./src/supermemory/resources/memories.py">delete</a>(id) -> <a href="./src/supermemory/types/memory_delete_response.py">MemoryDeleteResponse</a></code>
+- <code title="get /v3/memories">client.memories.<a href="./src/supermemory/resources/memories.py">list</a>(\*\*<a href="src/supermemory/types/memory_list_params.py">params</a>) -> <a href="./src/supermemory/types/memory_list_response.py">MemoryListResponse</a></code>
+- <code title="delete /v3/memories/{id}">client.memories.<a href="./src/supermemory/resources/memories.py">delete</a>(id) -> <a href="./src/supermemory/types/memory_delete_response.py">MemoryDeleteResponse</a></code>
 - <code title="post /v3/memories">client.memories.<a href="./src/supermemory/resources/memories.py">add</a>(\*\*<a href="src/supermemory/types/memory_add_params.py">params</a>) -> <a href="./src/supermemory/types/memory_add_response.py">MemoryAddResponse</a></code>
 - <code title="get /v3/memories/{id}">client.memories.<a href="./src/supermemory/resources/memories.py">get</a>(id) -> <a href="./src/supermemory/types/memory_get_response.py">MemoryGetResponse</a></code>
 

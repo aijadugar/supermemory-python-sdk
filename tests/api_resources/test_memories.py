@@ -95,17 +95,25 @@ class TestMemories:
     @pytest.mark.skip()
     @parametrize
     def test_method_list(self, client: Supermemory) -> None:
+        memory = client.memories.list()
+        assert_matches_type(MemoryListResponse, memory, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    def test_method_list_with_all_params(self, client: Supermemory) -> None:
         memory = client.memories.list(
-            "id",
+            filters='{"AND":[{"key":"group","value":"jira_users","negate":false},{"filterType":"numeric","key":"timestamp","value":"1742745777","negate":false,"numericOperator":">"}]}',
+            limit="10",
+            order="desc",
+            page="1",
+            sort="createdAt",
         )
         assert_matches_type(MemoryListResponse, memory, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
     def test_raw_response_list(self, client: Supermemory) -> None:
-        response = client.memories.with_raw_response.list(
-            "id",
-        )
+        response = client.memories.with_raw_response.list()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -115,9 +123,7 @@ class TestMemories:
     @pytest.mark.skip()
     @parametrize
     def test_streaming_response_list(self, client: Supermemory) -> None:
-        with client.memories.with_streaming_response.list(
-            "id",
-        ) as response:
+        with client.memories.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -125,14 +131,6 @@ class TestMemories:
             assert_matches_type(MemoryListResponse, memory, path=["response"])
 
         assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip()
-    @parametrize
-    def test_path_params_list(self, client: Supermemory) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
-            client.memories.with_raw_response.list(
-                "",
-            )
 
     @pytest.mark.skip()
     @parametrize
@@ -345,17 +343,25 @@ class TestAsyncMemories:
     @pytest.mark.skip()
     @parametrize
     async def test_method_list(self, async_client: AsyncSupermemory) -> None:
+        memory = await async_client.memories.list()
+        assert_matches_type(MemoryListResponse, memory, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    async def test_method_list_with_all_params(self, async_client: AsyncSupermemory) -> None:
         memory = await async_client.memories.list(
-            "id",
+            filters='{"AND":[{"key":"group","value":"jira_users","negate":false},{"filterType":"numeric","key":"timestamp","value":"1742745777","negate":false,"numericOperator":">"}]}',
+            limit="10",
+            order="desc",
+            page="1",
+            sort="createdAt",
         )
         assert_matches_type(MemoryListResponse, memory, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncSupermemory) -> None:
-        response = await async_client.memories.with_raw_response.list(
-            "id",
-        )
+        response = await async_client.memories.with_raw_response.list()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -365,9 +371,7 @@ class TestAsyncMemories:
     @pytest.mark.skip()
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncSupermemory) -> None:
-        async with async_client.memories.with_streaming_response.list(
-            "id",
-        ) as response:
+        async with async_client.memories.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -375,14 +379,6 @@ class TestAsyncMemories:
             assert_matches_type(MemoryListResponse, memory, path=["response"])
 
         assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip()
-    @parametrize
-    async def test_path_params_list(self, async_client: AsyncSupermemory) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
-            await async_client.memories.with_raw_response.list(
-                "",
-            )
 
     @pytest.mark.skip()
     @parametrize
