@@ -31,10 +31,12 @@ client = Supermemory(
     api_key=os.environ.get("SUPERMEMORY_API_KEY"),  # This is the default and can be omitted
 )
 
-memories = client.memories.list(
-    "id",
+memory = client.memories.update(
+    path_id="id",
+    body_id="acxV5LHMEsG2hMSNb4umbn",
+    content="This is a detailed article about machine learning concepts...",
 )
-print(memories.success)
+print(memory.id)
 ```
 
 While you can provide an `api_key` keyword argument,
@@ -57,10 +59,12 @@ client = AsyncSupermemory(
 
 
 async def main() -> None:
-    memories = await client.memories.list(
-        "id",
+    memory = await client.memories.update(
+        path_id="id",
+        body_id="acxV5LHMEsG2hMSNb4umbn",
+        content="This is a detailed article about machine learning concepts...",
     )
-    print(memories.success)
+    print(memory.id)
 
 
 asyncio.run(main())
@@ -93,8 +97,10 @@ from supermemory import Supermemory
 client = Supermemory()
 
 try:
-    client.memories.list(
-        "id",
+    client.memories.update(
+        path_id="id",
+        body_id="acxV5LHMEsG2hMSNb4umbn",
+        content="This is a detailed article about machine learning concepts...",
     )
 except supermemory.APIConnectionError as e:
     print("The server could not be reached")
@@ -138,8 +144,10 @@ client = Supermemory(
 )
 
 # Or, configure per-request:
-client.with_options(max_retries=5).memories.list(
-    "id",
+client.with_options(max_retries=5).memories.update(
+    path_id="id",
+    body_id="acxV5LHMEsG2hMSNb4umbn",
+    content="This is a detailed article about machine learning concepts...",
 )
 ```
 
@@ -163,8 +171,10 @@ client = Supermemory(
 )
 
 # Override per-request:
-client.with_options(timeout=5.0).memories.list(
-    "id",
+client.with_options(timeout=5.0).memories.update(
+    path_id="id",
+    body_id="acxV5LHMEsG2hMSNb4umbn",
+    content="This is a detailed article about machine learning concepts...",
 )
 ```
 
@@ -206,13 +216,15 @@ The "raw" Response object can be accessed by prefixing `.with_raw_response.` to 
 from supermemory import Supermemory
 
 client = Supermemory()
-response = client.memories.with_raw_response.list(
-    "id",
+response = client.memories.with_raw_response.update(
+    path_id="id",
+    body_id="acxV5LHMEsG2hMSNb4umbn",
+    content="This is a detailed article about machine learning concepts...",
 )
 print(response.headers.get('X-My-Header'))
 
-memory = response.parse()  # get the object that `memories.list()` would have returned
-print(memory.success)
+memory = response.parse()  # get the object that `memories.update()` would have returned
+print(memory.id)
 ```
 
 These methods return an [`APIResponse`](https://github.com/supermemoryai/python-sdk/tree/main/src/supermemory/_response.py) object.
@@ -226,8 +238,10 @@ The above interface eagerly reads the full response body when you make the reque
 To stream the response body, use `.with_streaming_response` instead, which requires a context manager and only reads the response body once you call `.read()`, `.text()`, `.json()`, `.iter_bytes()`, `.iter_text()`, `.iter_lines()` or `.parse()`. In the async client, these are async methods.
 
 ```python
-with client.memories.with_streaming_response.list(
-    "id",
+with client.memories.with_streaming_response.update(
+    path_id="id",
+    body_id="acxV5LHMEsG2hMSNb4umbn",
+    content="This is a detailed article about machine learning concepts...",
 ) as response:
     print(response.headers.get("X-My-Header"))
 
