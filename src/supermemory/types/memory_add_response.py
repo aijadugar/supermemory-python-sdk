@@ -2,10 +2,10 @@
 
 from .._models import BaseModel
 
-__all__ = ["MemoryCreateResponse"]
+__all__ = ["MemoryAddResponse"]
 
 
-class MemoryCreateResponse(BaseModel):
+class MemoryAddResponse(BaseModel):
     id: str
 
     status: str

@@ -6,4 +6,6 @@ __all__ = ["MemoryDeleteResponse"]
 
 
 class MemoryDeleteResponse(BaseModel):
-    success: bool
+    id: str
+
+    status: str

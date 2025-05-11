@@ -24,36 +24,43 @@ pip install --pre supermemory
 The full API of this library can be found in [api.md](api.md).
 
 ```python
+import os
 from supermemory import Supermemory
 
 client = Supermemory(
-    api_key="My API Key",
+    api_key=os.environ.get("SUPERMEMORY_API_KEY"),  # This is the default and can be omitted
 )
 
-response = client.search.execute(
-    q="documents related to python",
+memories = client.memories.list(
+    "id",
 )
-print(response.results)
+print(memories.success)
 ```
+
+While you can provide an `api_key` keyword argument,
+we recommend using [python-dotenv](https://pypi.org/project/python-dotenv/)
+to add `SUPERMEMORY_API_KEY="My API Key"` to your `.env` file
+so that your API Key is not stored in source control.
 
 ## Async usage
 
 Simply import `AsyncSupermemory` instead of `Supermemory` and use `await` with each API call:
 
 ```python
+import os
 import asyncio
 from supermemory import AsyncSupermemory
 
 client = AsyncSupermemory(
-    api_key="My API Key",
+    api_key=os.environ.get("SUPERMEMORY_API_KEY"),  # This is the default and can be omitted
 )
 
 
 async def main() -> None:
-    response = await client.search.execute(
-        q="documents related to python",
+    memories = await client.memories.list(
+        "id",
     )
-    print(response.results)
+    print(memories.success)
 
 
 asyncio.run(main())
@@ -83,13 +90,11 @@ All errors inherit from `supermemory.APIError`.
 import supermemory
 from supermemory import Supermemory
 
-client = Supermemory(
-    api_key="My API Key",
-)
+client = Supermemory()
 
 try:
-    client.memory.create(
-        content="This is a detailed article about machine learning concepts..",
+    client.memories.list(
+        "id",
     )
 except supermemory.APIConnectionError as e:
     print("The server could not be reached")
@@ -128,14 +133,13 @@ from supermemory import Supermemory
 
 # Configure the default for all requests:
 client = Supermemory(
-    api_key="My API Key",
     # default is 2
     max_retries=0,
 )
 
 # Or, configure per-request:
-client.with_options(max_retries=5).memory.create(
-    content="This is a detailed article about machine learning concepts..",
+client.with_options(max_retries=5).memories.list(
+    "id",
 )
 ```
 
@@ -149,20 +153,18 @@ from supermemory import Supermemory
 
 # Configure the default for all requests:
 client = Supermemory(
-    api_key="My API Key",
     # 20 seconds (default is 1 minute)
     timeout=20.0,
 )
 
 # More granular control:
 client = Supermemory(
-    api_key="My API Key",
     timeout=httpx.Timeout(60.0, read=5.0, write=10.0, connect=2.0),
 )
 
 # Override per-request:
-client.with_options(timeout=5.0).memory.create(
-    content="This is a detailed article about machine learning concepts..",
+client.with_options(timeout=5.0).memories.list(
+    "id",
 )
 ```
 
@@ -203,16 +205,14 @@ The "raw" Response object can be accessed by prefixing `.with_raw_response.` to 
 ```py
 from supermemory import Supermemory
 
-client = Supermemory(
-    api_key="My API Key",
-)
-response = client.memory.with_raw_response.create(
-    content="This is a detailed article about machine learning concepts..",
+client = Supermemory()
+response = client.memories.with_raw_response.list(
+    "id",
 )
 print(response.headers.get('X-My-Header'))
 
-memory = response.parse()  # get the object that `memory.create()` would have returned
-print(memory.id)
+memory = response.parse()  # get the object that `memories.list()` would have returned
+print(memory.success)
 ```
 
 These methods return an [`APIResponse`](https://github.com/supermemoryai/python-sdk/tree/main/src/supermemory/_response.py) object.
@@ -226,8 +226,8 @@ The above interface eagerly reads the full response body when you make the reque
 To stream the response body, use `.with_streaming_response` instead, which requires a context manager and only reads the response body once you call `.read()`, `.text()`, `.json()`, `.iter_bytes()`, `.iter_text()`, `.iter_lines()` or `.parse()`. In the async client, these are async methods.
 
 ```python
-with client.memory.with_streaming_response.create(
-    content="This is a detailed article about machine learning concepts..",
+with client.memories.with_streaming_response.list(
+    "id",
 ) as response:
     print(response.headers.get("X-My-Header"))
 
@@ -284,7 +284,6 @@ import httpx
 from supermemory import Supermemory, DefaultHttpxClient
 
 client = Supermemory(
-    api_key="My API Key",
     # Or use the `SUPERMEMORY_BASE_URL` env var
     base_url="http://my.test.server.example.com:8083",
     http_client=DefaultHttpxClient(
@@ -307,9 +306,7 @@ By default the library closes underlying HTTP connections whenever the client is
 ```py
 from supermemory import Supermemory
 
-with Supermemory(
-    api_key="My API Key",
-) as client:
+with Supermemory() as client:
   # make requests here
   ...
 

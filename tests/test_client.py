@@ -23,17 +23,15 @@ from pydantic import ValidationError
 
 from supermemory import Supermemory, AsyncSupermemory, APIResponseValidationError
 from supermemory._types import Omit
-from supermemory._utils import maybe_transform
 from supermemory._models import BaseModel, FinalRequestOptions
 from supermemory._constants import RAW_RESPONSE_HEADER
-from supermemory._exceptions import APIStatusError, APITimeoutError, APIResponseValidationError
+from supermemory._exceptions import APIStatusError, APITimeoutError, SupermemoryError, APIResponseValidationError
 from supermemory._base_client import (
     DEFAULT_TIMEOUT,
     HTTPX_DEFAULT_TIMEOUT,
     BaseClient,
     make_request_options,
 )
-from supermemory.types.memory_create_params import MemoryCreateParams
 
 from .utils import update_env
 
@@ -335,6 +333,16 @@ class TestSupermemory:
         request = client2._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("x-foo") == "stainless"
         assert request.headers.get("x-stainless-lang") == "my-overriding-header"
+
+    def test_validate_headers(self) -> None:
+        client = Supermemory(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
+        assert request.headers.get("Authorization") == f"Bearer {api_key}"
+
+        with pytest.raises(SupermemoryError):
+            with update_env(**{"SUPERMEMORY_API_KEY": Omit()}):
+                client2 = Supermemory(base_url=base_url, api_key=None, _strict_response_validation=True)
+            _ = client2
 
     def test_default_query_option(self) -> None:
         client = Supermemory(
@@ -714,19 +722,11 @@ class TestSupermemory:
     @mock.patch("supermemory._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
-        respx_mock.post("/add").mock(side_effect=httpx.TimeoutException("Test timeout error"))
+        respx_mock.delete("/v3/memories/id").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
-            self.client.post(
-                "/add",
-                body=cast(
-                    object,
-                    maybe_transform(
-                        dict(content="This is a detailed article about machine learning concepts.."), MemoryCreateParams
-                    ),
-                ),
-                cast_to=httpx.Response,
-                options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
+            self.client.delete(
+                "/v3/memories/id", cast_to=httpx.Response, options={"headers": {RAW_RESPONSE_HEADER: "stream"}}
             )
 
         assert _get_open_connections(self.client) == 0
@@ -734,19 +734,11 @@ class TestSupermemory:
     @mock.patch("supermemory._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
-        respx_mock.post("/add").mock(return_value=httpx.Response(500))
+        respx_mock.delete("/v3/memories/id").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
-            self.client.post(
-                "/add",
-                body=cast(
-                    object,
-                    maybe_transform(
-                        dict(content="This is a detailed article about machine learning concepts.."), MemoryCreateParams
-                    ),
-                ),
-                cast_to=httpx.Response,
-                options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
+            self.client.delete(
+                "/v3/memories/id", cast_to=httpx.Response, options={"headers": {RAW_RESPONSE_HEADER: "stream"}}
             )
 
         assert _get_open_connections(self.client) == 0
@@ -775,11 +767,9 @@ class TestSupermemory:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/add").mock(side_effect=retry_handler)
+        respx_mock.delete("/v3/memories/id").mock(side_effect=retry_handler)
 
-        response = client.memory.with_raw_response.create(
-            content="This is a detailed article about machine learning concepts.."
-        )
+        response = client.memories.with_raw_response.list("id")
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -801,12 +791,9 @@ class TestSupermemory:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/add").mock(side_effect=retry_handler)
+        respx_mock.delete("/v3/memories/id").mock(side_effect=retry_handler)
 
-        response = client.memory.with_raw_response.create(
-            content="This is a detailed article about machine learning concepts..",
-            extra_headers={"x-stainless-retry-count": Omit()},
-        )
+        response = client.memories.with_raw_response.list("id", extra_headers={"x-stainless-retry-count": Omit()})
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
 
@@ -827,12 +814,9 @@ class TestSupermemory:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/add").mock(side_effect=retry_handler)
+        respx_mock.delete("/v3/memories/id").mock(side_effect=retry_handler)
 
-        response = client.memory.with_raw_response.create(
-            content="This is a detailed article about machine learning concepts..",
-            extra_headers={"x-stainless-retry-count": "42"},
-        )
+        response = client.memories.with_raw_response.list("id", extra_headers={"x-stainless-retry-count": "42"})
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
 
@@ -1115,6 +1099,16 @@ class TestAsyncSupermemory:
         request = client2._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("x-foo") == "stainless"
         assert request.headers.get("x-stainless-lang") == "my-overriding-header"
+
+    def test_validate_headers(self) -> None:
+        client = AsyncSupermemory(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
+        assert request.headers.get("Authorization") == f"Bearer {api_key}"
+
+        with pytest.raises(SupermemoryError):
+            with update_env(**{"SUPERMEMORY_API_KEY": Omit()}):
+                client2 = AsyncSupermemory(base_url=base_url, api_key=None, _strict_response_validation=True)
+            _ = client2
 
     def test_default_query_option(self) -> None:
         client = AsyncSupermemory(
@@ -1498,19 +1492,11 @@ class TestAsyncSupermemory:
     @mock.patch("supermemory._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
-        respx_mock.post("/add").mock(side_effect=httpx.TimeoutException("Test timeout error"))
+        respx_mock.delete("/v3/memories/id").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
-            await self.client.post(
-                "/add",
-                body=cast(
-                    object,
-                    maybe_transform(
-                        dict(content="This is a detailed article about machine learning concepts.."), MemoryCreateParams
-                    ),
-                ),
-                cast_to=httpx.Response,
-                options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
+            await self.client.delete(
+                "/v3/memories/id", cast_to=httpx.Response, options={"headers": {RAW_RESPONSE_HEADER: "stream"}}
             )
 
         assert _get_open_connections(self.client) == 0
@@ -1518,19 +1504,11 @@ class TestAsyncSupermemory:
     @mock.patch("supermemory._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
-        respx_mock.post("/add").mock(return_value=httpx.Response(500))
+        respx_mock.delete("/v3/memories/id").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
-            await self.client.post(
-                "/add",
-                body=cast(
-                    object,
-                    maybe_transform(
-                        dict(content="This is a detailed article about machine learning concepts.."), MemoryCreateParams
-                    ),
-                ),
-                cast_to=httpx.Response,
-                options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
+            await self.client.delete(
+                "/v3/memories/id", cast_to=httpx.Response, options={"headers": {RAW_RESPONSE_HEADER: "stream"}}
             )
 
         assert _get_open_connections(self.client) == 0
@@ -1560,11 +1538,9 @@ class TestAsyncSupermemory:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/add").mock(side_effect=retry_handler)
+        respx_mock.delete("/v3/memories/id").mock(side_effect=retry_handler)
 
-        response = await client.memory.with_raw_response.create(
-            content="This is a detailed article about machine learning concepts.."
-        )
+        response = await client.memories.with_raw_response.list("id")
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -1587,12 +1563,9 @@ class TestAsyncSupermemory:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/add").mock(side_effect=retry_handler)
+        respx_mock.delete("/v3/memories/id").mock(side_effect=retry_handler)
 
-        response = await client.memory.with_raw_response.create(
-            content="This is a detailed article about machine learning concepts..",
-            extra_headers={"x-stainless-retry-count": Omit()},
-        )
+        response = await client.memories.with_raw_response.list("id", extra_headers={"x-stainless-retry-count": Omit()})
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
 
@@ -1614,12 +1587,9 @@ class TestAsyncSupermemory:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/add").mock(side_effect=retry_handler)
+        respx_mock.delete("/v3/memories/id").mock(side_effect=retry_handler)
 
-        response = await client.memory.with_raw_response.create(
-            content="This is a detailed article about machine learning concepts..",
-            extra_headers={"x-stainless-retry-count": "42"},
-        )
+        response = await client.memories.with_raw_response.list("id", extra_headers={"x-stainless-retry-count": "42"})
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
 

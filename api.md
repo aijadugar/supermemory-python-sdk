@@ -1,56 +1,50 @@
-# Settings
-
-Types:
-
-```python
-from supermemory.types import SettingUpdateResponse
-```
-
-Methods:
-
-- <code title="put /settings">client.settings.<a href="./src/supermemory/resources/settings.py">update</a>(\*\*<a href="src/supermemory/types/setting_update_params.py">params</a>) -> <a href="./src/supermemory/types/setting_update_response.py">SettingUpdateResponse</a></code>
-
-# Memory
+# Memories
 
 Types:
 
 ```python
 from supermemory.types import (
-    MemoryCreateResponse,
     MemoryListResponse,
     MemoryDeleteResponse,
+    MemoryAddResponse,
     MemoryGetResponse,
 )
 ```
 
 Methods:
 
-- <code title="post /add">client.memory.<a href="./src/supermemory/resources/memory.py">create</a>(\*\*<a href="src/supermemory/types/memory_create_params.py">params</a>) -> <a href="./src/supermemory/types/memory_create_response.py">MemoryCreateResponse</a></code>
-- <code title="get /memories">client.memory.<a href="./src/supermemory/resources/memory.py">list</a>(\*\*<a href="src/supermemory/types/memory_list_params.py">params</a>) -> <a href="./src/supermemory/types/memory_list_response.py">MemoryListResponse</a></code>
-- <code title="delete /delete/{id}">client.memory.<a href="./src/supermemory/resources/memory.py">delete</a>(id) -> <a href="./src/supermemory/types/memory_delete_response.py">MemoryDeleteResponse</a></code>
-- <code title="get /memory/{id}">client.memory.<a href="./src/supermemory/resources/memory.py">get</a>(id) -> <a href="./src/supermemory/types/memory_get_response.py">MemoryGetResponse</a></code>
+- <code title="delete /v3/memories/{id}">client.memories.<a href="./src/supermemory/resources/memories.py">list</a>(id) -> <a href="./src/supermemory/types/memory_list_response.py">MemoryListResponse</a></code>
+- <code title="get /v3/memories/{id}">client.memories.<a href="./src/supermemory/resources/memories.py">delete</a>(id) -> <a href="./src/supermemory/types/memory_delete_response.py">MemoryDeleteResponse</a></code>
+- <code title="post /v3/memories">client.memories.<a href="./src/supermemory/resources/memories.py">add</a>(\*\*<a href="src/supermemory/types/memory_add_params.py">params</a>) -> <a href="./src/supermemory/types/memory_add_response.py">MemoryAddResponse</a></code>
+- <code title="get /v3/memories/{id}">client.memories.<a href="./src/supermemory/resources/memories.py">get</a>(id) -> <a href="./src/supermemory/types/memory_get_response.py">MemoryGetResponse</a></code>
 
-# Search
-
-Types:
-
-```python
-from supermemory.types import SearchExecuteResponse
-```
-
-Methods:
-
-- <code title="post /search">client.search.<a href="./src/supermemory/resources/search.py">execute</a>(\*\*<a href="src/supermemory/types/search_execute_params.py">params</a>) -> <a href="./src/supermemory/types/search_execute_response.py">SearchExecuteResponse</a></code>
-
-# Connection
+# Settings
 
 Types:
 
 ```python
-from supermemory.types import ConnectionCreateResponse
+from supermemory.types import SettingUpdateResponse, SettingGetResponse
 ```
 
 Methods:
 
-- <code title="get /connect/{app}">client.connection.<a href="./src/supermemory/resources/connection.py">create</a>(app, \*\*<a href="src/supermemory/types/connection_create_params.py">params</a>) -> <a href="./src/supermemory/types/connection_create_response.py">ConnectionCreateResponse</a></code>
-- <code title="get /connections/{connectionId}">client.connection.<a href="./src/supermemory/resources/connection.py">retrieve</a>(connection_id) -> None</code>
+- <code title="patch /v3/settings">client.settings.<a href="./src/supermemory/resources/settings.py">update</a>(\*\*<a href="src/supermemory/types/setting_update_params.py">params</a>) -> <a href="./src/supermemory/types/setting_update_response.py">SettingUpdateResponse</a></code>
+- <code title="get /v3/settings">client.settings.<a href="./src/supermemory/resources/settings.py">get</a>() -> <a href="./src/supermemory/types/setting_get_response.py">SettingGetResponse</a></code>
+
+# Connections
+
+Types:
+
+```python
+from supermemory.types import (
+    ConnectionCreateResponse,
+    ConnectionListResponse,
+    ConnectionGetResponse,
+)
+```
+
+Methods:
+
+- <code title="post /v3/connections/{provider}">client.connections.<a href="./src/supermemory/resources/connections.py">create</a>(provider) -> <a href="./src/supermemory/types/connection_create_response.py">ConnectionCreateResponse</a></code>
+- <code title="get /v3/connections">client.connections.<a href="./src/supermemory/resources/connections.py">list</a>() -> <a href="./src/supermemory/types/connection_list_response.py">ConnectionListResponse</a></code>
+- <code title="get /v3/connections/{connectionId}">client.connections.<a href="./src/supermemory/resources/connections.py">get</a>(connection_id) -> <a href="./src/supermemory/types/connection_get_response.py">ConnectionGetResponse</a></code>

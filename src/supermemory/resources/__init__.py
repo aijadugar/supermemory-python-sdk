@@ -1,20 +1,12 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from .memory import (
-    MemoryResource,
-    AsyncMemoryResource,
-    MemoryResourceWithRawResponse,
-    AsyncMemoryResourceWithRawResponse,
-    MemoryResourceWithStreamingResponse,
-    AsyncMemoryResourceWithStreamingResponse,
-)
-from .search import (
-    SearchResource,
-    AsyncSearchResource,
-    SearchResourceWithRawResponse,
-    AsyncSearchResourceWithRawResponse,
-    SearchResourceWithStreamingResponse,
-    AsyncSearchResourceWithStreamingResponse,
+from .memories import (
+    MemoriesResource,
+    AsyncMemoriesResource,
+    MemoriesResourceWithRawResponse,
+    AsyncMemoriesResourceWithRawResponse,
+    MemoriesResourceWithStreamingResponse,
+    AsyncMemoriesResourceWithStreamingResponse,
 )
 from .settings import (
     SettingsResource,
@@ -24,38 +16,32 @@ from .settings import (
     SettingsResourceWithStreamingResponse,
     AsyncSettingsResourceWithStreamingResponse,
 )
-from .connection import (
-    ConnectionResource,
-    AsyncConnectionResource,
-    ConnectionResourceWithRawResponse,
-    AsyncConnectionResourceWithRawResponse,
-    ConnectionResourceWithStreamingResponse,
-    AsyncConnectionResourceWithStreamingResponse,
+from .connections import (
+    ConnectionsResource,
+    AsyncConnectionsResource,
+    ConnectionsResourceWithRawResponse,
+    AsyncConnectionsResourceWithRawResponse,
+    ConnectionsResourceWithStreamingResponse,
+    AsyncConnectionsResourceWithStreamingResponse,
 )
 
 __all__ = [
+    "MemoriesResource",
+    "AsyncMemoriesResource",
+    "MemoriesResourceWithRawResponse",
+    "AsyncMemoriesResourceWithRawResponse",
+    "MemoriesResourceWithStreamingResponse",
+    "AsyncMemoriesResourceWithStreamingResponse",
     "SettingsResource",
     "AsyncSettingsResource",
     "SettingsResourceWithRawResponse",
     "AsyncSettingsResourceWithRawResponse",
     "SettingsResourceWithStreamingResponse",
     "AsyncSettingsResourceWithStreamingResponse",
-    "MemoryResource",
-    "AsyncMemoryResource",
-    "MemoryResourceWithRawResponse",
-    "AsyncMemoryResourceWithRawResponse",
-    "MemoryResourceWithStreamingResponse",
-    "AsyncMemoryResourceWithStreamingResponse",
-    "SearchResource",
-    "AsyncSearchResource",
-    "SearchResourceWithRawResponse",
-    "AsyncSearchResourceWithRawResponse",
-    "SearchResourceWithStreamingResponse",
-    "AsyncSearchResourceWithStreamingResponse",
-    "ConnectionResource",
-    "AsyncConnectionResource",
-    "ConnectionResourceWithRawResponse",
-    "AsyncConnectionResourceWithRawResponse",
-    "ConnectionResourceWithStreamingResponse",
-    "AsyncConnectionResourceWithStreamingResponse",
+    "ConnectionsResource",
+    "AsyncConnectionsResource",
+    "ConnectionsResourceWithRawResponse",
+    "AsyncConnectionsResourceWithRawResponse",
+    "ConnectionsResourceWithStreamingResponse",
+    "AsyncConnectionsResourceWithStreamingResponse",
 ]

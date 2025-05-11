@@ -6,9 +6,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import connection_create_params
-from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
-from .._utils import maybe_transform, async_maybe_transform
+from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -18,37 +16,37 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
+from ..types.connection_get_response import ConnectionGetResponse
+from ..types.connection_list_response import ConnectionListResponse
 from ..types.connection_create_response import ConnectionCreateResponse
 
-__all__ = ["ConnectionResource", "AsyncConnectionResource"]
+__all__ = ["ConnectionsResource", "AsyncConnectionsResource"]
 
 
-class ConnectionResource(SyncAPIResource):
+class ConnectionsResource(SyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> ConnectionResourceWithRawResponse:
+    def with_raw_response(self) -> ConnectionsResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/supermemoryai/python-sdk#accessing-raw-response-data-eg-headers
         """
-        return ConnectionResourceWithRawResponse(self)
+        return ConnectionsResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> ConnectionResourceWithStreamingResponse:
+    def with_streaming_response(self) -> ConnectionsResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/supermemoryai/python-sdk#with_streaming_response
         """
-        return ConnectionResourceWithStreamingResponse(self)
+        return ConnectionsResourceWithStreamingResponse(self)
 
     def create(
         self,
-        app: Literal["notion", "google-drive"],
+        provider: Literal["notion", "google-drive", "onedrive"],
         *,
-        id: str,
-        redirect_url: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -68,27 +66,36 @@ class ConnectionResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not app:
-            raise ValueError(f"Expected a non-empty value for `app` but received {app!r}")
-        return self._get(
-            f"/connect/{app}",
+        if not provider:
+            raise ValueError(f"Expected a non-empty value for `provider` but received {provider!r}")
+        return self._post(
+            f"/v3/connections/{provider}",
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "id": id,
-                        "redirect_url": redirect_url,
-                    },
-                    connection_create_params.ConnectionCreateParams,
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=ConnectionCreateResponse,
         )
 
-    def retrieve(
+    def list(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ConnectionListResponse:
+        """List all connections"""
+        return self._get(
+            "/v3/connections",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ConnectionListResponse,
+        )
+
+    def get(
         self,
         connection_id: str,
         *,
@@ -98,8 +105,10 @@ class ConnectionResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> None:
+    ) -> ConnectionGetResponse:
         """
+        Get connection details
+
         Args:
           extra_headers: Send extra headers
 
@@ -111,42 +120,39 @@ class ConnectionResource(SyncAPIResource):
         """
         if not connection_id:
             raise ValueError(f"Expected a non-empty value for `connection_id` but received {connection_id!r}")
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._get(
-            f"/connections/{connection_id}",
+            f"/v3/connections/{connection_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=NoneType,
+            cast_to=ConnectionGetResponse,
         )
 
 
-class AsyncConnectionResource(AsyncAPIResource):
+class AsyncConnectionsResource(AsyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> AsyncConnectionResourceWithRawResponse:
+    def with_raw_response(self) -> AsyncConnectionsResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/supermemoryai/python-sdk#accessing-raw-response-data-eg-headers
         """
-        return AsyncConnectionResourceWithRawResponse(self)
+        return AsyncConnectionsResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> AsyncConnectionResourceWithStreamingResponse:
+    def with_streaming_response(self) -> AsyncConnectionsResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/supermemoryai/python-sdk#with_streaming_response
         """
-        return AsyncConnectionResourceWithStreamingResponse(self)
+        return AsyncConnectionsResourceWithStreamingResponse(self)
 
     async def create(
         self,
-        app: Literal["notion", "google-drive"],
+        provider: Literal["notion", "google-drive", "onedrive"],
         *,
-        id: str,
-        redirect_url: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -166,27 +172,36 @@ class AsyncConnectionResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not app:
-            raise ValueError(f"Expected a non-empty value for `app` but received {app!r}")
-        return await self._get(
-            f"/connect/{app}",
+        if not provider:
+            raise ValueError(f"Expected a non-empty value for `provider` but received {provider!r}")
+        return await self._post(
+            f"/v3/connections/{provider}",
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {
-                        "id": id,
-                        "redirect_url": redirect_url,
-                    },
-                    connection_create_params.ConnectionCreateParams,
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=ConnectionCreateResponse,
         )
 
-    async def retrieve(
+    async def list(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ConnectionListResponse:
+        """List all connections"""
+        return await self._get(
+            "/v3/connections",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ConnectionListResponse,
+        )
+
+    async def get(
         self,
         connection_id: str,
         *,
@@ -196,8 +211,10 @@ class AsyncConnectionResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> None:
+    ) -> ConnectionGetResponse:
         """
+        Get connection details
+
         Args:
           extra_headers: Send extra headers
 
@@ -209,59 +226,70 @@ class AsyncConnectionResource(AsyncAPIResource):
         """
         if not connection_id:
             raise ValueError(f"Expected a non-empty value for `connection_id` but received {connection_id!r}")
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._get(
-            f"/connections/{connection_id}",
+            f"/v3/connections/{connection_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=NoneType,
+            cast_to=ConnectionGetResponse,
         )
 
 
-class ConnectionResourceWithRawResponse:
-    def __init__(self, connection: ConnectionResource) -> None:
-        self._connection = connection
+class ConnectionsResourceWithRawResponse:
+    def __init__(self, connections: ConnectionsResource) -> None:
+        self._connections = connections
 
         self.create = to_raw_response_wrapper(
-            connection.create,
+            connections.create,
         )
-        self.retrieve = to_raw_response_wrapper(
-            connection.retrieve,
+        self.list = to_raw_response_wrapper(
+            connections.list,
+        )
+        self.get = to_raw_response_wrapper(
+            connections.get,
         )
 
 
-class AsyncConnectionResourceWithRawResponse:
-    def __init__(self, connection: AsyncConnectionResource) -> None:
-        self._connection = connection
+class AsyncConnectionsResourceWithRawResponse:
+    def __init__(self, connections: AsyncConnectionsResource) -> None:
+        self._connections = connections
 
         self.create = async_to_raw_response_wrapper(
-            connection.create,
+            connections.create,
         )
-        self.retrieve = async_to_raw_response_wrapper(
-            connection.retrieve,
+        self.list = async_to_raw_response_wrapper(
+            connections.list,
+        )
+        self.get = async_to_raw_response_wrapper(
+            connections.get,
         )
 
 
-class ConnectionResourceWithStreamingResponse:
-    def __init__(self, connection: ConnectionResource) -> None:
-        self._connection = connection
+class ConnectionsResourceWithStreamingResponse:
+    def __init__(self, connections: ConnectionsResource) -> None:
+        self._connections = connections
 
         self.create = to_streamed_response_wrapper(
-            connection.create,
+            connections.create,
         )
-        self.retrieve = to_streamed_response_wrapper(
-            connection.retrieve,
+        self.list = to_streamed_response_wrapper(
+            connections.list,
+        )
+        self.get = to_streamed_response_wrapper(
+            connections.get,
         )
 
 
-class AsyncConnectionResourceWithStreamingResponse:
-    def __init__(self, connection: AsyncConnectionResource) -> None:
-        self._connection = connection
+class AsyncConnectionsResourceWithStreamingResponse:
+    def __init__(self, connections: AsyncConnectionsResource) -> None:
+        self._connections = connections
 
         self.create = async_to_streamed_response_wrapper(
-            connection.create,
+            connections.create,
         )
-        self.retrieve = async_to_streamed_response_wrapper(
-            connection.retrieve,
+        self.list = async_to_streamed_response_wrapper(
+            connections.list,
+        )
+        self.get = async_to_streamed_response_wrapper(
+            connections.get,
         )
