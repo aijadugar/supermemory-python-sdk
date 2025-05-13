@@ -1,8 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Dict, List, Union, Optional
-from datetime import datetime
-from typing_extensions import Literal
 
 from pydantic import Field as FieldInfo
 
@@ -13,7 +11,6 @@ __all__ = ["MemoryListResponse", "Memory", "Pagination"]
 
 class Memory(BaseModel):
     id: str
-    """Unique identifier of the memory."""
 
     content: Optional[str] = None
     """The content to extract and process into a memory.
@@ -26,9 +23,6 @@ class Memory(BaseModel):
 
     We automatically detect the content type from the url's response format.
     """
-
-    created_at: datetime = FieldInfo(alias="createdAt")
-    """Creation timestamp"""
 
     custom_id: Optional[str] = FieldInfo(alias="customId", default=None)
     """Optional custom ID of the memory.
@@ -49,23 +43,10 @@ class Memory(BaseModel):
 
     source: Optional[str] = None
 
-    status: Literal["unknown", "queued", "extracting", "chunking", "embedding", "indexing", "done", "failed"]
-    """Status of the memory"""
-
     summary: Optional[str] = None
-    """Summary of the memory content"""
 
     title: Optional[str] = None
     """Title of the memory"""
-
-    type: Literal["text", "pdf", "tweet", "google_doc", "image", "video", "notion_doc", "webpage"]
-    """Type of the memory"""
-
-    updated_at: datetime = FieldInfo(alias="updatedAt")
-    """Last update timestamp"""
-
-    url: Optional[str] = None
-    """URL of the memory"""
 
     container_tags: Optional[List[str]] = FieldInfo(alias="containerTags", default=None)
     """Optional tags this memory should be containerized by.
@@ -73,9 +54,6 @@ class Memory(BaseModel):
     This can be an ID for your user, a project ID, or any other identifier you wish
     to use to group memories.
     """
-
-    raw: None = None
-    """Raw content of the memory"""
 
 
 class Pagination(BaseModel):
