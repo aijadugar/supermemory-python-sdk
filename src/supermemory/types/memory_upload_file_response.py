@@ -2,10 +2,10 @@
 
 from .._models import BaseModel
 
-__all__ = ["MemoryGetResponse"]
+__all__ = ["MemoryUploadFileResponse"]
 
 
-class MemoryGetResponse(BaseModel):
+class MemoryUploadFileResponse(BaseModel):
     id: str
 
     status: str

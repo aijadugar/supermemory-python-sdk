@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Optional
+from typing import Dict, List, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -13,33 +13,69 @@ __all__ = ["MemoryListResponse", "Memory", "Pagination"]
 
 class Memory(BaseModel):
     id: str
-    """Unique identifier of the memory"""
+    """Unique identifier of the memory."""
+
+    content: Optional[str] = None
+    """The content to extract and process into a memory.
+
+    This can be a URL to a website, a PDF, an image, or a video.
+
+    Plaintext: Any plaintext format
+
+    URL: A URL to a website, PDF, image, or video
+
+    We automatically detect the content type from the url's response format.
+    """
 
     created_at: datetime = FieldInfo(alias="createdAt")
     """Creation timestamp"""
 
-    metadata: Dict[str, object]
-    """Custom metadata associated with the memory"""
+    custom_id: Optional[str] = FieldInfo(alias="customId", default=None)
+    """Optional custom ID of the memory.
 
-    status: Optional[Literal["queued", "extracting", "chunking", "embedding", "indexing", "done", "failed"]] = None
-    """Processing status of the memory"""
+    This could be an ID from your database that will uniquely identify this memory.
+    """
+
+    metadata: Union[str, float, bool, Dict[str, object], List[object], None] = None
+    """Optional metadata for the memory.
+
+    This is used to store additional information about the memory. You can use this
+    to store any additional information you need about the memory. Metadata can be
+    filtered through. Keys must be strings and are case sensitive. Values can be
+    strings, numbers, or booleans. You cannot nest objects.
+    """
+
+    og_image: Optional[str] = FieldInfo(alias="ogImage", default=None)
+
+    source: Optional[str] = None
+
+    status: Literal["unknown", "queued", "extracting", "chunking", "embedding", "indexing", "done", "failed"]
+    """Status of the memory"""
 
     summary: Optional[str] = None
     """Summary of the memory content"""
 
-    title: str
+    title: Optional[str] = None
     """Title of the memory"""
+
+    type: Literal["text", "pdf", "tweet", "google_doc", "image", "video", "notion_doc", "webpage"]
+    """Type of the memory"""
 
     updated_at: datetime = FieldInfo(alias="updatedAt")
     """Last update timestamp"""
 
     url: Optional[str] = None
-    """Source URL of the memory"""
+    """URL of the memory"""
 
-    workflow_status: Optional[Literal["PENDING", "IN_PROGRESS", "COMPLETED", "FAILED"]] = FieldInfo(
-        alias="workflowStatus", default=None
-    )
-    """Current workflow status"""
+    container_tags: Optional[List[str]] = FieldInfo(alias="containerTags", default=None)
+    """Optional tags this memory should be containerized by.
+
+    This can be an ID for your user, a project ID, or any other identifier you wish
+    to use to group memories.
+    """
+
+    raw: None = None
+    """Raw content of the memory"""
 
 
 class Pagination(BaseModel):

@@ -77,6 +77,23 @@ Nested request parameters are [TypedDicts](https://docs.python.org/3/library/typ
 
 Typed requests and responses provide autocomplete and documentation within your editor. If you would like to see type errors in VS Code to help catch bugs earlier, set `python.analysis.typeCheckingMode` to `basic`.
 
+## File uploads
+
+Request parameters that correspond to file uploads can be passed as `bytes`, or a [`PathLike`](https://docs.python.org/3/library/os.html#os.PathLike) instance or a tuple of `(filename, contents, media type)`.
+
+```python
+from pathlib import Path
+from supermemory import Supermemory
+
+client = Supermemory()
+
+client.memories.upload_file(
+    file=Path("/path/to/file"),
+)
+```
+
+The async client uses the exact same interface. If you pass a [`PathLike`](https://docs.python.org/3/library/os.html#os.PathLike) instance, the file contents will be read asynchronously automatically.
+
 ## Handling errors
 
 When the library is unable to connect to the API (for example, due to network connection problems or a timeout), a subclass of `supermemory.APIConnectionError` is raised.
@@ -93,7 +110,7 @@ from supermemory import Supermemory
 client = Supermemory()
 
 try:
-    client.memory.create(
+    client.memories.add(
         content="This is a detailed article about machine learning concepts...",
     )
 except supermemory.APIConnectionError as e:
@@ -138,7 +155,7 @@ client = Supermemory(
 )
 
 # Or, configure per-request:
-client.with_options(max_retries=5).memory.create(
+client.with_options(max_retries=5).memories.add(
     content="This is a detailed article about machine learning concepts...",
 )
 ```
@@ -163,7 +180,7 @@ client = Supermemory(
 )
 
 # Override per-request:
-client.with_options(timeout=5.0).memory.create(
+client.with_options(timeout=5.0).memories.add(
     content="This is a detailed article about machine learning concepts...",
 )
 ```
@@ -206,12 +223,12 @@ The "raw" Response object can be accessed by prefixing `.with_raw_response.` to 
 from supermemory import Supermemory
 
 client = Supermemory()
-response = client.memory.with_raw_response.create(
+response = client.memories.with_raw_response.add(
     content="This is a detailed article about machine learning concepts...",
 )
 print(response.headers.get('X-My-Header'))
 
-memory = response.parse()  # get the object that `memory.create()` would have returned
+memory = response.parse()  # get the object that `memories.add()` would have returned
 print(memory.id)
 ```
 
@@ -226,7 +243,7 @@ The above interface eagerly reads the full response body when you make the reque
 To stream the response body, use `.with_streaming_response` instead, which requires a context manager and only reads the response body once you call `.read()`, `.text()`, `.json()`, `.iter_bytes()`, `.iter_text()`, `.iter_lines()` or `.parse()`. In the async client, these are async methods.
 
 ```python
-with client.memory.with_streaming_response.create(
+with client.memories.with_streaming_response.add(
     content="This is a detailed article about machine learning concepts...",
 ) as response:
     print(response.headers.get("X-My-Header"))

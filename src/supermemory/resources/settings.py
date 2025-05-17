@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, Iterable
+from typing import Dict, List
 
 import httpx
 
@@ -18,6 +18,7 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
+from ..types.setting_get_response import SettingGetResponse
 from ..types.setting_update_response import SettingUpdateResponse
 
 __all__ = ["SettingsResource", "AsyncSettingsResource"]
@@ -46,10 +47,9 @@ class SettingsResource(SyncAPIResource):
     def update(
         self,
         *,
-        categories: List[str] | NotGiven = NOT_GIVEN,
         exclude_items: List[str] | NotGiven = NOT_GIVEN,
         filter_prompt: str | NotGiven = NOT_GIVEN,
-        filter_tags: Iterable[setting_update_params.FilterTag] | NotGiven = NOT_GIVEN,
+        filter_tags: Dict[str, List[str]] | NotGiven = NOT_GIVEN,
         include_items: List[str] | NotGiven = NOT_GIVEN,
         should_llm_filter: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -71,11 +71,10 @@ class SettingsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._put(
-            "/settings",
+        return self._patch(
+            "/v3/settings",
             body=maybe_transform(
                 {
-                    "categories": categories,
                     "exclude_items": exclude_items,
                     "filter_prompt": filter_prompt,
                     "filter_tags": filter_tags,
@@ -88,6 +87,25 @@ class SettingsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=SettingUpdateResponse,
+        )
+
+    def get(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> SettingGetResponse:
+        """Get settings for an organization"""
+        return self._get(
+            "/v3/settings",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=SettingGetResponse,
         )
 
 
@@ -114,10 +132,9 @@ class AsyncSettingsResource(AsyncAPIResource):
     async def update(
         self,
         *,
-        categories: List[str] | NotGiven = NOT_GIVEN,
         exclude_items: List[str] | NotGiven = NOT_GIVEN,
         filter_prompt: str | NotGiven = NOT_GIVEN,
-        filter_tags: Iterable[setting_update_params.FilterTag] | NotGiven = NOT_GIVEN,
+        filter_tags: Dict[str, List[str]] | NotGiven = NOT_GIVEN,
         include_items: List[str] | NotGiven = NOT_GIVEN,
         should_llm_filter: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -139,11 +156,10 @@ class AsyncSettingsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return await self._put(
-            "/settings",
+        return await self._patch(
+            "/v3/settings",
             body=await async_maybe_transform(
                 {
-                    "categories": categories,
                     "exclude_items": exclude_items,
                     "filter_prompt": filter_prompt,
                     "filter_tags": filter_tags,
@@ -158,6 +174,25 @@ class AsyncSettingsResource(AsyncAPIResource):
             cast_to=SettingUpdateResponse,
         )
 
+    async def get(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> SettingGetResponse:
+        """Get settings for an organization"""
+        return await self._get(
+            "/v3/settings",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=SettingGetResponse,
+        )
+
 
 class SettingsResourceWithRawResponse:
     def __init__(self, settings: SettingsResource) -> None:
@@ -165,6 +200,9 @@ class SettingsResourceWithRawResponse:
 
         self.update = to_raw_response_wrapper(
             settings.update,
+        )
+        self.get = to_raw_response_wrapper(
+            settings.get,
         )
 
 
@@ -175,6 +213,9 @@ class AsyncSettingsResourceWithRawResponse:
         self.update = async_to_raw_response_wrapper(
             settings.update,
         )
+        self.get = async_to_raw_response_wrapper(
+            settings.get,
+        )
 
 
 class SettingsResourceWithStreamingResponse:
@@ -184,6 +225,9 @@ class SettingsResourceWithStreamingResponse:
         self.update = to_streamed_response_wrapper(
             settings.update,
         )
+        self.get = to_streamed_response_wrapper(
+            settings.get,
+        )
 
 
 class AsyncSettingsResourceWithStreamingResponse:
@@ -192,4 +236,7 @@ class AsyncSettingsResourceWithStreamingResponse:
 
         self.update = async_to_streamed_response_wrapper(
             settings.update,
+        )
+        self.get = async_to_streamed_response_wrapper(
+            settings.get,
         )

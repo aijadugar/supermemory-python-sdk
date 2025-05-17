@@ -2,17 +2,12 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union, Optional
 from typing_extensions import Annotated, TypedDict
 
 from .._utils import PropertyInfo
 
-__all__ = ["ConnectionCreateParams"]
+__all__ = ["ConnectionListParams"]
 
 
-class ConnectionCreateParams(TypedDict, total=False):
+class ConnectionListParams(TypedDict, total=False):
     end_user_id: Annotated[str, PropertyInfo(alias="endUserId")]
-
-    redirect_url: Annotated[str, PropertyInfo(alias="redirectUrl")]
-
-    metadata: Optional[Dict[str, Union[str, float, bool]]]

@@ -21,7 +21,7 @@ from ._types import (
 )
 from ._utils import is_given, get_async_library
 from ._version import __version__
-from .resources import memory, search, settings, connection
+from .resources import search, memories, settings, connections
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import APIStatusError, SupermemoryError
 from ._base_client import (
@@ -43,10 +43,10 @@ __all__ = [
 
 
 class Supermemory(SyncAPIClient):
-    settings: settings.SettingsResource
-    memory: memory.MemoryResource
+    memories: memories.MemoriesResource
     search: search.SearchResource
-    connection: connection.ConnectionResource
+    settings: settings.SettingsResource
+    connections: connections.ConnectionsResource
     with_raw_response: SupermemoryWithRawResponse
     with_streaming_response: SupermemoryWithStreamedResponse
 
@@ -91,7 +91,7 @@ class Supermemory(SyncAPIClient):
         if base_url is None:
             base_url = os.environ.get("SUPERMEMORY_BASE_URL")
         if base_url is None:
-            base_url = f"https://v2.api.supermemory.ai"
+            base_url = f"https://api.supermemory.ai/"
 
         super().__init__(
             version=__version__,
@@ -104,10 +104,10 @@ class Supermemory(SyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.settings = settings.SettingsResource(self)
-        self.memory = memory.MemoryResource(self)
+        self.memories = memories.MemoriesResource(self)
         self.search = search.SearchResource(self)
-        self.connection = connection.ConnectionResource(self)
+        self.settings = settings.SettingsResource(self)
+        self.connections = connections.ConnectionsResource(self)
         self.with_raw_response = SupermemoryWithRawResponse(self)
         self.with_streaming_response = SupermemoryWithStreamedResponse(self)
 
@@ -120,7 +120,7 @@ class Supermemory(SyncAPIClient):
     @override
     def auth_headers(self) -> dict[str, str]:
         api_key = self.api_key
-        return {"X-API-Key": api_key}
+        return {"Authorization": f"Bearer {api_key}"}
 
     @property
     @override
@@ -217,10 +217,10 @@ class Supermemory(SyncAPIClient):
 
 
 class AsyncSupermemory(AsyncAPIClient):
-    settings: settings.AsyncSettingsResource
-    memory: memory.AsyncMemoryResource
+    memories: memories.AsyncMemoriesResource
     search: search.AsyncSearchResource
-    connection: connection.AsyncConnectionResource
+    settings: settings.AsyncSettingsResource
+    connections: connections.AsyncConnectionsResource
     with_raw_response: AsyncSupermemoryWithRawResponse
     with_streaming_response: AsyncSupermemoryWithStreamedResponse
 
@@ -265,7 +265,7 @@ class AsyncSupermemory(AsyncAPIClient):
         if base_url is None:
             base_url = os.environ.get("SUPERMEMORY_BASE_URL")
         if base_url is None:
-            base_url = f"https://v2.api.supermemory.ai"
+            base_url = f"https://api.supermemory.ai/"
 
         super().__init__(
             version=__version__,
@@ -278,10 +278,10 @@ class AsyncSupermemory(AsyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.settings = settings.AsyncSettingsResource(self)
-        self.memory = memory.AsyncMemoryResource(self)
+        self.memories = memories.AsyncMemoriesResource(self)
         self.search = search.AsyncSearchResource(self)
-        self.connection = connection.AsyncConnectionResource(self)
+        self.settings = settings.AsyncSettingsResource(self)
+        self.connections = connections.AsyncConnectionsResource(self)
         self.with_raw_response = AsyncSupermemoryWithRawResponse(self)
         self.with_streaming_response = AsyncSupermemoryWithStreamedResponse(self)
 
@@ -294,7 +294,7 @@ class AsyncSupermemory(AsyncAPIClient):
     @override
     def auth_headers(self) -> dict[str, str]:
         api_key = self.api_key
-        return {"X-API-Key": api_key}
+        return {"Authorization": f"Bearer {api_key}"}
 
     @property
     @override
@@ -392,34 +392,34 @@ class AsyncSupermemory(AsyncAPIClient):
 
 class SupermemoryWithRawResponse:
     def __init__(self, client: Supermemory) -> None:
-        self.settings = settings.SettingsResourceWithRawResponse(client.settings)
-        self.memory = memory.MemoryResourceWithRawResponse(client.memory)
+        self.memories = memories.MemoriesResourceWithRawResponse(client.memories)
         self.search = search.SearchResourceWithRawResponse(client.search)
-        self.connection = connection.ConnectionResourceWithRawResponse(client.connection)
+        self.settings = settings.SettingsResourceWithRawResponse(client.settings)
+        self.connections = connections.ConnectionsResourceWithRawResponse(client.connections)
 
 
 class AsyncSupermemoryWithRawResponse:
     def __init__(self, client: AsyncSupermemory) -> None:
-        self.settings = settings.AsyncSettingsResourceWithRawResponse(client.settings)
-        self.memory = memory.AsyncMemoryResourceWithRawResponse(client.memory)
+        self.memories = memories.AsyncMemoriesResourceWithRawResponse(client.memories)
         self.search = search.AsyncSearchResourceWithRawResponse(client.search)
-        self.connection = connection.AsyncConnectionResourceWithRawResponse(client.connection)
+        self.settings = settings.AsyncSettingsResourceWithRawResponse(client.settings)
+        self.connections = connections.AsyncConnectionsResourceWithRawResponse(client.connections)
 
 
 class SupermemoryWithStreamedResponse:
     def __init__(self, client: Supermemory) -> None:
-        self.settings = settings.SettingsResourceWithStreamingResponse(client.settings)
-        self.memory = memory.MemoryResourceWithStreamingResponse(client.memory)
+        self.memories = memories.MemoriesResourceWithStreamingResponse(client.memories)
         self.search = search.SearchResourceWithStreamingResponse(client.search)
-        self.connection = connection.ConnectionResourceWithStreamingResponse(client.connection)
+        self.settings = settings.SettingsResourceWithStreamingResponse(client.settings)
+        self.connections = connections.ConnectionsResourceWithStreamingResponse(client.connections)
 
 
 class AsyncSupermemoryWithStreamedResponse:
     def __init__(self, client: AsyncSupermemory) -> None:
-        self.settings = settings.AsyncSettingsResourceWithStreamingResponse(client.settings)
-        self.memory = memory.AsyncMemoryResourceWithStreamingResponse(client.memory)
+        self.memories = memories.AsyncMemoriesResourceWithStreamingResponse(client.memories)
         self.search = search.AsyncSearchResourceWithStreamingResponse(client.search)
-        self.connection = connection.AsyncConnectionResourceWithStreamingResponse(client.connection)
+        self.settings = settings.AsyncSettingsResourceWithStreamingResponse(client.settings)
+        self.connections = connections.AsyncConnectionsResourceWithStreamingResponse(client.connections)
 
 
 Client = Supermemory

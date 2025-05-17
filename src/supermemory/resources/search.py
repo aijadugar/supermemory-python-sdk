@@ -56,6 +56,8 @@ class SearchResource(SyncAPIResource):
         include_summary: bool | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         only_matching_chunks: bool | NotGiven = NOT_GIVEN,
+        rerank: bool | NotGiven = NOT_GIVEN,
+        rewrite_query: bool | NotGiven = NOT_GIVEN,
         user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -65,29 +67,43 @@ class SearchResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> SearchExecuteResponse:
         """
-        Search through documents with metadata filtering
+        Search memories with filtering
 
         Args:
           q: Search query string
 
           categories_filter: Optional category filters
 
-          chunk_threshold: Maximum number of chunks to return
+          chunk_threshold: Threshold / sensitivity for chunk selection. 0 is least sensitive (returns most
+              chunks, more results), 1 is most sensitive (returns lesser chunks, accurate
+              results)
 
-          doc_id: Optional document ID to search within
+          doc_id: Optional document ID to search within. You can use this to find chunks in a very
+              large document.
 
-          document_threshold: Maximum number of documents to return
+          document_threshold: Threshold / sensitivity for document selection. 0 is least sensitive (returns
+              most documents, more results), 1 is most sensitive (returns lesser documents,
+              accurate results)
 
           filters: Optional filters to apply to the search
 
           include_summary: If true, include document summary in the response. This is helpful if you want a
-              chatbot to know the context of the document.
+              chatbot to know the full context of the document.
 
           limit: Maximum number of results to return
 
-          only_matching_chunks: If true, only return matching chunks without context
+          only_matching_chunks: If true, only return matching chunks without context. Normally, we send the
+              previous and next chunk to provide more context for LLMs. If you only want the
+              matching chunk, set this to true.
 
-          user_id: End user ID this search is associated with
+          rerank: If true, rerank the results based on the query. This is helpful if you want to
+              ensure the most relevant results are returned.
+
+          rewrite_query: If true, rewrites the query to make it easier to find documents. This increases
+              the latency by about 400ms
+
+          user_id: End user ID this search is associated with. NOTE: This also acts as a filter for
+              the search.
 
           extra_headers: Send extra headers
 
@@ -97,25 +113,30 @@ class SearchResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._post(
-            "/search",
-            body=maybe_transform(
-                {
-                    "q": q,
-                    "categories_filter": categories_filter,
-                    "chunk_threshold": chunk_threshold,
-                    "doc_id": doc_id,
-                    "document_threshold": document_threshold,
-                    "filters": filters,
-                    "include_summary": include_summary,
-                    "limit": limit,
-                    "only_matching_chunks": only_matching_chunks,
-                    "user_id": user_id,
-                },
-                search_execute_params.SearchExecuteParams,
-            ),
+        return self._get(
+            "/v3/search",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "q": q,
+                        "categories_filter": categories_filter,
+                        "chunk_threshold": chunk_threshold,
+                        "doc_id": doc_id,
+                        "document_threshold": document_threshold,
+                        "filters": filters,
+                        "include_summary": include_summary,
+                        "limit": limit,
+                        "only_matching_chunks": only_matching_chunks,
+                        "rerank": rerank,
+                        "rewrite_query": rewrite_query,
+                        "user_id": user_id,
+                    },
+                    search_execute_params.SearchExecuteParams,
+                ),
             ),
             cast_to=SearchExecuteResponse,
         )
@@ -153,6 +174,8 @@ class AsyncSearchResource(AsyncAPIResource):
         include_summary: bool | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         only_matching_chunks: bool | NotGiven = NOT_GIVEN,
+        rerank: bool | NotGiven = NOT_GIVEN,
+        rewrite_query: bool | NotGiven = NOT_GIVEN,
         user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -162,29 +185,43 @@ class AsyncSearchResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> SearchExecuteResponse:
         """
-        Search through documents with metadata filtering
+        Search memories with filtering
 
         Args:
           q: Search query string
 
           categories_filter: Optional category filters
 
-          chunk_threshold: Maximum number of chunks to return
+          chunk_threshold: Threshold / sensitivity for chunk selection. 0 is least sensitive (returns most
+              chunks, more results), 1 is most sensitive (returns lesser chunks, accurate
+              results)
 
-          doc_id: Optional document ID to search within
+          doc_id: Optional document ID to search within. You can use this to find chunks in a very
+              large document.
 
-          document_threshold: Maximum number of documents to return
+          document_threshold: Threshold / sensitivity for document selection. 0 is least sensitive (returns
+              most documents, more results), 1 is most sensitive (returns lesser documents,
+              accurate results)
 
           filters: Optional filters to apply to the search
 
           include_summary: If true, include document summary in the response. This is helpful if you want a
-              chatbot to know the context of the document.
+              chatbot to know the full context of the document.
 
           limit: Maximum number of results to return
 
-          only_matching_chunks: If true, only return matching chunks without context
+          only_matching_chunks: If true, only return matching chunks without context. Normally, we send the
+              previous and next chunk to provide more context for LLMs. If you only want the
+              matching chunk, set this to true.
 
-          user_id: End user ID this search is associated with
+          rerank: If true, rerank the results based on the query. This is helpful if you want to
+              ensure the most relevant results are returned.
+
+          rewrite_query: If true, rewrites the query to make it easier to find documents. This increases
+              the latency by about 400ms
+
+          user_id: End user ID this search is associated with. NOTE: This also acts as a filter for
+              the search.
 
           extra_headers: Send extra headers
 
@@ -194,25 +231,30 @@ class AsyncSearchResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return await self._post(
-            "/search",
-            body=await async_maybe_transform(
-                {
-                    "q": q,
-                    "categories_filter": categories_filter,
-                    "chunk_threshold": chunk_threshold,
-                    "doc_id": doc_id,
-                    "document_threshold": document_threshold,
-                    "filters": filters,
-                    "include_summary": include_summary,
-                    "limit": limit,
-                    "only_matching_chunks": only_matching_chunks,
-                    "user_id": user_id,
-                },
-                search_execute_params.SearchExecuteParams,
-            ),
+        return await self._get(
+            "/v3/search",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "q": q,
+                        "categories_filter": categories_filter,
+                        "chunk_threshold": chunk_threshold,
+                        "doc_id": doc_id,
+                        "document_threshold": document_threshold,
+                        "filters": filters,
+                        "include_summary": include_summary,
+                        "limit": limit,
+                        "only_matching_chunks": only_matching_chunks,
+                        "rerank": rerank,
+                        "rewrite_query": rewrite_query,
+                        "user_id": user_id,
+                    },
+                    search_execute_params.SearchExecuteParams,
+                ),
             ),
             cast_to=SearchExecuteResponse,
         )
