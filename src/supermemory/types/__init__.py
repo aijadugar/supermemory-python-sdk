@@ -19,4 +19,6 @@ from .search_execute_response import SearchExecuteResponse as SearchExecuteRespo
 from .setting_update_response import SettingUpdateResponse as SettingUpdateResponse
 from .connection_create_params import ConnectionCreateParams as ConnectionCreateParams
 from .connection_list_response import ConnectionListResponse as ConnectionListResponse
+from .memory_upload_file_params import MemoryUploadFileParams as MemoryUploadFileParams
 from .connection_create_response import ConnectionCreateResponse as ConnectionCreateResponse
+from .memory_upload_file_response import MemoryUploadFileResponse as MemoryUploadFileResponse

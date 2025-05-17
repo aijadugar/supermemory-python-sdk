@@ -15,6 +15,7 @@ from supermemory.types import (
     MemoryListResponse,
     MemoryDeleteResponse,
     MemoryUpdateResponse,
+    MemoryUploadFileResponse,
 )
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -262,6 +263,40 @@ class TestMemories:
                 "",
             )
 
+    @pytest.mark.skip()
+    @parametrize
+    def test_method_upload_file(self, client: Supermemory) -> None:
+        memory = client.memories.upload_file(
+            file=b"raw file contents",
+        )
+        assert_matches_type(MemoryUploadFileResponse, memory, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    def test_raw_response_upload_file(self, client: Supermemory) -> None:
+        response = client.memories.with_raw_response.upload_file(
+            file=b"raw file contents",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        memory = response.parse()
+        assert_matches_type(MemoryUploadFileResponse, memory, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    def test_streaming_response_upload_file(self, client: Supermemory) -> None:
+        with client.memories.with_streaming_response.upload_file(
+            file=b"raw file contents",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            memory = response.parse()
+            assert_matches_type(MemoryUploadFileResponse, memory, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
 
 class TestAsyncMemories:
     parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
@@ -504,3 +539,37 @@ class TestAsyncMemories:
             await async_client.memories.with_raw_response.get(
                 "",
             )
+
+    @pytest.mark.skip()
+    @parametrize
+    async def test_method_upload_file(self, async_client: AsyncSupermemory) -> None:
+        memory = await async_client.memories.upload_file(
+            file=b"raw file contents",
+        )
+        assert_matches_type(MemoryUploadFileResponse, memory, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    async def test_raw_response_upload_file(self, async_client: AsyncSupermemory) -> None:
+        response = await async_client.memories.with_raw_response.upload_file(
+            file=b"raw file contents",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        memory = await response.parse()
+        assert_matches_type(MemoryUploadFileResponse, memory, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    async def test_streaming_response_upload_file(self, async_client: AsyncSupermemory) -> None:
+        async with async_client.memories.with_streaming_response.upload_file(
+            file=b"raw file contents",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            memory = await response.parse()
+            assert_matches_type(MemoryUploadFileResponse, memory, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
