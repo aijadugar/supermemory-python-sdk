@@ -1,5 +1,42 @@
 # Changelog
 
+## 3.0.0-alpha.1 (2025-05-17)
+
+Full Changelog: [v0.1.0-alpha.1...v3.0.0-alpha.1](https://github.com/supermemoryai/python-sdk/compare/v0.1.0-alpha.1...v3.0.0-alpha.1)
+
+### Features
+
+* **api:** api update ([aaf3546](https://github.com/supermemoryai/python-sdk/commit/aaf354623319d2e3f99031669a615d3af48c9dab))
+* **api:** api update ([c0150ac](https://github.com/supermemoryai/python-sdk/commit/c0150acac7ccae7e89707909d9250028fc4d5251))
+* **api:** api update ([063cf45](https://github.com/supermemoryai/python-sdk/commit/063cf45fced039b32de6f00fc4862a873d50451a))
+* **api:** api update ([7a81e80](https://github.com/supermemoryai/python-sdk/commit/7a81e8027fd0c76041672c71345e18724e71c10f))
+* **api:** api update ([722df63](https://github.com/supermemoryai/python-sdk/commit/722df6387d8fc3b38ee892d4382b19339a4b8165))
+* **api:** api update ([4052bae](https://github.com/supermemoryai/python-sdk/commit/4052baeca12183552a9bda674e97310e77b93623))
+* **api:** api update ([ed787b1](https://github.com/supermemoryai/python-sdk/commit/ed787b1abd49ebbc4e219f90bf71511306aafb2b))
+* **api:** api update ([7c0db70](https://github.com/supermemoryai/python-sdk/commit/7c0db70ec61ccd64197c333592457b925782f1ce))
+* **api:** api update ([844d56e](https://github.com/supermemoryai/python-sdk/commit/844d56ecd40cffb441c47050e5e820051d65af7e))
+* **api:** api update ([fda6f9f](https://github.com/supermemoryai/python-sdk/commit/fda6f9f111dac7db4bba42779e967356b8615e3c))
+* **api:** api update ([2403f1d](https://github.com/supermemoryai/python-sdk/commit/2403f1da4d83266ddf49ada0103c8f5d432bf966))
+* **api:** manual updates ([3fd7de2](https://github.com/supermemoryai/python-sdk/commit/3fd7de29691be3303c91fd89189371a0ef7845dc))
+* **api:** manual updates ([3e6314d](https://github.com/supermemoryai/python-sdk/commit/3e6314dba381eb65fe644941f2cca25dfcd93d3d))
+* **api:** manual updates ([4a6b77a](https://github.com/supermemoryai/python-sdk/commit/4a6b77aa6cd55d7135e33cbfb1138d9b2d00d40a))
+* **api:** manual updates ([5b0c810](https://github.com/supermemoryai/python-sdk/commit/5b0c81086db77a2ea5922d117f4e393475d2bd03))
+* **api:** manual updates ([af34c01](https://github.com/supermemoryai/python-sdk/commit/af34c01553feba151893eea0f6a905078146424f))
+* **api:** manual updates ([637811c](https://github.com/supermemoryai/python-sdk/commit/637811c4a31cfc9d258ca8562fee1cd38fb51320))
+
+
+### Bug Fixes
+
+* **package:** support direct resource imports ([aa29842](https://github.com/supermemoryai/python-sdk/commit/aa2984202e3ff68031618847bc5a438e5a42933f))
+
+
+### Chores
+
+* **ci:** fix installation instructions ([060e326](https://github.com/supermemoryai/python-sdk/commit/060e32620febdd50931ae4d6e692a527b36b99fe))
+* **ci:** upload sdks to package manager ([a327d7d](https://github.com/supermemoryai/python-sdk/commit/a327d7ddd1836e1a15b30eb5fb33388fe2580229))
+* **internal:** avoid errors for isinstance checks on proxies ([be6c667](https://github.com/supermemoryai/python-sdk/commit/be6c667dbff65c00fc7f3bd22e541b477c19ca08))
+* **internal:** codegen related update ([c0d13e2](https://github.com/supermemoryai/python-sdk/commit/c0d13e254d08d459edc35def2c38774ce11fcd0d))
+
 ## 0.1.0-alpha.1 (2025-04-29)
 
 Full Changelog: [v0.0.1-alpha.0...v0.1.0-alpha.1](https://github.com/supermemoryai/python-sdk/compare/v0.0.1-alpha.0...v0.1.0-alpha.1)
