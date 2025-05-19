@@ -8,7 +8,7 @@ from typing_extensions import Literal
 import httpx
 
 from ..types import memory_add_params, memory_list_params, memory_update_params, memory_upload_file_params
-from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven, FileTypes
+from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven, FileTypes
 from .._utils import extract_files, maybe_transform, deepcopy_minimal, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -22,7 +22,6 @@ from .._base_client import make_request_options
 from ..types.memory_add_response import MemoryAddResponse
 from ..types.memory_get_response import MemoryGetResponse
 from ..types.memory_list_response import MemoryListResponse
-from ..types.memory_delete_response import MemoryDeleteResponse
 from ..types.memory_update_response import MemoryUpdateResponse
 from ..types.memory_upload_file_response import MemoryUploadFileResponse
 
@@ -51,10 +50,12 @@ class MemoriesResource(SyncAPIResource):
 
     def update(
         self,
-        id: str,
+        path_id: str,
         *,
+        body_id: str,
         content: str,
         container_tags: List[str] | NotGiven = NOT_GIVEN,
+        custom_id: str | NotGiven = NOT_GIVEN,
         metadata: Dict[str, Union[str, float, bool]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -67,6 +68,29 @@ class MemoriesResource(SyncAPIResource):
         Update a memory with any content type (text, url, file, etc.) and metadata
 
         Args:
+          body_id: Unique identifier of the memory.
+
+          content: The content to extract and process into a memory. This can be a URL to a
+              website, a PDF, an image, or a video.
+
+              Plaintext: Any plaintext format
+
+              URL: A URL to a website, PDF, image, or video
+
+              We automatically detect the content type from the url's response format.
+
+          container_tags: Optional tags this memory should be containerized by. This can be an ID for your
+              user, a project ID, or any other identifier you wish to use to group memories.
+
+          custom_id: Optional custom ID of the memory. This could be an ID from your database that
+              will uniquely identify this memory.
+
+          metadata: Optional metadata for the memory. This is used to store additional information
+              about the memory. You can use this to store any additional information you need
+              about the memory. Metadata can be filtered through. Keys must be strings and are
+              case sensitive. Values can be strings, numbers, or booleans. You cannot nest
+              objects.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -75,14 +99,16 @@ class MemoriesResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not path_id:
+            raise ValueError(f"Expected a non-empty value for `path_id` but received {path_id!r}")
         return self._patch(
-            f"/v3/memories/{id}",
+            f"/v3/memories/{path_id}",
             body=maybe_transform(
                 {
+                    "body_id": body_id,
                     "content": content,
                     "container_tags": container_tags,
+                    "custom_id": custom_id,
                     "metadata": metadata,
                 },
                 memory_update_params.MemoryUpdateParams,
@@ -161,7 +187,7 @@ class MemoriesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> MemoryDeleteResponse:
+    ) -> None:
         """
         Delete a memory
 
@@ -176,12 +202,13 @@ class MemoriesResource(SyncAPIResource):
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._delete(
             f"/v3/memories/{id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=MemoryDeleteResponse,
+            cast_to=NoneType,
         )
 
     def add(
@@ -189,6 +216,7 @@ class MemoriesResource(SyncAPIResource):
         *,
         content: str,
         container_tags: List[str] | NotGiven = NOT_GIVEN,
+        custom_id: str | NotGiven = NOT_GIVEN,
         metadata: Dict[str, Union[str, float, bool]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -201,6 +229,27 @@ class MemoriesResource(SyncAPIResource):
         Add a memory with any content type (text, url, file, etc.) and metadata
 
         Args:
+          content: The content to extract and process into a memory. This can be a URL to a
+              website, a PDF, an image, or a video.
+
+              Plaintext: Any plaintext format
+
+              URL: A URL to a website, PDF, image, or video
+
+              We automatically detect the content type from the url's response format.
+
+          container_tags: Optional tags this memory should be containerized by. This can be an ID for your
+              user, a project ID, or any other identifier you wish to use to group memories.
+
+          custom_id: Optional custom ID of the memory. This could be an ID from your database that
+              will uniquely identify this memory.
+
+          metadata: Optional metadata for the memory. This is used to store additional information
+              about the memory. You can use this to store any additional information you need
+              about the memory. Metadata can be filtered through. Keys must be strings and are
+              case sensitive. Values can be strings, numbers, or booleans. You cannot nest
+              objects.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -215,6 +264,7 @@ class MemoriesResource(SyncAPIResource):
                 {
                     "content": content,
                     "container_tags": container_tags,
+                    "custom_id": custom_id,
                     "metadata": metadata,
                 },
                 memory_add_params.MemoryAddParams,
@@ -320,10 +370,12 @@ class AsyncMemoriesResource(AsyncAPIResource):
 
     async def update(
         self,
-        id: str,
+        path_id: str,
         *,
+        body_id: str,
         content: str,
         container_tags: List[str] | NotGiven = NOT_GIVEN,
+        custom_id: str | NotGiven = NOT_GIVEN,
         metadata: Dict[str, Union[str, float, bool]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -336,6 +388,29 @@ class AsyncMemoriesResource(AsyncAPIResource):
         Update a memory with any content type (text, url, file, etc.) and metadata
 
         Args:
+          body_id: Unique identifier of the memory.
+
+          content: The content to extract and process into a memory. This can be a URL to a
+              website, a PDF, an image, or a video.
+
+              Plaintext: Any plaintext format
+
+              URL: A URL to a website, PDF, image, or video
+
+              We automatically detect the content type from the url's response format.
+
+          container_tags: Optional tags this memory should be containerized by. This can be an ID for your
+              user, a project ID, or any other identifier you wish to use to group memories.
+
+          custom_id: Optional custom ID of the memory. This could be an ID from your database that
+              will uniquely identify this memory.
+
+          metadata: Optional metadata for the memory. This is used to store additional information
+              about the memory. You can use this to store any additional information you need
+              about the memory. Metadata can be filtered through. Keys must be strings and are
+              case sensitive. Values can be strings, numbers, or booleans. You cannot nest
+              objects.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -344,14 +419,16 @@ class AsyncMemoriesResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not path_id:
+            raise ValueError(f"Expected a non-empty value for `path_id` but received {path_id!r}")
         return await self._patch(
-            f"/v3/memories/{id}",
+            f"/v3/memories/{path_id}",
             body=await async_maybe_transform(
                 {
+                    "body_id": body_id,
                     "content": content,
                     "container_tags": container_tags,
+                    "custom_id": custom_id,
                     "metadata": metadata,
                 },
                 memory_update_params.MemoryUpdateParams,
@@ -430,7 +507,7 @@ class AsyncMemoriesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> MemoryDeleteResponse:
+    ) -> None:
         """
         Delete a memory
 
@@ -445,12 +522,13 @@ class AsyncMemoriesResource(AsyncAPIResource):
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._delete(
             f"/v3/memories/{id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=MemoryDeleteResponse,
+            cast_to=NoneType,
         )
 
     async def add(
@@ -458,6 +536,7 @@ class AsyncMemoriesResource(AsyncAPIResource):
         *,
         content: str,
         container_tags: List[str] | NotGiven = NOT_GIVEN,
+        custom_id: str | NotGiven = NOT_GIVEN,
         metadata: Dict[str, Union[str, float, bool]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -470,6 +549,27 @@ class AsyncMemoriesResource(AsyncAPIResource):
         Add a memory with any content type (text, url, file, etc.) and metadata
 
         Args:
+          content: The content to extract and process into a memory. This can be a URL to a
+              website, a PDF, an image, or a video.
+
+              Plaintext: Any plaintext format
+
+              URL: A URL to a website, PDF, image, or video
+
+              We automatically detect the content type from the url's response format.
+
+          container_tags: Optional tags this memory should be containerized by. This can be an ID for your
+              user, a project ID, or any other identifier you wish to use to group memories.
+
+          custom_id: Optional custom ID of the memory. This could be an ID from your database that
+              will uniquely identify this memory.
+
+          metadata: Optional metadata for the memory. This is used to store additional information
+              about the memory. You can use this to store any additional information you need
+              about the memory. Metadata can be filtered through. Keys must be strings and are
+              case sensitive. Values can be strings, numbers, or booleans. You cannot nest
+              objects.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -484,6 +584,7 @@ class AsyncMemoriesResource(AsyncAPIResource):
                 {
                     "content": content,
                     "container_tags": container_tags,
+                    "custom_id": custom_id,
                     "metadata": metadata,
                 },
                 memory_add_params.MemoryAddParams,

@@ -6,10 +6,10 @@ from pydantic import Field as FieldInfo
 
 from .._models import BaseModel
 
-__all__ = ["SettingUpdateResponse", "Settings"]
+__all__ = ["SettingUpdateResponse", "Updated"]
 
 
-class Settings(BaseModel):
+class Updated(BaseModel):
     exclude_items: Optional[List[str]] = FieldInfo(alias="excludeItems", default=None)
 
     filter_prompt: Optional[str] = FieldInfo(alias="filterPrompt", default=None)
@@ -22,6 +22,8 @@ class Settings(BaseModel):
 
 
 class SettingUpdateResponse(BaseModel):
-    message: str
+    org_id: str = FieldInfo(alias="orgId")
 
-    settings: Settings
+    org_slug: str = FieldInfo(alias="orgSlug")
+
+    updated: Updated

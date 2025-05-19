@@ -13,7 +13,6 @@ from supermemory.types import (
     MemoryAddResponse,
     MemoryGetResponse,
     MemoryListResponse,
-    MemoryDeleteResponse,
     MemoryUpdateResponse,
     MemoryUploadFileResponse,
 )
@@ -28,7 +27,8 @@ class TestMemories:
     @parametrize
     def test_method_update(self, client: Supermemory) -> None:
         memory = client.memories.update(
-            id="id",
+            path_id="id",
+            body_id="acxV5LHMEsG2hMSNb4umbn",
             content="This is a detailed article about machine learning concepts...",
         )
         assert_matches_type(MemoryUpdateResponse, memory, path=["response"])
@@ -37,9 +37,11 @@ class TestMemories:
     @parametrize
     def test_method_update_with_all_params(self, client: Supermemory) -> None:
         memory = client.memories.update(
-            id="id",
+            path_id="id",
+            body_id="acxV5LHMEsG2hMSNb4umbn",
             content="This is a detailed article about machine learning concepts...",
-            container_tags=["string"],
+            container_tags=["user_123", "project_123"],
+            custom_id="mem_abc123",
             metadata={
                 "source": "web",
                 "category": "technology",
@@ -55,7 +57,8 @@ class TestMemories:
     @parametrize
     def test_raw_response_update(self, client: Supermemory) -> None:
         response = client.memories.with_raw_response.update(
-            id="id",
+            path_id="id",
+            body_id="acxV5LHMEsG2hMSNb4umbn",
             content="This is a detailed article about machine learning concepts...",
         )
 
@@ -68,7 +71,8 @@ class TestMemories:
     @parametrize
     def test_streaming_response_update(self, client: Supermemory) -> None:
         with client.memories.with_streaming_response.update(
-            id="id",
+            path_id="id",
+            body_id="acxV5LHMEsG2hMSNb4umbn",
             content="This is a detailed article about machine learning concepts...",
         ) as response:
             assert not response.is_closed
@@ -82,9 +86,10 @@ class TestMemories:
     @pytest.mark.skip()
     @parametrize
     def test_path_params_update(self, client: Supermemory) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `path_id` but received ''"):
             client.memories.with_raw_response.update(
-                id="",
+                path_id="",
+                body_id="acxV5LHMEsG2hMSNb4umbn",
                 content="This is a detailed article about machine learning concepts...",
             )
 
@@ -134,7 +139,7 @@ class TestMemories:
         memory = client.memories.delete(
             "id",
         )
-        assert_matches_type(MemoryDeleteResponse, memory, path=["response"])
+        assert memory is None
 
     @pytest.mark.skip()
     @parametrize
@@ -146,7 +151,7 @@ class TestMemories:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         memory = response.parse()
-        assert_matches_type(MemoryDeleteResponse, memory, path=["response"])
+        assert memory is None
 
     @pytest.mark.skip()
     @parametrize
@@ -158,7 +163,7 @@ class TestMemories:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             memory = response.parse()
-            assert_matches_type(MemoryDeleteResponse, memory, path=["response"])
+            assert memory is None
 
         assert cast(Any, response.is_closed) is True
 
@@ -183,7 +188,8 @@ class TestMemories:
     def test_method_add_with_all_params(self, client: Supermemory) -> None:
         memory = client.memories.add(
             content="This is a detailed article about machine learning concepts...",
-            container_tags=["string"],
+            container_tags=["user_123", "project_123"],
+            custom_id="mem_abc123",
             metadata={
                 "source": "web",
                 "category": "technology",
@@ -305,7 +311,8 @@ class TestAsyncMemories:
     @parametrize
     async def test_method_update(self, async_client: AsyncSupermemory) -> None:
         memory = await async_client.memories.update(
-            id="id",
+            path_id="id",
+            body_id="acxV5LHMEsG2hMSNb4umbn",
             content="This is a detailed article about machine learning concepts...",
         )
         assert_matches_type(MemoryUpdateResponse, memory, path=["response"])
@@ -314,9 +321,11 @@ class TestAsyncMemories:
     @parametrize
     async def test_method_update_with_all_params(self, async_client: AsyncSupermemory) -> None:
         memory = await async_client.memories.update(
-            id="id",
+            path_id="id",
+            body_id="acxV5LHMEsG2hMSNb4umbn",
             content="This is a detailed article about machine learning concepts...",
-            container_tags=["string"],
+            container_tags=["user_123", "project_123"],
+            custom_id="mem_abc123",
             metadata={
                 "source": "web",
                 "category": "technology",
@@ -332,7 +341,8 @@ class TestAsyncMemories:
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncSupermemory) -> None:
         response = await async_client.memories.with_raw_response.update(
-            id="id",
+            path_id="id",
+            body_id="acxV5LHMEsG2hMSNb4umbn",
             content="This is a detailed article about machine learning concepts...",
         )
 
@@ -345,7 +355,8 @@ class TestAsyncMemories:
     @parametrize
     async def test_streaming_response_update(self, async_client: AsyncSupermemory) -> None:
         async with async_client.memories.with_streaming_response.update(
-            id="id",
+            path_id="id",
+            body_id="acxV5LHMEsG2hMSNb4umbn",
             content="This is a detailed article about machine learning concepts...",
         ) as response:
             assert not response.is_closed
@@ -359,9 +370,10 @@ class TestAsyncMemories:
     @pytest.mark.skip()
     @parametrize
     async def test_path_params_update(self, async_client: AsyncSupermemory) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `path_id` but received ''"):
             await async_client.memories.with_raw_response.update(
-                id="",
+                path_id="",
+                body_id="acxV5LHMEsG2hMSNb4umbn",
                 content="This is a detailed article about machine learning concepts...",
             )
 
@@ -411,7 +423,7 @@ class TestAsyncMemories:
         memory = await async_client.memories.delete(
             "id",
         )
-        assert_matches_type(MemoryDeleteResponse, memory, path=["response"])
+        assert memory is None
 
     @pytest.mark.skip()
     @parametrize
@@ -423,7 +435,7 @@ class TestAsyncMemories:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         memory = await response.parse()
-        assert_matches_type(MemoryDeleteResponse, memory, path=["response"])
+        assert memory is None
 
     @pytest.mark.skip()
     @parametrize
@@ -435,7 +447,7 @@ class TestAsyncMemories:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             memory = await response.parse()
-            assert_matches_type(MemoryDeleteResponse, memory, path=["response"])
+            assert memory is None
 
         assert cast(Any, response.is_closed) is True
 
@@ -460,7 +472,8 @@ class TestAsyncMemories:
     async def test_method_add_with_all_params(self, async_client: AsyncSupermemory) -> None:
         memory = await async_client.memories.add(
             content="This is a detailed article about machine learning concepts...",
-            container_tags=["string"],
+            container_tags=["user_123", "project_123"],
+            custom_id="mem_abc123",
             metadata={
                 "source": "web",
                 "category": "technology",

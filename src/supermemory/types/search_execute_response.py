@@ -37,11 +37,14 @@ class Result(BaseModel):
     score: float
     """Relevance score of the match"""
 
-    title: str
+    title: Optional[str] = None
     """Document title"""
 
     updated_at: datetime = FieldInfo(alias="updatedAt")
     """Document last update date"""
+
+    summary: Optional[str] = None
+    """Document summary"""
 
 
 class SearchExecuteResponse(BaseModel):
