@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union, Optional
+from typing import Dict, List, Union, Optional
 from typing_extensions import Literal
 
 import httpx
@@ -50,9 +50,9 @@ class ConnectionsResource(SyncAPIResource):
         self,
         provider: Literal["notion", "google-drive", "onedrive"],
         *,
-        end_user_id: str | NotGiven = NOT_GIVEN,
-        redirect_url: str | NotGiven = NOT_GIVEN,
+        container_tags: List[str] | NotGiven = NOT_GIVEN,
         metadata: Optional[Dict[str, Union[str, float, bool]]] | NotGiven = NOT_GIVEN,
+        redirect_url: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -76,19 +76,16 @@ class ConnectionsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `provider` but received {provider!r}")
         return self._post(
             f"/v3/connections/{provider}",
-            body=maybe_transform({"metadata": metadata}, connection_create_params.ConnectionCreateParams),
+            body=maybe_transform(
+                {
+                    "container_tags": container_tags,
+                    "metadata": metadata,
+                    "redirect_url": redirect_url,
+                },
+                connection_create_params.ConnectionCreateParams,
+            ),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "end_user_id": end_user_id,
-                        "redirect_url": redirect_url,
-                    },
-                    connection_create_params.ConnectionCreateParams,
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=ConnectionCreateResponse,
         )
@@ -186,9 +183,9 @@ class AsyncConnectionsResource(AsyncAPIResource):
         self,
         provider: Literal["notion", "google-drive", "onedrive"],
         *,
-        end_user_id: str | NotGiven = NOT_GIVEN,
-        redirect_url: str | NotGiven = NOT_GIVEN,
+        container_tags: List[str] | NotGiven = NOT_GIVEN,
         metadata: Optional[Dict[str, Union[str, float, bool]]] | NotGiven = NOT_GIVEN,
+        redirect_url: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -212,19 +209,16 @@ class AsyncConnectionsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `provider` but received {provider!r}")
         return await self._post(
             f"/v3/connections/{provider}",
-            body=await async_maybe_transform({"metadata": metadata}, connection_create_params.ConnectionCreateParams),
+            body=await async_maybe_transform(
+                {
+                    "container_tags": container_tags,
+                    "metadata": metadata,
+                    "redirect_url": redirect_url,
+                },
+                connection_create_params.ConnectionCreateParams,
+            ),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {
-                        "end_user_id": end_user_id,
-                        "redirect_url": redirect_url,
-                    },
-                    connection_create_params.ConnectionCreateParams,
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=ConnectionCreateResponse,
         )

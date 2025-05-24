@@ -34,9 +34,9 @@ class TestConnections:
     def test_method_create_with_all_params(self, client: Supermemory) -> None:
         connection = client.connections.create(
             provider="notion",
-            end_user_id="endUserId",
-            redirect_url="redirectUrl",
+            container_tags=["string"],
             metadata={"foo": "string"},
+            redirect_url="redirectUrl",
         )
         assert_matches_type(ConnectionCreateResponse, connection, path=["response"])
 
@@ -161,9 +161,9 @@ class TestAsyncConnections:
     async def test_method_create_with_all_params(self, async_client: AsyncSupermemory) -> None:
         connection = await async_client.connections.create(
             provider="notion",
-            end_user_id="endUserId",
-            redirect_url="redirectUrl",
+            container_tags=["string"],
             metadata={"foo": "string"},
+            redirect_url="redirectUrl",
         )
         assert_matches_type(ConnectionCreateResponse, connection, path=["response"])
 
