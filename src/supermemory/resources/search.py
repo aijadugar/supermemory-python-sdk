@@ -45,14 +45,7 @@ class SearchResource(SyncAPIResource):
         self,
         *,
         q: str,
-        chunk_threshold: float | NotGiven = NOT_GIVEN,
         doc_id: str | NotGiven = NOT_GIVEN,
-        document_threshold: float | NotGiven = NOT_GIVEN,
-        include_summary: bool | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
-        only_matching_chunks: bool | NotGiven = NOT_GIVEN,
-        rerank: bool | NotGiven = NOT_GIVEN,
-        rewrite_query: bool | NotGiven = NOT_GIVEN,
         user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -62,36 +55,13 @@ class SearchResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> SearchExecuteResponse:
         """
-        Search memories with basic filtering (simple query parameters only)
+        Search memories with basic filtering (Deprecated)
 
         Args:
           q: Search query string
 
-          chunk_threshold: Threshold / sensitivity for chunk selection. 0 is least sensitive (returns most
-              chunks, more results), 1 is most sensitive (returns lesser chunks, accurate
-              results)
-
           doc_id: Optional document ID to search within. You can use this to find chunks in a very
               large document.
-
-          document_threshold: Threshold / sensitivity for document selection. 0 is least sensitive (returns
-              most documents, more results), 1 is most sensitive (returns lesser documents,
-              accurate results)
-
-          include_summary: If true, include document summary in the response. This is helpful if you want a
-              chatbot to know the full context of the document.
-
-          limit: Maximum number of results to return
-
-          only_matching_chunks: If true, only return matching chunks without context. Normally, we send the
-              previous and next chunk to provide more context for LLMs. If you only want the
-              matching chunk, set this to true.
-
-          rerank: If true, rerank the results based on the query. This is helpful if you want to
-              ensure the most relevant results are returned.
-
-          rewrite_query: If true, rewrites the query to make it easier to find documents. This increases
-              the latency by about 400ms
 
           user_id: End user ID this search is associated with. NOTE: This also acts as a filter for
               the search.
@@ -114,14 +84,7 @@ class SearchResource(SyncAPIResource):
                 query=maybe_transform(
                     {
                         "q": q,
-                        "chunk_threshold": chunk_threshold,
                         "doc_id": doc_id,
-                        "document_threshold": document_threshold,
-                        "include_summary": include_summary,
-                        "limit": limit,
-                        "only_matching_chunks": only_matching_chunks,
-                        "rerank": rerank,
-                        "rewrite_query": rewrite_query,
                         "user_id": user_id,
                     },
                     search_execute_params.SearchExecuteParams,
@@ -155,14 +118,7 @@ class AsyncSearchResource(AsyncAPIResource):
         self,
         *,
         q: str,
-        chunk_threshold: float | NotGiven = NOT_GIVEN,
         doc_id: str | NotGiven = NOT_GIVEN,
-        document_threshold: float | NotGiven = NOT_GIVEN,
-        include_summary: bool | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
-        only_matching_chunks: bool | NotGiven = NOT_GIVEN,
-        rerank: bool | NotGiven = NOT_GIVEN,
-        rewrite_query: bool | NotGiven = NOT_GIVEN,
         user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -172,36 +128,13 @@ class AsyncSearchResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> SearchExecuteResponse:
         """
-        Search memories with basic filtering (simple query parameters only)
+        Search memories with basic filtering (Deprecated)
 
         Args:
           q: Search query string
 
-          chunk_threshold: Threshold / sensitivity for chunk selection. 0 is least sensitive (returns most
-              chunks, more results), 1 is most sensitive (returns lesser chunks, accurate
-              results)
-
           doc_id: Optional document ID to search within. You can use this to find chunks in a very
               large document.
-
-          document_threshold: Threshold / sensitivity for document selection. 0 is least sensitive (returns
-              most documents, more results), 1 is most sensitive (returns lesser documents,
-              accurate results)
-
-          include_summary: If true, include document summary in the response. This is helpful if you want a
-              chatbot to know the full context of the document.
-
-          limit: Maximum number of results to return
-
-          only_matching_chunks: If true, only return matching chunks without context. Normally, we send the
-              previous and next chunk to provide more context for LLMs. If you only want the
-              matching chunk, set this to true.
-
-          rerank: If true, rerank the results based on the query. This is helpful if you want to
-              ensure the most relevant results are returned.
-
-          rewrite_query: If true, rewrites the query to make it easier to find documents. This increases
-              the latency by about 400ms
 
           user_id: End user ID this search is associated with. NOTE: This also acts as a filter for
               the search.
@@ -224,14 +157,7 @@ class AsyncSearchResource(AsyncAPIResource):
                 query=await async_maybe_transform(
                     {
                         "q": q,
-                        "chunk_threshold": chunk_threshold,
                         "doc_id": doc_id,
-                        "document_threshold": document_threshold,
-                        "include_summary": include_summary,
-                        "limit": limit,
-                        "only_matching_chunks": only_matching_chunks,
-                        "rerank": rerank,
-                        "rewrite_query": rewrite_query,
                         "user_id": user_id,
                     },
                     search_execute_params.SearchExecuteParams,

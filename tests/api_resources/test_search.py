@@ -30,14 +30,7 @@ class TestSearch:
     def test_method_execute_with_all_params(self, client: Supermemory) -> None:
         search = client.search.execute(
             q="machine learning concepts",
-            chunk_threshold=0.5,
             doc_id="doc_xyz789",
-            document_threshold=0.5,
-            include_summary=False,
-            limit=10,
-            only_matching_chunks=False,
-            rerank=False,
-            rewrite_query=False,
             user_id="user_123",
         )
         assert_matches_type(SearchExecuteResponse, search, path=["response"])
@@ -85,14 +78,7 @@ class TestAsyncSearch:
     async def test_method_execute_with_all_params(self, async_client: AsyncSupermemory) -> None:
         search = await async_client.search.execute(
             q="machine learning concepts",
-            chunk_threshold=0.5,
             doc_id="doc_xyz789",
-            document_threshold=0.5,
-            include_summary=False,
-            limit=10,
-            only_matching_chunks=False,
-            rerank=False,
-            rewrite_query=False,
             user_id="user_123",
         )
         assert_matches_type(SearchExecuteResponse, search, path=["response"])
