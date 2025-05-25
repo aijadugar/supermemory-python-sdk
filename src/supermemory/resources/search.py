@@ -2,9 +2,6 @@
 
 from __future__ import annotations
 
-from typing import List
-from typing_extensions import Literal
-
 import httpx
 
 from ..types import search_execute_params
@@ -48,11 +45,9 @@ class SearchResource(SyncAPIResource):
         self,
         *,
         q: str,
-        categories_filter: List[Literal["technology", "science", "business", "health"]] | NotGiven = NOT_GIVEN,
         chunk_threshold: float | NotGiven = NOT_GIVEN,
         doc_id: str | NotGiven = NOT_GIVEN,
         document_threshold: float | NotGiven = NOT_GIVEN,
-        filters: search_execute_params.Filters | NotGiven = NOT_GIVEN,
         include_summary: bool | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         only_matching_chunks: bool | NotGiven = NOT_GIVEN,
@@ -67,12 +62,10 @@ class SearchResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> SearchExecuteResponse:
         """
-        Search memories with filtering
+        Search memories with basic filtering (simple query parameters only)
 
         Args:
           q: Search query string
-
-          categories_filter: Optional category filters
 
           chunk_threshold: Threshold / sensitivity for chunk selection. 0 is least sensitive (returns most
               chunks, more results), 1 is most sensitive (returns lesser chunks, accurate
@@ -84,8 +77,6 @@ class SearchResource(SyncAPIResource):
           document_threshold: Threshold / sensitivity for document selection. 0 is least sensitive (returns
               most documents, more results), 1 is most sensitive (returns lesser documents,
               accurate results)
-
-          filters: Optional filters to apply to the search
 
           include_summary: If true, include document summary in the response. This is helpful if you want a
               chatbot to know the full context of the document.
@@ -123,11 +114,9 @@ class SearchResource(SyncAPIResource):
                 query=maybe_transform(
                     {
                         "q": q,
-                        "categories_filter": categories_filter,
                         "chunk_threshold": chunk_threshold,
                         "doc_id": doc_id,
                         "document_threshold": document_threshold,
-                        "filters": filters,
                         "include_summary": include_summary,
                         "limit": limit,
                         "only_matching_chunks": only_matching_chunks,
@@ -166,11 +155,9 @@ class AsyncSearchResource(AsyncAPIResource):
         self,
         *,
         q: str,
-        categories_filter: List[Literal["technology", "science", "business", "health"]] | NotGiven = NOT_GIVEN,
         chunk_threshold: float | NotGiven = NOT_GIVEN,
         doc_id: str | NotGiven = NOT_GIVEN,
         document_threshold: float | NotGiven = NOT_GIVEN,
-        filters: search_execute_params.Filters | NotGiven = NOT_GIVEN,
         include_summary: bool | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         only_matching_chunks: bool | NotGiven = NOT_GIVEN,
@@ -185,12 +172,10 @@ class AsyncSearchResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> SearchExecuteResponse:
         """
-        Search memories with filtering
+        Search memories with basic filtering (simple query parameters only)
 
         Args:
           q: Search query string
-
-          categories_filter: Optional category filters
 
           chunk_threshold: Threshold / sensitivity for chunk selection. 0 is least sensitive (returns most
               chunks, more results), 1 is most sensitive (returns lesser chunks, accurate
@@ -202,8 +187,6 @@ class AsyncSearchResource(AsyncAPIResource):
           document_threshold: Threshold / sensitivity for document selection. 0 is least sensitive (returns
               most documents, more results), 1 is most sensitive (returns lesser documents,
               accurate results)
-
-          filters: Optional filters to apply to the search
 
           include_summary: If true, include document summary in the response. This is helpful if you want a
               chatbot to know the full context of the document.
@@ -241,11 +224,9 @@ class AsyncSearchResource(AsyncAPIResource):
                 query=await async_maybe_transform(
                     {
                         "q": q,
-                        "categories_filter": categories_filter,
                         "chunk_threshold": chunk_threshold,
                         "doc_id": doc_id,
                         "document_threshold": document_threshold,
-                        "filters": filters,
                         "include_summary": include_summary,
                         "limit": limit,
                         "only_matching_chunks": only_matching_chunks,

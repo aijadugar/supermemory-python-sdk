@@ -30,12 +30,6 @@ class Memory(BaseModel):
     created_at: datetime = FieldInfo(alias="createdAt")
     """Creation timestamp"""
 
-    custom_id: Optional[str] = FieldInfo(alias="customId", default=None)
-    """Optional custom ID of the memory.
-
-    This could be an ID from your database that will uniquely identify this memory.
-    """
-
     metadata: Union[str, float, bool, Dict[str, object], List[object], None] = None
     """Optional metadata for the memory.
 
@@ -44,10 +38,6 @@ class Memory(BaseModel):
     filtered through. Keys must be strings and are case sensitive. Values can be
     strings, numbers, or booleans. You cannot nest objects.
     """
-
-    og_image: Optional[str] = FieldInfo(alias="ogImage", default=None)
-
-    source: Optional[str] = None
 
     status: Literal["unknown", "queued", "extracting", "chunking", "embedding", "indexing", "done", "failed"]
     """Status of the memory"""
@@ -58,24 +48,11 @@ class Memory(BaseModel):
     title: Optional[str] = None
     """Title of the memory"""
 
-    type: Literal["text", "pdf", "tweet", "google_doc", "image", "video", "notion_doc", "webpage"]
-    """Type of the memory"""
-
     updated_at: datetime = FieldInfo(alias="updatedAt")
     """Last update timestamp"""
 
     url: Optional[str] = None
     """URL of the memory"""
-
-    container_tags: Optional[List[str]] = FieldInfo(alias="containerTags", default=None)
-    """Optional tags this memory should be containerized by.
-
-    This can be an ID for your user, a project ID, or any other identifier you wish
-    to use to group memories.
-    """
-
-    raw: None = None
-    """Raw content of the memory"""
 
 
 class Pagination(BaseModel):

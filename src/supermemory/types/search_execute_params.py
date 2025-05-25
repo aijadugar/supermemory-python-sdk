@@ -2,22 +2,16 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Iterable
-from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
+from typing_extensions import Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
 
-__all__ = ["SearchExecuteParams", "Filters", "FiltersUnionMember0"]
+__all__ = ["SearchExecuteParams"]
 
 
 class SearchExecuteParams(TypedDict, total=False):
     q: Required[str]
     """Search query string"""
-
-    categories_filter: Annotated[
-        List[Literal["technology", "science", "business", "health"]], PropertyInfo(alias="categoriesFilter")
-    ]
-    """Optional category filters"""
 
     chunk_threshold: Annotated[float, PropertyInfo(alias="chunkThreshold")]
     """Threshold / sensitivity for chunk selection.
@@ -38,9 +32,6 @@ class SearchExecuteParams(TypedDict, total=False):
     0 is least sensitive (returns most documents, more results), 1 is most sensitive
     (returns lesser documents, accurate results)
     """
-
-    filters: Filters
-    """Optional filters to apply to the search"""
 
     include_summary: Annotated[bool, PropertyInfo(alias="includeSummary")]
     """If true, include document summary in the response.
@@ -75,12 +66,3 @@ class SearchExecuteParams(TypedDict, total=False):
 
     NOTE: This also acts as a filter for the search.
     """
-
-
-class FiltersUnionMember0(TypedDict, total=False):
-    and_: Annotated[Iterable[object], PropertyInfo(alias="AND")]
-
-    or_: Annotated[Iterable[object], PropertyInfo(alias="OR")]
-
-
-Filters: TypeAlias = Union[FiltersUnionMember0, Dict[str, object]]

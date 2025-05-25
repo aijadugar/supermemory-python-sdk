@@ -30,27 +30,9 @@ class TestSearch:
     def test_method_execute_with_all_params(self, client: Supermemory) -> None:
         search = client.search.execute(
             q="machine learning concepts",
-            categories_filter=["technology", "science"],
             chunk_threshold=0.5,
             doc_id="doc_xyz789",
             document_threshold=0.5,
-            filters={
-                "and_": [
-                    {
-                        "key": "group",
-                        "value": "jira_users",
-                        "negate": False,
-                    },
-                    {
-                        "filterType": "numeric",
-                        "key": "timestamp",
-                        "value": "1742745777",
-                        "negate": False,
-                        "numericOperator": ">",
-                    },
-                ],
-                "or_": [{}],
-            },
             include_summary=False,
             limit=10,
             only_matching_chunks=False,
@@ -103,27 +85,9 @@ class TestAsyncSearch:
     async def test_method_execute_with_all_params(self, async_client: AsyncSupermemory) -> None:
         search = await async_client.search.execute(
             q="machine learning concepts",
-            categories_filter=["technology", "science"],
             chunk_threshold=0.5,
             doc_id="doc_xyz789",
             document_threshold=0.5,
-            filters={
-                "and_": [
-                    {
-                        "key": "group",
-                        "value": "jira_users",
-                        "negate": False,
-                    },
-                    {
-                        "filterType": "numeric",
-                        "key": "timestamp",
-                        "value": "1742745777",
-                        "negate": False,
-                        "numericOperator": ">",
-                    },
-                ],
-                "or_": [{}],
-            },
             include_summary=False,
             limit=10,
             only_matching_chunks=False,
