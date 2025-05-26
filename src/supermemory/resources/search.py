@@ -46,7 +46,6 @@ class SearchResource(SyncAPIResource):
         *,
         q: str,
         doc_id: str | NotGiven = NOT_GIVEN,
-        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -62,9 +61,6 @@ class SearchResource(SyncAPIResource):
 
           doc_id: Optional document ID to search within. You can use this to find chunks in a very
               large document.
-
-          user_id: End user ID this search is associated with. NOTE: This also acts as a filter for
-              the search.
 
           extra_headers: Send extra headers
 
@@ -85,7 +81,6 @@ class SearchResource(SyncAPIResource):
                     {
                         "q": q,
                         "doc_id": doc_id,
-                        "user_id": user_id,
                     },
                     search_execute_params.SearchExecuteParams,
                 ),
@@ -119,7 +114,6 @@ class AsyncSearchResource(AsyncAPIResource):
         *,
         q: str,
         doc_id: str | NotGiven = NOT_GIVEN,
-        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -135,9 +129,6 @@ class AsyncSearchResource(AsyncAPIResource):
 
           doc_id: Optional document ID to search within. You can use this to find chunks in a very
               large document.
-
-          user_id: End user ID this search is associated with. NOTE: This also acts as a filter for
-              the search.
 
           extra_headers: Send extra headers
 
@@ -158,7 +149,6 @@ class AsyncSearchResource(AsyncAPIResource):
                     {
                         "q": q,
                         "doc_id": doc_id,
-                        "user_id": user_id,
                     },
                     search_execute_params.SearchExecuteParams,
                 ),

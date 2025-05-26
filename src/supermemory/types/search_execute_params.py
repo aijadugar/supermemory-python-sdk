@@ -18,9 +18,3 @@ class SearchExecuteParams(TypedDict, total=False):
 
     You can use this to find chunks in a very large document.
     """
-
-    user_id: Annotated[str, PropertyInfo(alias="userId")]
-    """End user ID this search is associated with.
-
-    NOTE: This also acts as a filter for the search.
-    """

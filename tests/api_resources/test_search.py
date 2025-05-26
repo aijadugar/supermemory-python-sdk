@@ -31,7 +31,6 @@ class TestSearch:
         search = client.search.execute(
             q="machine learning concepts",
             doc_id="doc_xyz789",
-            user_id="user_123",
         )
         assert_matches_type(SearchExecuteResponse, search, path=["response"])
 
@@ -79,7 +78,6 @@ class TestAsyncSearch:
         search = await async_client.search.execute(
             q="machine learning concepts",
             doc_id="doc_xyz789",
-            user_id="user_123",
         )
         assert_matches_type(SearchExecuteResponse, search, path=["response"])
 
