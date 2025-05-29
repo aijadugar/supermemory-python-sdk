@@ -11,9 +11,6 @@ __all__ = ["MemoryUpdateParams"]
 
 
 class MemoryUpdateParams(TypedDict, total=False):
-    body_id: Required[Annotated[str, PropertyInfo(alias="id")]]
-    """Unique identifier of the memory."""
-
     content: Required[str]
     """The content to extract and process into a memory.
 

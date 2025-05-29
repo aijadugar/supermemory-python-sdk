@@ -50,9 +50,8 @@ class MemoriesResource(SyncAPIResource):
 
     def update(
         self,
-        path_id: str,
+        id: str,
         *,
-        body_id: str,
         content: str,
         container_tags: List[str] | NotGiven = NOT_GIVEN,
         custom_id: str | NotGiven = NOT_GIVEN,
@@ -68,8 +67,6 @@ class MemoriesResource(SyncAPIResource):
         Update a memory with any content type (text, url, file, etc.) and metadata
 
         Args:
-          body_id: Unique identifier of the memory.
-
           content: The content to extract and process into a memory. This can be a URL to a
               website, a PDF, an image, or a video.
 
@@ -99,13 +96,12 @@ class MemoriesResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not path_id:
-            raise ValueError(f"Expected a non-empty value for `path_id` but received {path_id!r}")
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._patch(
-            f"/v3/memories/{path_id}",
+            f"/v3/memories/{id}",
             body=maybe_transform(
                 {
-                    "body_id": body_id,
                     "content": content,
                     "container_tags": container_tags,
                     "custom_id": custom_id,
@@ -370,9 +366,8 @@ class AsyncMemoriesResource(AsyncAPIResource):
 
     async def update(
         self,
-        path_id: str,
+        id: str,
         *,
-        body_id: str,
         content: str,
         container_tags: List[str] | NotGiven = NOT_GIVEN,
         custom_id: str | NotGiven = NOT_GIVEN,
@@ -388,8 +383,6 @@ class AsyncMemoriesResource(AsyncAPIResource):
         Update a memory with any content type (text, url, file, etc.) and metadata
 
         Args:
-          body_id: Unique identifier of the memory.
-
           content: The content to extract and process into a memory. This can be a URL to a
               website, a PDF, an image, or a video.
 
@@ -419,13 +412,12 @@ class AsyncMemoriesResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not path_id:
-            raise ValueError(f"Expected a non-empty value for `path_id` but received {path_id!r}")
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._patch(
-            f"/v3/memories/{path_id}",
+            f"/v3/memories/{id}",
             body=await async_maybe_transform(
                 {
-                    "body_id": body_id,
                     "content": content,
                     "container_tags": container_tags,
                     "custom_id": custom_id,
