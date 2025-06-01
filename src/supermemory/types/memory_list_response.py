@@ -15,20 +15,14 @@ class Memory(BaseModel):
     id: str
     """Unique identifier of the memory."""
 
-    content: Optional[str] = None
-    """The content to extract and process into a memory.
-
-    This can be a URL to a website, a PDF, an image, or a video.
-
-    Plaintext: Any plaintext format
-
-    URL: A URL to a website, PDF, image, or video
-
-    We automatically detect the content type from the url's response format.
-    """
-
     created_at: datetime = FieldInfo(alias="createdAt")
     """Creation timestamp"""
+
+    custom_id: Optional[str] = FieldInfo(alias="customId", default=None)
+    """Optional custom ID of the memory.
+
+    This could be an ID from your database that will uniquely identify this memory.
+    """
 
     metadata: Union[str, float, bool, Dict[str, object], List[object], None] = None
     """Optional metadata for the memory.
@@ -51,8 +45,12 @@ class Memory(BaseModel):
     updated_at: datetime = FieldInfo(alias="updatedAt")
     """Last update timestamp"""
 
-    url: Optional[str] = None
-    """URL of the memory"""
+    container_tags: Optional[List[str]] = FieldInfo(alias="containerTags", default=None)
+    """Optional tags this memory should be containerized by.
+
+    This can be an ID for your user, a project ID, or any other identifier you wish
+    to use to group memories.
+    """
 
 
 class Pagination(BaseModel):
