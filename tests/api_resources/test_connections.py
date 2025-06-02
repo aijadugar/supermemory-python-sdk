@@ -74,14 +74,6 @@ class TestConnections:
 
     @pytest.mark.skip()
     @parametrize
-    def test_method_list_with_all_params(self, client: Supermemory) -> None:
-        connection = client.connections.list(
-            end_user_id="endUserId",
-        )
-        assert_matches_type(ConnectionListResponse, connection, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
     def test_raw_response_list(self, client: Supermemory) -> None:
         response = client.connections.with_raw_response.list()
 
@@ -197,14 +189,6 @@ class TestAsyncConnections:
     @parametrize
     async def test_method_list(self, async_client: AsyncSupermemory) -> None:
         connection = await async_client.connections.list()
-        assert_matches_type(ConnectionListResponse, connection, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    async def test_method_list_with_all_params(self, async_client: AsyncSupermemory) -> None:
-        connection = await async_client.connections.list(
-            end_user_id="endUserId",
-        )
         assert_matches_type(ConnectionListResponse, connection, path=["response"])
 
     @pytest.mark.skip()
