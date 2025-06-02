@@ -51,15 +51,10 @@ Methods:
 Types:
 
 ```python
-from supermemory.types import (
-    ConnectionCreateResponse,
-    ConnectionListResponse,
-    ConnectionGetResponse,
-)
+from supermemory.types import ConnectionCreateResponse, ConnectionGetResponse
 ```
 
 Methods:
 
 - <code title="post /v3/connections/{provider}">client.connections.<a href="./src/supermemory/resources/connections.py">create</a>(provider, \*\*<a href="src/supermemory/types/connection_create_params.py">params</a>) -> <a href="./src/supermemory/types/connection_create_response.py">ConnectionCreateResponse</a></code>
-- <code title="get /v3/connections">client.connections.<a href="./src/supermemory/resources/connections.py">list</a>() -> <a href="./src/supermemory/types/connection_list_response.py">ConnectionListResponse</a></code>
 - <code title="get /v3/connections/{connectionId}">client.connections.<a href="./src/supermemory/resources/connections.py">get</a>(connection_id) -> <a href="./src/supermemory/types/connection_get_response.py">ConnectionGetResponse</a></code>

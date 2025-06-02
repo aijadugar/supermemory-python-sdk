@@ -20,7 +20,6 @@ from .._response import (
 )
 from .._base_client import make_request_options
 from ..types.connection_get_response import ConnectionGetResponse
-from ..types.connection_list_response import ConnectionListResponse
 from ..types.connection_create_response import ConnectionCreateResponse
 
 __all__ = ["ConnectionsResource", "AsyncConnectionsResource"]
@@ -88,25 +87,6 @@ class ConnectionsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=ConnectionCreateResponse,
-        )
-
-    def list(
-        self,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ConnectionListResponse:
-        """List all connections"""
-        return self._get(
-            "/v3/connections",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=ConnectionListResponse,
         )
 
     def get(
@@ -207,25 +187,6 @@ class AsyncConnectionsResource(AsyncAPIResource):
             cast_to=ConnectionCreateResponse,
         )
 
-    async def list(
-        self,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ConnectionListResponse:
-        """List all connections"""
-        return await self._get(
-            "/v3/connections",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=ConnectionListResponse,
-        )
-
     async def get(
         self,
         connection_id: str,
@@ -267,9 +228,6 @@ class ConnectionsResourceWithRawResponse:
         self.create = to_raw_response_wrapper(
             connections.create,
         )
-        self.list = to_raw_response_wrapper(
-            connections.list,
-        )
         self.get = to_raw_response_wrapper(
             connections.get,
         )
@@ -281,9 +239,6 @@ class AsyncConnectionsResourceWithRawResponse:
 
         self.create = async_to_raw_response_wrapper(
             connections.create,
-        )
-        self.list = async_to_raw_response_wrapper(
-            connections.list,
         )
         self.get = async_to_raw_response_wrapper(
             connections.get,
@@ -297,9 +252,6 @@ class ConnectionsResourceWithStreamingResponse:
         self.create = to_streamed_response_wrapper(
             connections.create,
         )
-        self.list = to_streamed_response_wrapper(
-            connections.list,
-        )
         self.get = to_streamed_response_wrapper(
             connections.get,
         )
@@ -311,9 +263,6 @@ class AsyncConnectionsResourceWithStreamingResponse:
 
         self.create = async_to_streamed_response_wrapper(
             connections.create,
-        )
-        self.list = async_to_streamed_response_wrapper(
-            connections.list,
         )
         self.get = async_to_streamed_response_wrapper(
             connections.get,
