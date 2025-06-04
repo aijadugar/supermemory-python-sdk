@@ -118,6 +118,7 @@ class MemoriesResource(SyncAPIResource):
     def list(
         self,
         *,
+        container_tags: List[str] | NotGiven = NOT_GIVEN,
         filters: str | NotGiven = NOT_GIVEN,
         limit: str | NotGiven = NOT_GIVEN,
         order: Literal["asc", "desc"] | NotGiven = NOT_GIVEN,
@@ -134,6 +135,9 @@ class MemoriesResource(SyncAPIResource):
         Retrieves a paginated list of memories with their metadata and workflow status
 
         Args:
+          container_tags: Optional tags this memory should be containerized by. This can be an ID for your
+              user, a project ID, or any other identifier you wish to use to group memories.
+
           filters: Optional filters to apply to the search
 
           limit: Number of items per page
@@ -161,6 +165,7 @@ class MemoriesResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "container_tags": container_tags,
                         "filters": filters,
                         "limit": limit,
                         "order": order,
@@ -434,6 +439,7 @@ class AsyncMemoriesResource(AsyncAPIResource):
     async def list(
         self,
         *,
+        container_tags: List[str] | NotGiven = NOT_GIVEN,
         filters: str | NotGiven = NOT_GIVEN,
         limit: str | NotGiven = NOT_GIVEN,
         order: Literal["asc", "desc"] | NotGiven = NOT_GIVEN,
@@ -450,6 +456,9 @@ class AsyncMemoriesResource(AsyncAPIResource):
         Retrieves a paginated list of memories with their metadata and workflow status
 
         Args:
+          container_tags: Optional tags this memory should be containerized by. This can be an ID for your
+              user, a project ID, or any other identifier you wish to use to group memories.
+
           filters: Optional filters to apply to the search
 
           limit: Number of items per page
@@ -477,6 +486,7 @@ class AsyncMemoriesResource(AsyncAPIResource):
                 timeout=timeout,
                 query=await async_maybe_transform(
                     {
+                        "container_tags": container_tags,
                         "filters": filters,
                         "limit": limit,
                         "order": order,

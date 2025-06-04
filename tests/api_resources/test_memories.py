@@ -98,6 +98,7 @@ class TestMemories:
     @parametrize
     def test_method_list_with_all_params(self, client: Supermemory) -> None:
         memory = client.memories.list(
+            container_tags=["user_123", "project_123"],
             filters='{"AND":[{"key":"group","value":"jira_users","negate":false},{"filterType":"numeric","key":"timestamp","value":"1742745777","negate":false,"numericOperator":">"}]}',
             limit="10",
             order="desc",
@@ -377,6 +378,7 @@ class TestAsyncMemories:
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncSupermemory) -> None:
         memory = await async_client.memories.list(
+            container_tags=["user_123", "project_123"],
             filters='{"AND":[{"key":"group","value":"jira_users","negate":false},{"filterType":"numeric","key":"timestamp","value":"1742745777","negate":false,"numericOperator":">"}]}',
             limit="10",
             order="desc",
