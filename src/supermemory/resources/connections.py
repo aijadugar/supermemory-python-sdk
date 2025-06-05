@@ -101,7 +101,7 @@ class ConnectionsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ConnectionGetResponse:
         """
-        Get connection details
+        Get connection details with id
 
         Args:
           extra_headers: Send extra headers
@@ -199,7 +199,7 @@ class AsyncConnectionsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ConnectionGetResponse:
         """
-        Get connection details
+        Get connection details with id
 
         Args:
           extra_headers: Send extra headers
