@@ -50,6 +50,7 @@ class ConnectionsResource(SyncAPIResource):
         provider: Literal["notion", "google-drive", "onedrive"],
         *,
         container_tags: List[str] | NotGiven = NOT_GIVEN,
+        document_limit: int | NotGiven = NOT_GIVEN,
         metadata: Optional[Dict[str, Union[str, float, bool]]] | NotGiven = NOT_GIVEN,
         redirect_url: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -63,6 +64,9 @@ class ConnectionsResource(SyncAPIResource):
         Initialize connection and get authorization URL
 
         Args:
+          document_limit: Maximum number of documents to sync from this connection (default: 100,
+              max: 10000)
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -78,6 +82,7 @@ class ConnectionsResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "container_tags": container_tags,
+                    "document_limit": document_limit,
                     "metadata": metadata,
                     "redirect_url": redirect_url,
                 },
@@ -148,6 +153,7 @@ class AsyncConnectionsResource(AsyncAPIResource):
         provider: Literal["notion", "google-drive", "onedrive"],
         *,
         container_tags: List[str] | NotGiven = NOT_GIVEN,
+        document_limit: int | NotGiven = NOT_GIVEN,
         metadata: Optional[Dict[str, Union[str, float, bool]]] | NotGiven = NOT_GIVEN,
         redirect_url: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -161,6 +167,9 @@ class AsyncConnectionsResource(AsyncAPIResource):
         Initialize connection and get authorization URL
 
         Args:
+          document_limit: Maximum number of documents to sync from this connection (default: 100,
+              max: 10000)
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -176,6 +185,7 @@ class AsyncConnectionsResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "container_tags": container_tags,
+                    "document_limit": document_limit,
                     "metadata": metadata,
                     "redirect_url": redirect_url,
                 },

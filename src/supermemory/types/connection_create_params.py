@@ -13,6 +13,12 @@ __all__ = ["ConnectionCreateParams"]
 class ConnectionCreateParams(TypedDict, total=False):
     container_tags: Annotated[List[str], PropertyInfo(alias="containerTags")]
 
+    document_limit: Annotated[int, PropertyInfo(alias="documentLimit")]
+    """
+    Maximum number of documents to sync from this connection (default: 100,
+    max: 10000)
+    """
+
     metadata: Optional[Dict[str, Union[str, float, bool]]]
 
     redirect_url: Annotated[str, PropertyInfo(alias="redirectUrl")]
