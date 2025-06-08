@@ -120,9 +120,9 @@ class MemoriesResource(SyncAPIResource):
         *,
         container_tags: List[str] | NotGiven = NOT_GIVEN,
         filters: str | NotGiven = NOT_GIVEN,
-        limit: str | NotGiven = NOT_GIVEN,
+        limit: Union[str, float] | NotGiven = NOT_GIVEN,
         order: Literal["asc", "desc"] | NotGiven = NOT_GIVEN,
-        page: str | NotGiven = NOT_GIVEN,
+        page: Union[str, float] | NotGiven = NOT_GIVEN,
         sort: Literal["createdAt", "updatedAt"] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -441,9 +441,9 @@ class AsyncMemoriesResource(AsyncAPIResource):
         *,
         container_tags: List[str] | NotGiven = NOT_GIVEN,
         filters: str | NotGiven = NOT_GIVEN,
-        limit: str | NotGiven = NOT_GIVEN,
+        limit: Union[str, float] | NotGiven = NOT_GIVEN,
         order: Literal["asc", "desc"] | NotGiven = NOT_GIVEN,
-        page: str | NotGiven = NOT_GIVEN,
+        page: Union[str, float] | NotGiven = NOT_GIVEN,
         sort: Literal["createdAt", "updatedAt"] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.

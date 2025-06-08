@@ -64,9 +64,6 @@ class ConnectionsResource(SyncAPIResource):
         Initialize connection and get authorization URL
 
         Args:
-          document_limit: Maximum number of documents to sync from this connection (default: 100,
-              max: 10000)
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -167,9 +164,6 @@ class AsyncConnectionsResource(AsyncAPIResource):
         Initialize connection and get authorization URL
 
         Args:
-          document_limit: Maximum number of documents to sync from this connection (default: 100,
-              max: 10000)
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request

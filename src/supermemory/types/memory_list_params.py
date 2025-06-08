@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List
+from typing import List, Union
 from typing_extensions import Literal, Annotated, TypedDict
 
 from .._utils import PropertyInfo
@@ -21,13 +21,13 @@ class MemoryListParams(TypedDict, total=False):
     filters: str
     """Optional filters to apply to the search"""
 
-    limit: str
+    limit: Union[str, float]
     """Number of items per page"""
 
     order: Literal["asc", "desc"]
     """Sort order"""
 
-    page: str
+    page: Union[str, float]
     """Page number to fetch"""
 
     sort: Literal["createdAt", "updatedAt"]

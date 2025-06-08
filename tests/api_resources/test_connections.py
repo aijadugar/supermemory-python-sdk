@@ -31,7 +31,7 @@ class TestConnections:
         connection = client.connections.create(
             provider="notion",
             container_tags=["string"],
-            document_limit=100,
+            document_limit=1,
             metadata={"foo": "string"},
             redirect_url="redirectUrl",
         )
@@ -123,7 +123,7 @@ class TestAsyncConnections:
         connection = await async_client.connections.create(
             provider="notion",
             container_tags=["string"],
-            document_limit=100,
+            document_limit=1,
             metadata={"foo": "string"},
             redirect_url="redirectUrl",
         )
