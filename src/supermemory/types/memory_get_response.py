@@ -59,7 +59,9 @@ class MemoryGetResponse(BaseModel):
     title: Optional[str] = None
     """Title of the memory"""
 
-    type: Literal["text", "pdf", "tweet", "google_doc", "image", "video", "notion_doc", "webpage"]
+    type: Literal[
+        "text", "pdf", "tweet", "google_doc", "google_slide", "google_sheet", "image", "video", "notion_doc", "webpage"
+    ]
     """Type of the memory"""
 
     updated_at: datetime = FieldInfo(alias="updatedAt")
