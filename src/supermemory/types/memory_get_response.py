@@ -15,12 +15,6 @@ class MemoryGetResponse(BaseModel):
     id: str
     """Unique identifier of the memory."""
 
-    connection_id: Optional[str] = FieldInfo(alias="connectionId", default=None)
-    """Optional ID of connection the memory was created from.
-
-    This is useful for identifying the source of the memory.
-    """
-
     content: Optional[str] = None
     """The content to extract and process into a memory.
 

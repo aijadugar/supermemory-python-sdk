@@ -15,12 +15,6 @@ class Memory(BaseModel):
     id: str
     """Unique identifier of the memory."""
 
-    connection_id: Optional[str] = FieldInfo(alias="connectionId", default=None)
-    """Optional ID of connection the memory was created from.
-
-    This is useful for identifying the source of the memory.
-    """
-
     created_at: datetime = FieldInfo(alias="createdAt")
     """Creation timestamp"""
 
@@ -47,11 +41,6 @@ class Memory(BaseModel):
 
     title: Optional[str] = None
     """Title of the memory"""
-
-    type: Literal[
-        "text", "pdf", "tweet", "google_doc", "google_slide", "google_sheet", "image", "video", "notion_doc", "webpage"
-    ]
-    """Type of the memory"""
 
     updated_at: datetime = FieldInfo(alias="updatedAt")
     """Last update timestamp"""
