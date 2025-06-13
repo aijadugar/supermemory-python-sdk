@@ -18,6 +18,8 @@ class ConnectionGetResponse(BaseModel):
 
     document_limit: Optional[float] = FieldInfo(alias="documentLimit", default=None)
 
+    email: Optional[str] = None
+
     expires_at: Optional[float] = FieldInfo(alias="expiresAt", default=None)
 
     metadata: Optional[Dict[str, object]] = None
