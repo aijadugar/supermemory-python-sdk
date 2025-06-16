@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import typing_extensions
 from typing import Dict, List, Union
 from typing_extensions import Literal
 
@@ -114,6 +115,7 @@ class MemoriesResource(SyncAPIResource):
             cast_to=MemoryUpdateResponse,
         )
 
+    @typing_extensions.deprecated("deprecated")
     def list(
         self,
         *,
@@ -396,6 +398,7 @@ class AsyncMemoriesResource(AsyncAPIResource):
             cast_to=MemoryUpdateResponse,
         )
 
+    @typing_extensions.deprecated("deprecated")
     async def list(
         self,
         *,
@@ -598,8 +601,10 @@ class MemoriesResourceWithRawResponse:
         self.update = to_raw_response_wrapper(
             memories.update,
         )
-        self.list = to_raw_response_wrapper(
-            memories.list,
+        self.list = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                memories.list  # pyright: ignore[reportDeprecated],
+            )
         )
         self.delete = to_raw_response_wrapper(
             memories.delete,
@@ -619,8 +624,10 @@ class AsyncMemoriesResourceWithRawResponse:
         self.update = async_to_raw_response_wrapper(
             memories.update,
         )
-        self.list = async_to_raw_response_wrapper(
-            memories.list,
+        self.list = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                memories.list  # pyright: ignore[reportDeprecated],
+            )
         )
         self.delete = async_to_raw_response_wrapper(
             memories.delete,
@@ -640,8 +647,10 @@ class MemoriesResourceWithStreamingResponse:
         self.update = to_streamed_response_wrapper(
             memories.update,
         )
-        self.list = to_streamed_response_wrapper(
-            memories.list,
+        self.list = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                memories.list  # pyright: ignore[reportDeprecated],
+            )
         )
         self.delete = to_streamed_response_wrapper(
             memories.delete,
@@ -661,8 +670,10 @@ class AsyncMemoriesResourceWithStreamingResponse:
         self.update = async_to_streamed_response_wrapper(
             memories.update,
         )
-        self.list = async_to_streamed_response_wrapper(
-            memories.list,
+        self.list = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                memories.list  # pyright: ignore[reportDeprecated],
+            )
         )
         self.delete = async_to_streamed_response_wrapper(
             memories.delete,

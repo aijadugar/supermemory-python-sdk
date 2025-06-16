@@ -11,6 +11,8 @@ from supermemory import Supermemory, AsyncSupermemory
 from tests.utils import assert_matches_type
 from supermemory.types import SearchExecuteResponse
 
+# pyright: reportDeprecated=false
+
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
 
@@ -20,26 +22,31 @@ class TestSearch:
     @pytest.mark.skip()
     @parametrize
     def test_method_execute(self, client: Supermemory) -> None:
-        search = client.search.execute(
-            q="machine learning concepts",
-        )
+        with pytest.warns(DeprecationWarning):
+            search = client.search.execute(
+                q="machine learning concepts",
+            )
+
         assert_matches_type(SearchExecuteResponse, search, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
     def test_method_execute_with_all_params(self, client: Supermemory) -> None:
-        search = client.search.execute(
-            q="machine learning concepts",
-            doc_id="doc_xyz789",
-        )
+        with pytest.warns(DeprecationWarning):
+            search = client.search.execute(
+                q="machine learning concepts",
+                doc_id="doc_xyz789",
+            )
+
         assert_matches_type(SearchExecuteResponse, search, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
     def test_raw_response_execute(self, client: Supermemory) -> None:
-        response = client.search.with_raw_response.execute(
-            q="machine learning concepts",
-        )
+        with pytest.warns(DeprecationWarning):
+            response = client.search.with_raw_response.execute(
+                q="machine learning concepts",
+            )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -49,14 +56,15 @@ class TestSearch:
     @pytest.mark.skip()
     @parametrize
     def test_streaming_response_execute(self, client: Supermemory) -> None:
-        with client.search.with_streaming_response.execute(
-            q="machine learning concepts",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        with pytest.warns(DeprecationWarning):
+            with client.search.with_streaming_response.execute(
+                q="machine learning concepts",
+            ) as response:
+                assert not response.is_closed
+                assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            search = response.parse()
-            assert_matches_type(SearchExecuteResponse, search, path=["response"])
+                search = response.parse()
+                assert_matches_type(SearchExecuteResponse, search, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -67,26 +75,31 @@ class TestAsyncSearch:
     @pytest.mark.skip()
     @parametrize
     async def test_method_execute(self, async_client: AsyncSupermemory) -> None:
-        search = await async_client.search.execute(
-            q="machine learning concepts",
-        )
+        with pytest.warns(DeprecationWarning):
+            search = await async_client.search.execute(
+                q="machine learning concepts",
+            )
+
         assert_matches_type(SearchExecuteResponse, search, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
     async def test_method_execute_with_all_params(self, async_client: AsyncSupermemory) -> None:
-        search = await async_client.search.execute(
-            q="machine learning concepts",
-            doc_id="doc_xyz789",
-        )
+        with pytest.warns(DeprecationWarning):
+            search = await async_client.search.execute(
+                q="machine learning concepts",
+                doc_id="doc_xyz789",
+            )
+
         assert_matches_type(SearchExecuteResponse, search, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
     async def test_raw_response_execute(self, async_client: AsyncSupermemory) -> None:
-        response = await async_client.search.with_raw_response.execute(
-            q="machine learning concepts",
-        )
+        with pytest.warns(DeprecationWarning):
+            response = await async_client.search.with_raw_response.execute(
+                q="machine learning concepts",
+            )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -96,13 +109,14 @@ class TestAsyncSearch:
     @pytest.mark.skip()
     @parametrize
     async def test_streaming_response_execute(self, async_client: AsyncSupermemory) -> None:
-        async with async_client.search.with_streaming_response.execute(
-            q="machine learning concepts",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        with pytest.warns(DeprecationWarning):
+            async with async_client.search.with_streaming_response.execute(
+                q="machine learning concepts",
+            ) as response:
+                assert not response.is_closed
+                assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            search = await response.parse()
-            assert_matches_type(SearchExecuteResponse, search, path=["response"])
+                search = await response.parse()
+                assert_matches_type(SearchExecuteResponse, search, path=["response"])
 
         assert cast(Any, response.is_closed) is True

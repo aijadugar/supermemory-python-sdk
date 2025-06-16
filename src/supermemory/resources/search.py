@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import typing_extensions
+
 import httpx
 
 from ..types import search_execute_params
@@ -41,6 +43,7 @@ class SearchResource(SyncAPIResource):
         """
         return SearchResourceWithStreamingResponse(self)
 
+    @typing_extensions.deprecated("deprecated")
     def execute(
         self,
         *,
@@ -109,6 +112,7 @@ class AsyncSearchResource(AsyncAPIResource):
         """
         return AsyncSearchResourceWithStreamingResponse(self)
 
+    @typing_extensions.deprecated("deprecated")
     async def execute(
         self,
         *,
@@ -161,8 +165,10 @@ class SearchResourceWithRawResponse:
     def __init__(self, search: SearchResource) -> None:
         self._search = search
 
-        self.execute = to_raw_response_wrapper(
-            search.execute,
+        self.execute = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                search.execute  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -170,8 +176,10 @@ class AsyncSearchResourceWithRawResponse:
     def __init__(self, search: AsyncSearchResource) -> None:
         self._search = search
 
-        self.execute = async_to_raw_response_wrapper(
-            search.execute,
+        self.execute = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                search.execute  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -179,8 +187,10 @@ class SearchResourceWithStreamingResponse:
     def __init__(self, search: SearchResource) -> None:
         self._search = search
 
-        self.execute = to_streamed_response_wrapper(
-            search.execute,
+        self.execute = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                search.execute  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -188,6 +198,8 @@ class AsyncSearchResourceWithStreamingResponse:
     def __init__(self, search: AsyncSearchResource) -> None:
         self._search = search
 
-        self.execute = async_to_streamed_response_wrapper(
-            search.execute,
+        self.execute = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                search.execute  # pyright: ignore[reportDeprecated],
+            )
         )
