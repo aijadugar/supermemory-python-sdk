@@ -27,10 +27,19 @@ class TestSettings:
     @parametrize
     def test_method_update_with_all_params(self, client: Supermemory) -> None:
         setting = client.settings.update(
-            exclude_items=["x"],
-            filter_prompt="x",
-            filter_tags={"foo": ["string"]},
-            include_items=["x"],
+            exclude_items="string",
+            filter_prompt="filterPrompt",
+            filter_tags="string",
+            google_drive_client_id="googleDriveClientId",
+            google_drive_client_secret="googleDriveClientSecret",
+            google_drive_custom_key_enabled=True,
+            include_items="string",
+            notion_client_id="notionClientId",
+            notion_client_secret="notionClientSecret",
+            notion_custom_key_enabled=True,
+            onedrive_client_id="onedriveClientId",
+            onedrive_client_secret="onedriveClientSecret",
+            onedrive_custom_key_enabled=True,
             should_llm_filter=True,
         )
         assert_matches_type(SettingUpdateResponse, setting, path=["response"])
@@ -99,10 +108,19 @@ class TestAsyncSettings:
     @parametrize
     async def test_method_update_with_all_params(self, async_client: AsyncSupermemory) -> None:
         setting = await async_client.settings.update(
-            exclude_items=["x"],
-            filter_prompt="x",
-            filter_tags={"foo": ["string"]},
-            include_items=["x"],
+            exclude_items="string",
+            filter_prompt="filterPrompt",
+            filter_tags="string",
+            google_drive_client_id="googleDriveClientId",
+            google_drive_client_secret="googleDriveClientSecret",
+            google_drive_custom_key_enabled=True,
+            include_items="string",
+            notion_client_id="notionClientId",
+            notion_client_secret="notionClientSecret",
+            notion_custom_key_enabled=True,
+            onedrive_client_id="onedriveClientId",
+            onedrive_client_secret="onedriveClientSecret",
+            onedrive_custom_key_enabled=True,
             should_llm_filter=True,
         )
         assert_matches_type(SettingUpdateResponse, setting, path=["response"])

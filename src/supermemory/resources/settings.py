@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, List
+from typing import Dict, Union, Iterable, Optional
 
 import httpx
 
@@ -47,11 +47,20 @@ class SettingsResource(SyncAPIResource):
     def update(
         self,
         *,
-        exclude_items: List[str] | NotGiven = NOT_GIVEN,
-        filter_prompt: str | NotGiven = NOT_GIVEN,
-        filter_tags: Dict[str, List[str]] | NotGiven = NOT_GIVEN,
-        include_items: List[str] | NotGiven = NOT_GIVEN,
-        should_llm_filter: bool | NotGiven = NOT_GIVEN,
+        exclude_items: Union[str, float, bool, Dict[str, object], Iterable[object], None] | NotGiven = NOT_GIVEN,
+        filter_prompt: Optional[str] | NotGiven = NOT_GIVEN,
+        filter_tags: Union[str, float, bool, Dict[str, object], Iterable[object], None] | NotGiven = NOT_GIVEN,
+        google_drive_client_id: Optional[str] | NotGiven = NOT_GIVEN,
+        google_drive_client_secret: Optional[str] | NotGiven = NOT_GIVEN,
+        google_drive_custom_key_enabled: Optional[bool] | NotGiven = NOT_GIVEN,
+        include_items: Union[str, float, bool, Dict[str, object], Iterable[object], None] | NotGiven = NOT_GIVEN,
+        notion_client_id: Optional[str] | NotGiven = NOT_GIVEN,
+        notion_client_secret: Optional[str] | NotGiven = NOT_GIVEN,
+        notion_custom_key_enabled: Optional[bool] | NotGiven = NOT_GIVEN,
+        onedrive_client_id: Optional[str] | NotGiven = NOT_GIVEN,
+        onedrive_client_secret: Optional[str] | NotGiven = NOT_GIVEN,
+        onedrive_custom_key_enabled: Optional[bool] | NotGiven = NOT_GIVEN,
+        should_llm_filter: Optional[bool] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -78,7 +87,16 @@ class SettingsResource(SyncAPIResource):
                     "exclude_items": exclude_items,
                     "filter_prompt": filter_prompt,
                     "filter_tags": filter_tags,
+                    "google_drive_client_id": google_drive_client_id,
+                    "google_drive_client_secret": google_drive_client_secret,
+                    "google_drive_custom_key_enabled": google_drive_custom_key_enabled,
                     "include_items": include_items,
+                    "notion_client_id": notion_client_id,
+                    "notion_client_secret": notion_client_secret,
+                    "notion_custom_key_enabled": notion_custom_key_enabled,
+                    "onedrive_client_id": onedrive_client_id,
+                    "onedrive_client_secret": onedrive_client_secret,
+                    "onedrive_custom_key_enabled": onedrive_custom_key_enabled,
                     "should_llm_filter": should_llm_filter,
                 },
                 setting_update_params.SettingUpdateParams,
@@ -132,11 +150,20 @@ class AsyncSettingsResource(AsyncAPIResource):
     async def update(
         self,
         *,
-        exclude_items: List[str] | NotGiven = NOT_GIVEN,
-        filter_prompt: str | NotGiven = NOT_GIVEN,
-        filter_tags: Dict[str, List[str]] | NotGiven = NOT_GIVEN,
-        include_items: List[str] | NotGiven = NOT_GIVEN,
-        should_llm_filter: bool | NotGiven = NOT_GIVEN,
+        exclude_items: Union[str, float, bool, Dict[str, object], Iterable[object], None] | NotGiven = NOT_GIVEN,
+        filter_prompt: Optional[str] | NotGiven = NOT_GIVEN,
+        filter_tags: Union[str, float, bool, Dict[str, object], Iterable[object], None] | NotGiven = NOT_GIVEN,
+        google_drive_client_id: Optional[str] | NotGiven = NOT_GIVEN,
+        google_drive_client_secret: Optional[str] | NotGiven = NOT_GIVEN,
+        google_drive_custom_key_enabled: Optional[bool] | NotGiven = NOT_GIVEN,
+        include_items: Union[str, float, bool, Dict[str, object], Iterable[object], None] | NotGiven = NOT_GIVEN,
+        notion_client_id: Optional[str] | NotGiven = NOT_GIVEN,
+        notion_client_secret: Optional[str] | NotGiven = NOT_GIVEN,
+        notion_custom_key_enabled: Optional[bool] | NotGiven = NOT_GIVEN,
+        onedrive_client_id: Optional[str] | NotGiven = NOT_GIVEN,
+        onedrive_client_secret: Optional[str] | NotGiven = NOT_GIVEN,
+        onedrive_custom_key_enabled: Optional[bool] | NotGiven = NOT_GIVEN,
+        should_llm_filter: Optional[bool] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -163,7 +190,16 @@ class AsyncSettingsResource(AsyncAPIResource):
                     "exclude_items": exclude_items,
                     "filter_prompt": filter_prompt,
                     "filter_tags": filter_tags,
+                    "google_drive_client_id": google_drive_client_id,
+                    "google_drive_client_secret": google_drive_client_secret,
+                    "google_drive_custom_key_enabled": google_drive_custom_key_enabled,
                     "include_items": include_items,
+                    "notion_client_id": notion_client_id,
+                    "notion_client_secret": notion_client_secret,
+                    "notion_custom_key_enabled": notion_custom_key_enabled,
+                    "onedrive_client_id": onedrive_client_id,
+                    "onedrive_client_secret": onedrive_client_secret,
+                    "onedrive_custom_key_enabled": onedrive_custom_key_enabled,
                     "should_llm_filter": should_llm_filter,
                 },
                 setting_update_params.SettingUpdateParams,

@@ -31,10 +31,10 @@ client = Supermemory(
     api_key=os.environ.get("SUPERMEMORY_API_KEY"),  # This is the default and can be omitted
 )
 
-response = client.search.execute(
-    q="documents related to python",
+response = client.memories.add(
+    content="This is a detailed article about machine learning concepts...",
 )
-print(response.results)
+print(response.id)
 ```
 
 While you can provide an `api_key` keyword argument,
@@ -57,10 +57,10 @@ client = AsyncSupermemory(
 
 
 async def main() -> None:
-    response = await client.search.execute(
-        q="documents related to python",
+    response = await client.memories.add(
+        content="This is a detailed article about machine learning concepts...",
     )
-    print(response.results)
+    print(response.id)
 
 
 asyncio.run(main())

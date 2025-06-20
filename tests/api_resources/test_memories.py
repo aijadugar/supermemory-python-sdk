@@ -12,11 +12,8 @@ from tests.utils import assert_matches_type
 from supermemory.types import (
     MemoryAddResponse,
     MemoryGetResponse,
-    MemoryListResponse,
     MemoryUpdateResponse,
 )
-
-# pyright: reportDeprecated=false
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -88,53 +85,6 @@ class TestMemories:
                 id="",
                 content="This is a detailed article about machine learning concepts...",
             )
-
-    @pytest.mark.skip()
-    @parametrize
-    def test_method_list(self, client: Supermemory) -> None:
-        with pytest.warns(DeprecationWarning):
-            memory = client.memories.list()
-
-        assert_matches_type(MemoryListResponse, memory, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    def test_method_list_with_all_params(self, client: Supermemory) -> None:
-        with pytest.warns(DeprecationWarning):
-            memory = client.memories.list(
-                container_tags=["user_123", "project_123"],
-                filters='{"AND":[{"key":"group","value":"jira_users","negate":false},{"filterType":"numeric","key":"timestamp","value":"1742745777","negate":false,"numericOperator":">"}]}',
-                limit="10",
-                order="desc",
-                page="1",
-                sort="createdAt",
-            )
-
-        assert_matches_type(MemoryListResponse, memory, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    def test_raw_response_list(self, client: Supermemory) -> None:
-        with pytest.warns(DeprecationWarning):
-            response = client.memories.with_raw_response.list()
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        memory = response.parse()
-        assert_matches_type(MemoryListResponse, memory, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    def test_streaming_response_list(self, client: Supermemory) -> None:
-        with pytest.warns(DeprecationWarning):
-            with client.memories.with_streaming_response.list() as response:
-                assert not response.is_closed
-                assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-                memory = response.parse()
-                assert_matches_type(MemoryListResponse, memory, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip()
     @parametrize
@@ -340,53 +290,6 @@ class TestAsyncMemories:
                 id="",
                 content="This is a detailed article about machine learning concepts...",
             )
-
-    @pytest.mark.skip()
-    @parametrize
-    async def test_method_list(self, async_client: AsyncSupermemory) -> None:
-        with pytest.warns(DeprecationWarning):
-            memory = await async_client.memories.list()
-
-        assert_matches_type(MemoryListResponse, memory, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    async def test_method_list_with_all_params(self, async_client: AsyncSupermemory) -> None:
-        with pytest.warns(DeprecationWarning):
-            memory = await async_client.memories.list(
-                container_tags=["user_123", "project_123"],
-                filters='{"AND":[{"key":"group","value":"jira_users","negate":false},{"filterType":"numeric","key":"timestamp","value":"1742745777","negate":false,"numericOperator":">"}]}',
-                limit="10",
-                order="desc",
-                page="1",
-                sort="createdAt",
-            )
-
-        assert_matches_type(MemoryListResponse, memory, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    async def test_raw_response_list(self, async_client: AsyncSupermemory) -> None:
-        with pytest.warns(DeprecationWarning):
-            response = await async_client.memories.with_raw_response.list()
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        memory = await response.parse()
-        assert_matches_type(MemoryListResponse, memory, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    async def test_streaming_response_list(self, async_client: AsyncSupermemory) -> None:
-        with pytest.warns(DeprecationWarning):
-            async with async_client.memories.with_streaming_response.list() as response:
-                assert not response.is_closed
-                assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-                memory = await response.parse()
-                assert_matches_type(MemoryListResponse, memory, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip()
     @parametrize

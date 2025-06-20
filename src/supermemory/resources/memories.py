@@ -2,13 +2,11 @@
 
 from __future__ import annotations
 
-import typing_extensions
 from typing import Dict, List, Union
-from typing_extensions import Literal
 
 import httpx
 
-from ..types import memory_add_params, memory_list_params, memory_update_params
+from ..types import memory_add_params, memory_update_params
 from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -22,7 +20,6 @@ from .._response import (
 from .._base_client import make_request_options
 from ..types.memory_add_response import MemoryAddResponse
 from ..types.memory_get_response import MemoryGetResponse
-from ..types.memory_list_response import MemoryListResponse
 from ..types.memory_update_response import MemoryUpdateResponse
 
 __all__ = ["MemoriesResource", "AsyncMemoriesResource"]
@@ -113,70 +110,6 @@ class MemoriesResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=MemoryUpdateResponse,
-        )
-
-    @typing_extensions.deprecated("deprecated")
-    def list(
-        self,
-        *,
-        container_tags: List[str] | NotGiven = NOT_GIVEN,
-        filters: str | NotGiven = NOT_GIVEN,
-        limit: Union[str, float] | NotGiven = NOT_GIVEN,
-        order: Literal["asc", "desc"] | NotGiven = NOT_GIVEN,
-        page: Union[str, float] | NotGiven = NOT_GIVEN,
-        sort: Literal["createdAt", "updatedAt"] | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> MemoryListResponse:
-        """
-        Retrieves a paginated list of memories with their metadata and workflow status
-
-        Args:
-          container_tags: Optional tags this memory should be containerized by. This can be an ID for your
-              user, a project ID, or any other identifier you wish to use to group memories.
-
-          filters: Optional filters to apply to the search
-
-          limit: Number of items per page
-
-          order: Sort order
-
-          page: Page number to fetch
-
-          sort: Field to sort by
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return self._get(
-            "/v3/memories",
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "container_tags": container_tags,
-                        "filters": filters,
-                        "limit": limit,
-                        "order": order,
-                        "page": page,
-                        "sort": sort,
-                    },
-                    memory_list_params.MemoryListParams,
-                ),
-            ),
-            cast_to=MemoryListResponse,
         )
 
     def delete(
@@ -398,70 +331,6 @@ class AsyncMemoriesResource(AsyncAPIResource):
             cast_to=MemoryUpdateResponse,
         )
 
-    @typing_extensions.deprecated("deprecated")
-    async def list(
-        self,
-        *,
-        container_tags: List[str] | NotGiven = NOT_GIVEN,
-        filters: str | NotGiven = NOT_GIVEN,
-        limit: Union[str, float] | NotGiven = NOT_GIVEN,
-        order: Literal["asc", "desc"] | NotGiven = NOT_GIVEN,
-        page: Union[str, float] | NotGiven = NOT_GIVEN,
-        sort: Literal["createdAt", "updatedAt"] | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> MemoryListResponse:
-        """
-        Retrieves a paginated list of memories with their metadata and workflow status
-
-        Args:
-          container_tags: Optional tags this memory should be containerized by. This can be an ID for your
-              user, a project ID, or any other identifier you wish to use to group memories.
-
-          filters: Optional filters to apply to the search
-
-          limit: Number of items per page
-
-          order: Sort order
-
-          page: Page number to fetch
-
-          sort: Field to sort by
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return await self._get(
-            "/v3/memories",
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {
-                        "container_tags": container_tags,
-                        "filters": filters,
-                        "limit": limit,
-                        "order": order,
-                        "page": page,
-                        "sort": sort,
-                    },
-                    memory_list_params.MemoryListParams,
-                ),
-            ),
-            cast_to=MemoryListResponse,
-        )
-
     async def delete(
         self,
         id: str,
@@ -601,11 +470,6 @@ class MemoriesResourceWithRawResponse:
         self.update = to_raw_response_wrapper(
             memories.update,
         )
-        self.list = (  # pyright: ignore[reportDeprecated]
-            to_raw_response_wrapper(
-                memories.list  # pyright: ignore[reportDeprecated],
-            )
-        )
         self.delete = to_raw_response_wrapper(
             memories.delete,
         )
@@ -623,11 +487,6 @@ class AsyncMemoriesResourceWithRawResponse:
 
         self.update = async_to_raw_response_wrapper(
             memories.update,
-        )
-        self.list = (  # pyright: ignore[reportDeprecated]
-            async_to_raw_response_wrapper(
-                memories.list  # pyright: ignore[reportDeprecated],
-            )
         )
         self.delete = async_to_raw_response_wrapper(
             memories.delete,
@@ -647,11 +506,6 @@ class MemoriesResourceWithStreamingResponse:
         self.update = to_streamed_response_wrapper(
             memories.update,
         )
-        self.list = (  # pyright: ignore[reportDeprecated]
-            to_streamed_response_wrapper(
-                memories.list  # pyright: ignore[reportDeprecated],
-            )
-        )
         self.delete = to_streamed_response_wrapper(
             memories.delete,
         )
@@ -669,11 +523,6 @@ class AsyncMemoriesResourceWithStreamingResponse:
 
         self.update = async_to_streamed_response_wrapper(
             memories.update,
-        )
-        self.list = (  # pyright: ignore[reportDeprecated]
-            async_to_streamed_response_wrapper(
-                memories.list  # pyright: ignore[reportDeprecated],
-            )
         )
         self.delete = async_to_streamed_response_wrapper(
             memories.delete,
