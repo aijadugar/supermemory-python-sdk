@@ -66,7 +66,17 @@ class MemoryGetResponse(BaseModel):
     """Title of the memory"""
 
     type: Literal[
-        "text", "pdf", "tweet", "google_doc", "google_slide", "google_sheet", "image", "video", "notion_doc", "webpage"
+        "text",
+        "pdf",
+        "tweet",
+        "google_doc",
+        "google_slide",
+        "google_sheet",
+        "image",
+        "video",
+        "notion_doc",
+        "webpage",
+        "onedrive",
     ]
     """Type of the memory"""
 
