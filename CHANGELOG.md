@@ -1,5 +1,63 @@
 # Changelog
 
+## 3.0.0-alpha.2 (2025-06-24)
+
+Full Changelog: [v3.0.0-alpha.1...v3.0.0-alpha.2](https://github.com/supermemoryai/python-sdk/compare/v3.0.0-alpha.1...v3.0.0-alpha.2)
+
+### Features
+
+* **api:** api update ([75c22e3](https://github.com/supermemoryai/python-sdk/commit/75c22e3f2db8eda857ca184f5bd531ff736a1c8c))
+* **api:** api update ([fc586f7](https://github.com/supermemoryai/python-sdk/commit/fc586f729ac602946e95de2e61b6d27a8c3b1167))
+* **api:** api update ([5aefc85](https://github.com/supermemoryai/python-sdk/commit/5aefc85540c70a195c2c59a8e9cdd529ff124a3b))
+* **api:** api update ([200e97a](https://github.com/supermemoryai/python-sdk/commit/200e97acf9f2be46a3ffef069912da9e4d05a951))
+* **api:** api update ([2d9b26c](https://github.com/supermemoryai/python-sdk/commit/2d9b26ce58cf533ffbff6d7a002c8504752c1e6a))
+* **api:** api update ([c7e0c2c](https://github.com/supermemoryai/python-sdk/commit/c7e0c2ccae941136705f2328fe536870789cf52a))
+* **api:** api update ([486888d](https://github.com/supermemoryai/python-sdk/commit/486888da89d570779e132f3b810c7d1a4f59082a))
+* **api:** api update ([378085f](https://github.com/supermemoryai/python-sdk/commit/378085f0090ebf25bbc46d0e3947737457ae3a30))
+* **api:** api update ([7b7711f](https://github.com/supermemoryai/python-sdk/commit/7b7711f282eebbaf4edb462b1dc2ed5dfb1bc0fc))
+* **api:** api update ([c194b2e](https://github.com/supermemoryai/python-sdk/commit/c194b2ecbe42ebe5997aab4bc96fb7120a5f6b9c))
+* **api:** api update ([d517cbc](https://github.com/supermemoryai/python-sdk/commit/d517cbce5d74b7cd92d8921d16ba1bb025848549))
+* **api:** api update ([fa9f582](https://github.com/supermemoryai/python-sdk/commit/fa9f582226ed9dee9ea8196b78b9312938093465))
+* **api:** api update ([d1b2a97](https://github.com/supermemoryai/python-sdk/commit/d1b2a9719deb080c4b64ae97893ba139ecaebf68))
+* **api:** api update ([02180e2](https://github.com/supermemoryai/python-sdk/commit/02180e296f97a30626b183ba533f45879981cc62))
+* **api:** api update ([51586e6](https://github.com/supermemoryai/python-sdk/commit/51586e68f9ec7b04b7aba149142f6e550113c0b9))
+* **api:** api update ([cd4782d](https://github.com/supermemoryai/python-sdk/commit/cd4782de2b4f05196e6b3f37768de900a6a9e81d))
+* **api:** api update ([f58d93d](https://github.com/supermemoryai/python-sdk/commit/f58d93dc249798bdf62c00335c6b9bfdf8430795))
+* **api:** api update ([e95b77e](https://github.com/supermemoryai/python-sdk/commit/e95b77ee719a76f0eb22c56f07e90f05712de7cd))
+* **api:** api update ([beffc5e](https://github.com/supermemoryai/python-sdk/commit/beffc5e09b5aee9c1517453b2f5574881ecf5dd7))
+* **api:** api update ([173a337](https://github.com/supermemoryai/python-sdk/commit/173a337626cbd75d951d10a04e91261ed3a2a384))
+* **api:** api update ([02e8b00](https://github.com/supermemoryai/python-sdk/commit/02e8b0072cb84a52124f61f5d8f64d69809c7833))
+* **api:** api update ([1788d47](https://github.com/supermemoryai/python-sdk/commit/1788d476d76fd786ed495ee5f8048c301fae0799))
+* **api:** api update ([5bc5a86](https://github.com/supermemoryai/python-sdk/commit/5bc5a8611c00f3c77c1e3787f578c91577ddfbb0))
+* **api:** api update ([0c627bd](https://github.com/supermemoryai/python-sdk/commit/0c627bde6c7f6ef8d55e94993a612f34c75c7f80))
+* **client:** add follow_redirects request option ([abd637d](https://github.com/supermemoryai/python-sdk/commit/abd637db1e3642c0dcc609bf4cac3d0a2bdad061))
+* **client:** add support for aiohttp ([d376719](https://github.com/supermemoryai/python-sdk/commit/d37671920ac604d643c0d9edaaee08aaaea2d881))
+
+
+### Bug Fixes
+
+* **client:** correctly parse binary response | stream ([b236e85](https://github.com/supermemoryai/python-sdk/commit/b236e8552e9393048b3541c2c41d969fd5a88ac0))
+* **tests:** fix: tests which call HTTP endpoints directly with the example parameters ([f9bf3c1](https://github.com/supermemoryai/python-sdk/commit/f9bf3c135c6a6236c8ef0ee5d538843021448b9d))
+
+
+### Chores
+
+* **ci:** enable for pull requests ([ec1b12b](https://github.com/supermemoryai/python-sdk/commit/ec1b12b9447ff582d80a0dedf75dc5c924aee6e4))
+* **docs:** grammar improvements ([1f9f018](https://github.com/supermemoryai/python-sdk/commit/1f9f01876a2754521ab8cc75c92634b05221f6c5))
+* **docs:** remove reference to rye shell ([23840c8](https://github.com/supermemoryai/python-sdk/commit/23840c8b8a67cb3b60e94c1eb74994d28b3508f1))
+* **internal:** codegen related update ([2b10aa8](https://github.com/supermemoryai/python-sdk/commit/2b10aa88d82e044d1a7df2bdd266209f4c130c8d))
+* **internal:** codegen related update ([c4039a7](https://github.com/supermemoryai/python-sdk/commit/c4039a7d5124d2c6719508830bf8067ebbb4fd58))
+* **internal:** update conftest.py ([355810b](https://github.com/supermemoryai/python-sdk/commit/355810b458222ddf405ec130cf43887cf7b2138d))
+* **readme:** update badges ([9415b50](https://github.com/supermemoryai/python-sdk/commit/9415b50222cea2e827a8e9c13525ad8e19df9ff2))
+* **tests:** add tests for httpx client instantiation & proxies ([a462f22](https://github.com/supermemoryai/python-sdk/commit/a462f2240dac23bf780f540ba39da3febbc561e7))
+* **tests:** run tests in parallel ([79f6359](https://github.com/supermemoryai/python-sdk/commit/79f6359beb267f85e273a5a3017283d9e231e78a))
+* **tests:** skip some failing tests on the latest python versions ([394e639](https://github.com/supermemoryai/python-sdk/commit/394e639fb904cd4c27b299f5960fd2f02f159b10))
+
+
+### Documentation
+
+* **client:** fix httpx.Timeout documentation reference ([be3ccbd](https://github.com/supermemoryai/python-sdk/commit/be3ccbdebe4974592c670cb43ed572ced78e60a3))
+
 ## 3.0.0-alpha.1 (2025-05-17)
 
 Full Changelog: [v0.1.0-alpha.1...v3.0.0-alpha.1](https://github.com/supermemoryai/python-sdk/compare/v0.1.0-alpha.1...v3.0.0-alpha.1)
