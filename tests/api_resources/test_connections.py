@@ -9,11 +9,7 @@ import pytest
 
 from supermemory import Supermemory, AsyncSupermemory
 from tests.utils import assert_matches_type
-from supermemory.types import (
-    ConnectionGetResponse,
-    ConnectionListResponse,
-    ConnectionCreateResponse,
-)
+from supermemory.types import ConnectionGetResponse, ConnectionCreateResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -34,9 +30,10 @@ class TestConnections:
     def test_method_create_with_all_params(self, client: Supermemory) -> None:
         connection = client.connections.create(
             provider="notion",
-            end_user_id="endUserId",
-            redirect_url="redirectUrl",
+            container_tags=["string"],
+            document_limit=1,
             metadata={"foo": "string"},
+            redirect_url="redirectUrl",
         )
         assert_matches_type(ConnectionCreateResponse, connection, path=["response"])
 
@@ -63,42 +60,6 @@ class TestConnections:
 
             connection = response.parse()
             assert_matches_type(ConnectionCreateResponse, connection, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip()
-    @parametrize
-    def test_method_list(self, client: Supermemory) -> None:
-        connection = client.connections.list()
-        assert_matches_type(ConnectionListResponse, connection, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    def test_method_list_with_all_params(self, client: Supermemory) -> None:
-        connection = client.connections.list(
-            end_user_id="endUserId",
-        )
-        assert_matches_type(ConnectionListResponse, connection, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    def test_raw_response_list(self, client: Supermemory) -> None:
-        response = client.connections.with_raw_response.list()
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        connection = response.parse()
-        assert_matches_type(ConnectionListResponse, connection, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    def test_streaming_response_list(self, client: Supermemory) -> None:
-        with client.connections.with_streaming_response.list() as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            connection = response.parse()
-            assert_matches_type(ConnectionListResponse, connection, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -146,7 +107,9 @@ class TestConnections:
 
 
 class TestAsyncConnections:
-    parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
+    parametrize = pytest.mark.parametrize(
+        "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
+    )
 
     @pytest.mark.skip()
     @parametrize
@@ -161,9 +124,10 @@ class TestAsyncConnections:
     async def test_method_create_with_all_params(self, async_client: AsyncSupermemory) -> None:
         connection = await async_client.connections.create(
             provider="notion",
-            end_user_id="endUserId",
-            redirect_url="redirectUrl",
+            container_tags=["string"],
+            document_limit=1,
             metadata={"foo": "string"},
+            redirect_url="redirectUrl",
         )
         assert_matches_type(ConnectionCreateResponse, connection, path=["response"])
 
@@ -190,42 +154,6 @@ class TestAsyncConnections:
 
             connection = await response.parse()
             assert_matches_type(ConnectionCreateResponse, connection, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip()
-    @parametrize
-    async def test_method_list(self, async_client: AsyncSupermemory) -> None:
-        connection = await async_client.connections.list()
-        assert_matches_type(ConnectionListResponse, connection, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    async def test_method_list_with_all_params(self, async_client: AsyncSupermemory) -> None:
-        connection = await async_client.connections.list(
-            end_user_id="endUserId",
-        )
-        assert_matches_type(ConnectionListResponse, connection, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    async def test_raw_response_list(self, async_client: AsyncSupermemory) -> None:
-        response = await async_client.connections.with_raw_response.list()
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        connection = await response.parse()
-        assert_matches_type(ConnectionListResponse, connection, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    async def test_streaming_response_list(self, async_client: AsyncSupermemory) -> None:
-        async with async_client.connections.with_streaming_response.list() as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            connection = await response.parse()
-            assert_matches_type(ConnectionListResponse, connection, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

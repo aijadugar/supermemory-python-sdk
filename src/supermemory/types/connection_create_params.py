@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union, Optional
+from typing import Dict, List, Union, Optional
 from typing_extensions import Annotated, TypedDict
 
 from .._utils import PropertyInfo
@@ -11,8 +11,10 @@ __all__ = ["ConnectionCreateParams"]
 
 
 class ConnectionCreateParams(TypedDict, total=False):
-    end_user_id: Annotated[str, PropertyInfo(alias="endUserId")]
+    container_tags: Annotated[List[str], PropertyInfo(alias="containerTags")]
 
-    redirect_url: Annotated[str, PropertyInfo(alias="redirectUrl")]
+    document_limit: Annotated[int, PropertyInfo(alias="documentLimit")]
 
     metadata: Optional[Dict[str, Union[str, float, bool]]]
+
+    redirect_url: Annotated[str, PropertyInfo(alias="redirectUrl")]

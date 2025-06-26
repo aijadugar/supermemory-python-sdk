@@ -1,6 +1,6 @@
 # Supermemory Python API library
 
-[![PyPI version](https://img.shields.io/pypi/v/supermemory.svg)](https://pypi.org/project/supermemory/)
+[![PyPI version](<https://img.shields.io/pypi/v/supermemory.svg?label=pypi%20(stable)>)](https://pypi.org/project/supermemory/)
 
 The Supermemory Python library provides convenient access to the Supermemory REST API from any Python 3.8+
 application. The library includes type definitions for all request params and response fields,
@@ -31,10 +31,10 @@ client = Supermemory(
     api_key=os.environ.get("SUPERMEMORY_API_KEY"),  # This is the default and can be omitted
 )
 
-response = client.search.execute(
-    q="documents related to python",
+response = client.memories.add(
+    content="This is a detailed article about machine learning concepts...",
 )
-print(response.results)
+print(response.id)
 ```
 
 While you can provide an `api_key` keyword argument,
@@ -57,16 +57,50 @@ client = AsyncSupermemory(
 
 
 async def main() -> None:
-    response = await client.search.execute(
-        q="documents related to python",
+    response = await client.memories.add(
+        content="This is a detailed article about machine learning concepts...",
     )
-    print(response.results)
+    print(response.id)
 
 
 asyncio.run(main())
 ```
 
 Functionality between the synchronous and asynchronous clients is otherwise identical.
+
+### With aiohttp
+
+By default, the async client uses `httpx` for HTTP requests. However, for improved concurrency performance you may also use `aiohttp` as the HTTP backend.
+
+You can enable this by installing `aiohttp`:
+
+```sh
+# install from PyPI
+pip install --pre supermemory[aiohttp]
+```
+
+Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:
+
+```python
+import os
+import asyncio
+from supermemory import DefaultAioHttpClient
+from supermemory import AsyncSupermemory
+
+
+async def main() -> None:
+    async with AsyncSupermemory(
+        api_key=os.environ.get("SUPERMEMORY_API_KEY"),  # This is the default and can be omitted
+        http_client=DefaultAioHttpClient(),
+    ) as client:
+        response = await client.memories.add(
+            content="This is a detailed article about machine learning concepts...",
+        )
+        print(response.id)
+
+
+asyncio.run(main())
+```
 
 ## Using types
 
@@ -76,23 +110,6 @@ Nested request parameters are [TypedDicts](https://docs.python.org/3/library/typ
 - Converting to a dictionary, `model.to_dict()`
 
 Typed requests and responses provide autocomplete and documentation within your editor. If you would like to see type errors in VS Code to help catch bugs earlier, set `python.analysis.typeCheckingMode` to `basic`.
-
-## File uploads
-
-Request parameters that correspond to file uploads can be passed as `bytes`, or a [`PathLike`](https://docs.python.org/3/library/os.html#os.PathLike) instance or a tuple of `(filename, contents, media type)`.
-
-```python
-from pathlib import Path
-from supermemory import Supermemory
-
-client = Supermemory()
-
-client.memories.upload_file(
-    file=Path("/path/to/file"),
-)
-```
-
-The async client uses the exact same interface. If you pass a [`PathLike`](https://docs.python.org/3/library/os.html#os.PathLike) instance, the file contents will be read asynchronously automatically.
 
 ## Handling errors
 
@@ -163,7 +180,7 @@ client.with_options(max_retries=5).memories.add(
 ### Timeouts
 
 By default requests time out after 1 minute. You can configure this with a `timeout` option,
-which accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/#fine-tuning-the-configuration) object:
+which accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/timeouts/#fine-tuning-the-configuration) object:
 
 ```python
 from supermemory import Supermemory
