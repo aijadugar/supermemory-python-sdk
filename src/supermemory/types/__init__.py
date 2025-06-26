@@ -12,4 +12,6 @@ from .memory_update_response import MemoryUpdateResponse as MemoryUpdateResponse
 from .connection_get_response import ConnectionGetResponse as ConnectionGetResponse
 from .setting_update_response import SettingUpdateResponse as SettingUpdateResponse
 from .connection_create_params import ConnectionCreateParams as ConnectionCreateParams
+from .memory_upload_file_params import MemoryUploadFileParams as MemoryUploadFileParams
 from .connection_create_response import ConnectionCreateResponse as ConnectionCreateResponse
+from .memory_upload_file_response import MemoryUploadFileResponse as MemoryUploadFileResponse
