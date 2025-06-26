@@ -2,10 +2,10 @@
 
 from .._models import BaseModel
 
-__all__ = ["MemoryUploadFileResponse"]
+__all__ = ["ConnectionDeleteByProviderResponse"]
 
 
-class MemoryUploadFileResponse(BaseModel):
+class ConnectionDeleteByProviderResponse(BaseModel):
     id: str
 
-    status: str
+    provider: str
