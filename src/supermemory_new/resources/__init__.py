@@ -1,5 +1,13 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+from .search import (
+    SearchResource,
+    AsyncSearchResource,
+    SearchResourceWithRawResponse,
+    AsyncSearchResourceWithRawResponse,
+    SearchResourceWithStreamingResponse,
+    AsyncSearchResourceWithStreamingResponse,
+)
 from .memories import (
     MemoriesResource,
     AsyncMemoriesResource,
@@ -32,6 +40,12 @@ __all__ = [
     "AsyncMemoriesResourceWithRawResponse",
     "MemoriesResourceWithStreamingResponse",
     "AsyncMemoriesResourceWithStreamingResponse",
+    "SearchResource",
+    "AsyncSearchResource",
+    "SearchResourceWithRawResponse",
+    "AsyncSearchResourceWithRawResponse",
+    "SearchResourceWithStreamingResponse",
+    "AsyncSearchResourceWithStreamingResponse",
     "SettingsResource",
     "AsyncSettingsResource",
     "SettingsResourceWithRawResponse",

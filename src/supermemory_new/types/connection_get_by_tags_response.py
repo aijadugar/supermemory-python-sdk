@@ -6,10 +6,10 @@ from pydantic import Field as FieldInfo
 
 from .._models import BaseModel
 
-__all__ = ["ConnectionGetResponse"]
+__all__ = ["ConnectionGetByTagsResponse"]
 
 
-class ConnectionGetResponse(BaseModel):
+class ConnectionGetByTagsResponse(BaseModel):
     id: str
 
     created_at: float = FieldInfo(alias="createdAt")
