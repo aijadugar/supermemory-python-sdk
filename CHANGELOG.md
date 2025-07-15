@@ -1,5 +1,28 @@
 # Changelog
 
+## 3.0.0-alpha.23 (2025-07-15)
+
+Full Changelog: [v3.0.0-alpha.22...v3.0.0-alpha.23](https://github.com/supermemoryai/python-sdk/compare/v3.0.0-alpha.22...v3.0.0-alpha.23)
+
+### Features
+
+* **api:** api update ([3f71f60](https://github.com/supermemoryai/python-sdk/commit/3f71f60954dedc0a91e1859df48c5c3ca0a47c88))
+* **api:** api update ([b614732](https://github.com/supermemoryai/python-sdk/commit/b61473253183d434613b0aeb631376262d22cb0c))
+* clean up environment call outs ([4aaccf1](https://github.com/supermemoryai/python-sdk/commit/4aaccf17ae31c04f3097fe04a6a081171fc725d1))
+
+
+### Bug Fixes
+
+* **client:** don't send Content-Type header on GET requests ([80480dd](https://github.com/supermemoryai/python-sdk/commit/80480dd46271dc5136f39c5ff1315555b8d51e31))
+* **parsing:** correctly handle nested discriminated unions ([812e982](https://github.com/supermemoryai/python-sdk/commit/812e982cbba93e197d4cd3cf8bdfa710e7830a78))
+
+
+### Chores
+
+* **internal:** bump pinned h11 dep ([9e822a1](https://github.com/supermemoryai/python-sdk/commit/9e822a16ce8cf30791abf6384e2e3205233eeaba))
+* **package:** mark python 3.13 as supported ([2dc73dd](https://github.com/supermemoryai/python-sdk/commit/2dc73dd51ac30fa4d6b2d370b7411857518c1ddd))
+* **readme:** fix version rendering on pypi ([a6d7d7a](https://github.com/supermemoryai/python-sdk/commit/a6d7d7a100680cfaa03138542f60b7b7407ad347))
+
 ## 3.0.0-alpha.22 (2025-07-03)
 
 Full Changelog: [v3.0.0-alpha.21...v3.0.0-alpha.22](https://github.com/supermemoryai/python-sdk/compare/v3.0.0-alpha.21...v3.0.0-alpha.22)
