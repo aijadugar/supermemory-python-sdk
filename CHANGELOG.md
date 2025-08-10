@@ -1,5 +1,32 @@
 # Changelog
 
+## 3.0.0-alpha.24 (2025-08-10)
+
+Full Changelog: [v3.0.0-alpha.23...v3.0.0-alpha.24](https://github.com/supermemoryai/python-sdk/compare/v3.0.0-alpha.23...v3.0.0-alpha.24)
+
+### Features
+
+* **api:** api update ([4aacfa8](https://github.com/supermemoryai/python-sdk/commit/4aacfa8f2e35f50ab9ac01c4ae9b5086b8dc2230))
+* **api:** api update ([9fe90d9](https://github.com/supermemoryai/python-sdk/commit/9fe90d99035348910c215cb196a27390b7c595d3))
+* **api:** api update ([f9c7013](https://github.com/supermemoryai/python-sdk/commit/f9c70137f404d7638d6e77dbf360a276877a55a5))
+* **api:** api update ([125afc9](https://github.com/supermemoryai/python-sdk/commit/125afc957cab83c2a0c75ba003479b09e5e0f63c))
+* **api:** api update ([04b249d](https://github.com/supermemoryai/python-sdk/commit/04b249d0a09d2fcbd8aecd08bcfc6ff89673fb75))
+* **client:** support file upload requests ([b6c42b1](https://github.com/supermemoryai/python-sdk/commit/b6c42b10e8412ccc5dbbed23d86c36598319df00))
+
+
+### Bug Fixes
+
+* **parsing:** ignore empty metadata ([a58758c](https://github.com/supermemoryai/python-sdk/commit/a58758ce1f1ae0c87d0fa3bea43367bb2d198891))
+* **parsing:** parse extra field types ([5253128](https://github.com/supermemoryai/python-sdk/commit/5253128de66dc303f8c9e4d295f133f24f770d95))
+
+
+### Chores
+
+* **internal:** fix ruff target version ([25adc14](https://github.com/supermemoryai/python-sdk/commit/25adc1412380631fa8ce53034b519e819b45dec3))
+* **internal:** update comment in script ([8fc31e8](https://github.com/supermemoryai/python-sdk/commit/8fc31e8cb2058d8bb4da67c5aebbac421474c3b8))
+* **project:** add settings file for vscode ([2327687](https://github.com/supermemoryai/python-sdk/commit/232768766d49d14af45667f08ad66b890cc6a230))
+* update @stainless-api/prism-cli to v5.15.0 ([7f4ff8b](https://github.com/supermemoryai/python-sdk/commit/7f4ff8b2712055be8a6100a2c132b514cf7e2e6d))
+
 ## 3.0.0-alpha.23 (2025-07-15)
 
 Full Changelog: [v3.0.0-alpha.22...v3.0.0-alpha.23](https://github.com/supermemoryai/python-sdk/compare/v3.0.0-alpha.22...v3.0.0-alpha.23)
