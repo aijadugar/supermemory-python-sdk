@@ -8,6 +8,7 @@ from supermemory.types import (
     MemoryListResponse,
     MemoryAddResponse,
     MemoryGetResponse,
+    MemoryUploadFileResponse,
 )
 ```
 
@@ -18,18 +19,21 @@ Methods:
 - <code title="delete /v3/memories/{id}">client.memories.<a href="./src/supermemory/resources/memories.py">delete</a>(id) -> None</code>
 - <code title="post /v3/memories">client.memories.<a href="./src/supermemory/resources/memories.py">add</a>(\*\*<a href="src/supermemory/types/memory_add_params.py">params</a>) -> <a href="./src/supermemory/types/memory_add_response.py">MemoryAddResponse</a></code>
 - <code title="get /v3/memories/{id}">client.memories.<a href="./src/supermemory/resources/memories.py">get</a>(id) -> <a href="./src/supermemory/types/memory_get_response.py">MemoryGetResponse</a></code>
+- <code title="post /v3/memories/file">client.memories.<a href="./src/supermemory/resources/memories.py">upload_file</a>(\*\*<a href="src/supermemory/types/memory_upload_file_params.py">params</a>) -> <a href="./src/supermemory/types/memory_upload_file_response.py">MemoryUploadFileResponse</a></code>
 
 # Search
 
 Types:
 
 ```python
-from supermemory.types import SearchExecuteResponse
+from supermemory.types import SearchDocumentsResponse, SearchExecuteResponse, SearchMemoriesResponse
 ```
 
 Methods:
 
+- <code title="post /v3/search">client.search.<a href="./src/supermemory/resources/search.py">documents</a>(\*\*<a href="src/supermemory/types/search_documents_params.py">params</a>) -> <a href="./src/supermemory/types/search_documents_response.py">SearchDocumentsResponse</a></code>
 - <code title="post /v3/search">client.search.<a href="./src/supermemory/resources/search.py">execute</a>(\*\*<a href="src/supermemory/types/search_execute_params.py">params</a>) -> <a href="./src/supermemory/types/search_execute_response.py">SearchExecuteResponse</a></code>
+- <code title="post /v4/search">client.search.<a href="./src/supermemory/resources/search.py">memories</a>(\*\*<a href="src/supermemory/types/search_memories_params.py">params</a>) -> <a href="./src/supermemory/types/search_memories_response.py">SearchMemoriesResponse</a></code>
 
 # Settings
 
