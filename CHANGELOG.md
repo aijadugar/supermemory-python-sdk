@@ -1,5 +1,15 @@
 # Changelog
 
+## 3.0.0-alpha.26 (2025-08-15)
+
+Full Changelog: [v3.0.0-alpha.25...v3.0.0-alpha.26](https://github.com/supermemoryai/python-sdk/compare/v3.0.0-alpha.25...v3.0.0-alpha.26)
+
+### Features
+
+* **api:** manual updates ([c2623b2](https://github.com/supermemoryai/python-sdk/commit/c2623b2b645eefd7e2cbb5027eb5a46cee7b62eb))
+* **api:** manual updates ([9e373ef](https://github.com/supermemoryai/python-sdk/commit/9e373ef0b585eb15cb04b95a1bab46c8c102970c))
+* **api:** manual updates ([fa75aff](https://github.com/supermemoryai/python-sdk/commit/fa75affffb701259be14445da95c77a1cdde512b))
+
 ## 3.0.0-alpha.25 (2025-08-15)
 
 Full Changelog: [v3.0.0-alpha.24...v3.0.0-alpha.25](https://github.com/supermemoryai/python-sdk/compare/v3.0.0-alpha.24...v3.0.0-alpha.25)
