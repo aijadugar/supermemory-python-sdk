@@ -1,5 +1,27 @@
 # Changelog
 
+## 3.0.0-alpha.29 (2025-08-27)
+
+Full Changelog: [v3.0.0-alpha.28...v3.0.0-alpha.29](https://github.com/supermemoryai/python-sdk/compare/v3.0.0-alpha.28...v3.0.0-alpha.29)
+
+### Features
+
+* **api:** api update ([5c48767](https://github.com/supermemoryai/python-sdk/commit/5c48767f77b0daf362be422e6d2d8843c15692b3))
+* **api:** api update ([8eb53ac](https://github.com/supermemoryai/python-sdk/commit/8eb53ac4b04fae2f656d82c2c36c01e6583a08e0))
+* **api:** api update ([9194990](https://github.com/supermemoryai/python-sdk/commit/9194990dfbe4e8b9a3fe145095ae65c1cab1b342))
+* **api:** api update ([be04a5c](https://github.com/supermemoryai/python-sdk/commit/be04a5cf50c9af30b04e43128a860a93305f401a))
+
+
+### Bug Fixes
+
+* avoid newer type syntax ([cd791b9](https://github.com/supermemoryai/python-sdk/commit/cd791b97c02fe5728e54482097c846557ab0d555))
+
+
+### Chores
+
+* **internal:** change ci workflow machines ([002a748](https://github.com/supermemoryai/python-sdk/commit/002a748ddf690fcaeab905c622fe598ddc0f6629))
+* **internal:** update pyright exclude list ([41a59ff](https://github.com/supermemoryai/python-sdk/commit/41a59ff7fb26bd419f747265c00a99ad750833d0))
+
 ## 3.0.0-alpha.28 (2025-08-24)
 
 Full Changelog: [v3.0.0-alpha.27...v3.0.0-alpha.28](https://github.com/supermemoryai/python-sdk/compare/v3.0.0-alpha.27...v3.0.0-alpha.28)
