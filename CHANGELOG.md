@@ -1,5 +1,26 @@
 # Changelog
 
+## 3.0.0-alpha.30 (2025-09-15)
+
+Full Changelog: [v3.0.0-alpha.29...v3.0.0-alpha.30](https://github.com/supermemoryai/python-sdk/compare/v3.0.0-alpha.29...v3.0.0-alpha.30)
+
+### Features
+
+* **api:** api update ([b7df28e](https://github.com/supermemoryai/python-sdk/commit/b7df28ec025c70d7b8e1544aa1ef0262c0be8a03))
+* **api:** api update ([54cf9c1](https://github.com/supermemoryai/python-sdk/commit/54cf9c13bf3ff378dd6a19a15c9e343e822ab99a))
+* **api:** api update ([4812077](https://github.com/supermemoryai/python-sdk/commit/48120771b2476f2d2863a1614edc222e863ddde4))
+* **api:** api update ([a4f4259](https://github.com/supermemoryai/python-sdk/commit/a4f425943298762bdfb7f3b0421f8d56d2e1473c))
+* **api:** api update ([8412e4d](https://github.com/supermemoryai/python-sdk/commit/8412e4d06b0225fd3707a55b743c401d87b1c0aa))
+* improve future compat with pydantic v3 ([70ea8b7](https://github.com/supermemoryai/python-sdk/commit/70ea8b7206b2e8db3d86f5a1674e7dd2f7a7e67b))
+* **types:** replace List[str] with SequenceNotStr in params ([f4bfda3](https://github.com/supermemoryai/python-sdk/commit/f4bfda34d40ca947eae6a32ea323dafeddf51484))
+
+
+### Chores
+
+* **internal:** add Sequence related utils ([d2b96ed](https://github.com/supermemoryai/python-sdk/commit/d2b96ed43577a3d046ffea7cbc87ba6b877beba7))
+* **internal:** move mypy configurations to `pyproject.toml` file ([31832f5](https://github.com/supermemoryai/python-sdk/commit/31832f5046f7b6384c1bb506680319890e3a5194))
+* **tests:** simplify `get_platform` test ([30d8e46](https://github.com/supermemoryai/python-sdk/commit/30d8e464a5d8ceb5cec41a6197c291962b78b0b5))
+
 ## 3.0.0-alpha.29 (2025-08-27)
 
 Full Changelog: [v3.0.0-alpha.28...v3.0.0-alpha.29](https://github.com/supermemoryai/python-sdk/compare/v3.0.0-alpha.28...v3.0.0-alpha.29)
