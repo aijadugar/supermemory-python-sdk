@@ -8,7 +8,7 @@ from typing_extensions import Literal
 import httpx
 
 from ..types import search_execute_params, search_memories_params, search_documents_params
-from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven, SequenceNotStr
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -52,7 +52,7 @@ class SearchResource(SyncAPIResource):
         q: str,
         categories_filter: List[Literal["technology", "science", "business", "health"]] | NotGiven = NOT_GIVEN,
         chunk_threshold: float | NotGiven = NOT_GIVEN,
-        container_tags: List[str] | NotGiven = NOT_GIVEN,
+        container_tags: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         doc_id: str | NotGiven = NOT_GIVEN,
         document_threshold: float | NotGiven = NOT_GIVEN,
         filters: search_documents_params.Filters | NotGiven = NOT_GIVEN,
@@ -82,7 +82,7 @@ class SearchResource(SyncAPIResource):
               results)
 
           container_tags: Optional tags this search should be containerized by. This can be an ID for your
-              user, a project ID, or any other identifier you wish to use to filter memories.
+              user, a project ID, or any other identifier you wish to use to filter documents.
 
           doc_id: Optional document ID to search within. You can use this to find chunks in a very
               large document.
@@ -151,7 +151,7 @@ class SearchResource(SyncAPIResource):
         q: str,
         categories_filter: List[Literal["technology", "science", "business", "health"]] | NotGiven = NOT_GIVEN,
         chunk_threshold: float | NotGiven = NOT_GIVEN,
-        container_tags: List[str] | NotGiven = NOT_GIVEN,
+        container_tags: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         doc_id: str | NotGiven = NOT_GIVEN,
         document_threshold: float | NotGiven = NOT_GIVEN,
         filters: search_execute_params.Filters | NotGiven = NOT_GIVEN,
@@ -181,7 +181,7 @@ class SearchResource(SyncAPIResource):
               results)
 
           container_tags: Optional tags this search should be containerized by. This can be an ID for your
-              user, a project ID, or any other identifier you wish to use to filter memories.
+              user, a project ID, or any other identifier you wish to use to filter documents.
 
           doc_id: Optional document ID to search within. You can use this to find chunks in a very
               large document.
@@ -341,7 +341,7 @@ class AsyncSearchResource(AsyncAPIResource):
         q: str,
         categories_filter: List[Literal["technology", "science", "business", "health"]] | NotGiven = NOT_GIVEN,
         chunk_threshold: float | NotGiven = NOT_GIVEN,
-        container_tags: List[str] | NotGiven = NOT_GIVEN,
+        container_tags: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         doc_id: str | NotGiven = NOT_GIVEN,
         document_threshold: float | NotGiven = NOT_GIVEN,
         filters: search_documents_params.Filters | NotGiven = NOT_GIVEN,
@@ -371,7 +371,7 @@ class AsyncSearchResource(AsyncAPIResource):
               results)
 
           container_tags: Optional tags this search should be containerized by. This can be an ID for your
-              user, a project ID, or any other identifier you wish to use to filter memories.
+              user, a project ID, or any other identifier you wish to use to filter documents.
 
           doc_id: Optional document ID to search within. You can use this to find chunks in a very
               large document.
@@ -440,7 +440,7 @@ class AsyncSearchResource(AsyncAPIResource):
         q: str,
         categories_filter: List[Literal["technology", "science", "business", "health"]] | NotGiven = NOT_GIVEN,
         chunk_threshold: float | NotGiven = NOT_GIVEN,
-        container_tags: List[str] | NotGiven = NOT_GIVEN,
+        container_tags: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         doc_id: str | NotGiven = NOT_GIVEN,
         document_threshold: float | NotGiven = NOT_GIVEN,
         filters: search_execute_params.Filters | NotGiven = NOT_GIVEN,
@@ -470,7 +470,7 @@ class AsyncSearchResource(AsyncAPIResource):
               results)
 
           container_tags: Optional tags this search should be containerized by. This can be an ID for your
-              user, a project ID, or any other identifier you wish to use to filter memories.
+              user, a project ID, or any other identifier you wish to use to filter documents.
 
           doc_id: Optional document ID to search within. You can use this to find chunks in a very
               large document.

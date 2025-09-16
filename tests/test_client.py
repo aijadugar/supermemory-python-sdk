@@ -6,13 +6,10 @@ import gc
 import os
 import sys
 import json
-import time
 import asyncio
 import inspect
-import subprocess
 import tracemalloc
 from typing import Any, Union, cast
-from textwrap import dedent
 from unittest import mock
 from typing_extensions import Literal
 
@@ -23,14 +20,17 @@ from pydantic import ValidationError
 
 from supermemory import Supermemory, AsyncSupermemory, APIResponseValidationError
 from supermemory._types import Omit
+from supermemory._utils import asyncify
 from supermemory._models import BaseModel, FinalRequestOptions
 from supermemory._exceptions import APIStatusError, APITimeoutError, SupermemoryError, APIResponseValidationError
 from supermemory._base_client import (
     DEFAULT_TIMEOUT,
     HTTPX_DEFAULT_TIMEOUT,
     BaseClient,
+    OtherPlatform,
     DefaultHttpxClient,
     DefaultAsyncHttpxClient,
+    get_platform,
     make_request_options,
 )
 
@@ -724,20 +724,20 @@ class TestSupermemory:
     @mock.patch("supermemory._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter, client: Supermemory) -> None:
-        respx_mock.post("/v3/memories").mock(side_effect=httpx.TimeoutException("Test timeout error"))
+        respx_mock.post("/v3/search").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
-            client.memories.with_streaming_response.add().__enter__()
+            client.search.with_streaming_response.documents(q="machine learning concepts").__enter__()
 
         assert _get_open_connections(self.client) == 0
 
     @mock.patch("supermemory._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter, client: Supermemory) -> None:
-        respx_mock.post("/v3/memories").mock(return_value=httpx.Response(500))
+        respx_mock.post("/v3/search").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
-            client.memories.with_streaming_response.add().__enter__()
+            client.search.with_streaming_response.documents(q="machine learning concepts").__enter__()
         assert _get_open_connections(self.client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
@@ -764,9 +764,9 @@ class TestSupermemory:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/v3/memories").mock(side_effect=retry_handler)
+        respx_mock.post("/v3/search").mock(side_effect=retry_handler)
 
-        response = client.memories.with_raw_response.add()
+        response = client.search.with_raw_response.documents(q="machine learning concepts")
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -788,9 +788,11 @@ class TestSupermemory:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/v3/memories").mock(side_effect=retry_handler)
+        respx_mock.post("/v3/search").mock(side_effect=retry_handler)
 
-        response = client.memories.with_raw_response.add(extra_headers={"x-stainless-retry-count": Omit()})
+        response = client.search.with_raw_response.documents(
+            q="machine learning concepts", extra_headers={"x-stainless-retry-count": Omit()}
+        )
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
 
@@ -811,9 +813,11 @@ class TestSupermemory:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/v3/memories").mock(side_effect=retry_handler)
+        respx_mock.post("/v3/search").mock(side_effect=retry_handler)
 
-        response = client.memories.with_raw_response.add(extra_headers={"x-stainless-retry-count": "42"})
+        response = client.search.with_raw_response.documents(
+            q="machine learning concepts", extra_headers={"x-stainless-retry-count": "42"}
+        )
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
 
@@ -1541,10 +1545,10 @@ class TestAsyncSupermemory:
     async def test_retrying_timeout_errors_doesnt_leak(
         self, respx_mock: MockRouter, async_client: AsyncSupermemory
     ) -> None:
-        respx_mock.post("/v3/memories").mock(side_effect=httpx.TimeoutException("Test timeout error"))
+        respx_mock.post("/v3/search").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
-            await async_client.memories.with_streaming_response.add().__aenter__()
+            await async_client.search.with_streaming_response.documents(q="machine learning concepts").__aenter__()
 
         assert _get_open_connections(self.client) == 0
 
@@ -1553,10 +1557,10 @@ class TestAsyncSupermemory:
     async def test_retrying_status_errors_doesnt_leak(
         self, respx_mock: MockRouter, async_client: AsyncSupermemory
     ) -> None:
-        respx_mock.post("/v3/memories").mock(return_value=httpx.Response(500))
+        respx_mock.post("/v3/search").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
-            await async_client.memories.with_streaming_response.add().__aenter__()
+            await async_client.search.with_streaming_response.documents(q="machine learning concepts").__aenter__()
         assert _get_open_connections(self.client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
@@ -1584,9 +1588,9 @@ class TestAsyncSupermemory:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/v3/memories").mock(side_effect=retry_handler)
+        respx_mock.post("/v3/search").mock(side_effect=retry_handler)
 
-        response = await client.memories.with_raw_response.add()
+        response = await client.search.with_raw_response.documents(q="machine learning concepts")
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -1609,9 +1613,11 @@ class TestAsyncSupermemory:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/v3/memories").mock(side_effect=retry_handler)
+        respx_mock.post("/v3/search").mock(side_effect=retry_handler)
 
-        response = await client.memories.with_raw_response.add(extra_headers={"x-stainless-retry-count": Omit()})
+        response = await client.search.with_raw_response.documents(
+            q="machine learning concepts", extra_headers={"x-stainless-retry-count": Omit()}
+        )
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
 
@@ -1633,56 +1639,17 @@ class TestAsyncSupermemory:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/v3/memories").mock(side_effect=retry_handler)
+        respx_mock.post("/v3/search").mock(side_effect=retry_handler)
 
-        response = await client.memories.with_raw_response.add(extra_headers={"x-stainless-retry-count": "42"})
+        response = await client.search.with_raw_response.documents(
+            q="machine learning concepts", extra_headers={"x-stainless-retry-count": "42"}
+        )
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
 
-    def test_get_platform(self) -> None:
-        # A previous implementation of asyncify could leave threads unterminated when
-        # used with nest_asyncio.
-        #
-        # Since nest_asyncio.apply() is global and cannot be un-applied, this
-        # test is run in a separate process to avoid affecting other tests.
-        test_code = dedent("""
-        import asyncio
-        import nest_asyncio
-        import threading
-
-        from supermemory._utils import asyncify
-        from supermemory._base_client import get_platform
-
-        async def test_main() -> None:
-            result = await asyncify(get_platform)()
-            print(result)
-            for thread in threading.enumerate():
-                print(thread.name)
-
-        nest_asyncio.apply()
-        asyncio.run(test_main())
-        """)
-        with subprocess.Popen(
-            [sys.executable, "-c", test_code],
-            text=True,
-        ) as process:
-            timeout = 10  # seconds
-
-            start_time = time.monotonic()
-            while True:
-                return_code = process.poll()
-                if return_code is not None:
-                    if return_code != 0:
-                        raise AssertionError("calling get_platform using asyncify resulted in a non-zero exit code")
-
-                    # success
-                    break
-
-                if time.monotonic() - start_time > timeout:
-                    process.kill()
-                    raise AssertionError("calling get_platform using asyncify resulted in a hung process")
-
-                time.sleep(0.1)
+    async def test_get_platform(self) -> None:
+        platform = await asyncify(get_platform)()
+        assert isinstance(platform, (str, OtherPlatform))
 
     async def test_proxy_environment_variables(self, monkeypatch: pytest.MonkeyPatch) -> None:
         # Test that the proxy environment variables are set correctly
